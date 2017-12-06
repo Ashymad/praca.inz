@@ -180,6 +180,12 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 \tableofcontents
 \clearpage
 
+<<Wykres>>=
+data("cars")
+plot(cars)
+@ 
+\clearpage
+
 \include{rozdzial3}
 \include{rozdzial1}
 \include{rozdzial2}
