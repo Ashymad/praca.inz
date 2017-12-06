@@ -11,8 +11,7 @@ results = Array{Float64}(number_of_tests);
 for i = 1:number_of_tests
 	tic();
 	test();
-	result = toq();
-	results[i] = result;
+	results[i] = toq();
 end
 
 writedlm("results.txt", results, '\n');
