@@ -14,4 +14,5 @@ for i = 1:number_of_tests
 	results[i] = toq();
 end
 
-writedlm("results.txt", results, '\n');
+using HDF5
+h5write("/tmp/results.h5", "$testname/julia", results);

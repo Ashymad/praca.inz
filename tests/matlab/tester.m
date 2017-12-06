@@ -14,5 +14,7 @@ for i = 1:number_of_tests
 	results(i) = toc();
 end
 
-save results.txt results -ascii
+h5create('/tmp/results.h5', ['/' testname '/matlab'], [number_of_tests 1]);
+h5write('/tmp/results.h5', ['/' testname '/matlab'], results);
+
 exit

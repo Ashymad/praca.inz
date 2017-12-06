@@ -10,6 +10,8 @@ ANACONDA="/opt/anaconda/bin/activate"
 
 STARTDIR=$(pwd)
 
+[ -f results.h5 ] && cp results.h5 /tmp
+
 function testdir {
 	for dir in tests/*; do
 		cp tester.* $dir
@@ -55,3 +57,4 @@ case $1 in
 		;;
 esac
 
+mv /tmp/results.h5 .

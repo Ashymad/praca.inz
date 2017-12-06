@@ -14,4 +14,6 @@ for i = 1:number_of_tests
 	results(i) = toc();
 end
 
-save results.txt results
+pkg load hdf5oct;
+h5create('/tmp/results.h5', ['/' testname '/octave'], [number_of_tests 1]);
+h5write('/tmp/results.h5', ['/' testname '/octave'], results);
