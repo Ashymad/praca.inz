@@ -47,6 +47,13 @@ function testpython {
 	testdir "python tester.py"
 }
 
+
+# Scilab
+function testscilab {
+	cd scilab
+	testdir "$SCILAB -f tester.sce"
+}
+
 case $1 in
 	julia)
 		testjulia
@@ -60,10 +67,14 @@ case $1 in
 	python)
 		testpython
 		;;
+	scilab)
+		testscilab
+		;;
 	*)
 		testjulia
 		testoctave
 		testmatlab
+		testscilab
 		testpython
 		;;
 esac

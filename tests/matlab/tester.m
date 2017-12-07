@@ -15,7 +15,7 @@ for i = 1:number_of_tests
 end
 
 file = '/tmp/results.h5';
-dset = ['/' testname '/octave'];
+dset = ['/' testname '/matlab'];
 
 fid = H5F.open(file, 'H5F_ACC_RDWR', 'H5P_DEFAULT');
 H5L.delete(fid, dset, 'H5P_DEFAULT');
