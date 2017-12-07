@@ -15,5 +15,9 @@ for i = 1:number_of_tests
 end
 
 pkg load hdf5oct;
-h5create('/tmp/results.h5', ['/' testname '/octave'], number_of_tests);
-h5write('/tmp/results.h5', ['/' testname '/octave'], results);
+file = '/tmp/results.h5';
+dset = ['/' testname '/octave'];
+
+h5delete(file, dset);
+h5create(file, dset, number_of_tests);
+h5write(file, dset, results);

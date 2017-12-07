@@ -14,7 +14,14 @@ for i = 1:number_of_tests
 	results(i) = toc();
 end
 
-h5create('/tmp/results.h5', ['/' testname '/matlab'], [number_of_tests 1]);
-h5write('/tmp/results.h5', ['/' testname '/matlab'], results);
+file = '/tmp/results.h5';
+dset = ['/' testname '/octave'];
+
+fid = H5F.open(file, 'H5F_ACC_RDWR', 'H5P_DEFAULT');
+H5L.delete(fid, dset, 'H5P_DEFAULT');
+H5F.close(fid);
+
+h5create(file, dset, number_of_tests);
+h5write(file, dset, results);
 
 exit
