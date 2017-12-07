@@ -19,8 +19,9 @@ for i in range(0,number_of_tests):
 
 f = h5py.File("/tmp/results.h5", "a")
 dset = testname + "/python"
+
 if dset in f.keys():
-    f[dset][:] = results
-else:
-    f.create_dataset(dset, data=results)
+    del f[dset]
+
+f.create_dataset(dset, data=results)
 f.close()
