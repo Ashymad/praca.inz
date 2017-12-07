@@ -40,6 +40,13 @@ function testmatlab {
 	testdir "$MATLAB -nodisplay -nosplash -nodesktop -r tester"
 }
 
+# Anaconda
+function testpython {
+	cd python
+	source $ANACONDA
+	testdir "python tester.py"
+}
+
 case $1 in
 	julia)
 		testjulia
@@ -50,10 +57,14 @@ case $1 in
 	matlab)
 		testmatlab
 		;;
+	python)
+		testpython
+		;;
 	*)
 		testjulia
 		testoctave
 		testmatlab
+		testpython
 		;;
 esac
 
