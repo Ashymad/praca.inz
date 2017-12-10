@@ -16,4 +16,12 @@ end
 
 # Saving to file
 using HDF5
-h5write("/tmp/results.h5", "$test_name/julia", results);
+
+file = "/tmp/results.h5";
+
+h5open(file, "r+") do fid
+	if exists(fid, "$test_name/julia");
+		o_delete(fid, "$test_name/julia");
+	end
+	fid["$test_name/julia"] = results;
+end
