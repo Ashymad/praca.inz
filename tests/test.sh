@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Binaries
 JULIA="/opt/juliapro/JuliaPro-0.6.1.1/julia"
 MATLAB="/opt/MATLAB/R2017b/bin/matlab"

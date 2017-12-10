@@ -1,12 +1,10 @@
 // Tester file
 
-//format long;
-exec("prepare.sce");
 exec("test.sci");
 
 //// Testing
 // Skip the first test
-test();
+test_function();
 results = zeros(number_of_tests,1); 
 
 for i = 1:number_of_tests
@@ -15,14 +13,15 @@ for i = 1:number_of_tests
 	results(i) = toc();
 end
 
+// Saving to filr
 file = '/tmp/results.h5';
-dset = strcat([testname '/scilab']);
+dataset = strcat([test_name '/scilab']);
 
 f = h5open(file, "a");
-if h5exists(f, dset) then
-	h5rm(f, dset);
+if h5exists(f, dataset) then
+	h5rm(f, dataset);
 end
-h5write(f, dset, results);
+h5write(f, dataset, results);
 h5close(f);
 
 quit()
