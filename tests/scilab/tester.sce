@@ -9,7 +9,7 @@ results = zeros(number_of_tests,1);
 
 for i = 1:number_of_tests
 	tic();
-	test;
+	test_function();
 	results(i) = toc();
 end
 
