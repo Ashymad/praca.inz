@@ -19,10 +19,11 @@ end
 using HDF5
 
 file = "/tmp/results.h5";
+dataset = "$test_name/julia";
 
 h5open(file, "r+") do fid
-	if exists(fid, "$test_name/julia");
-		o_delete(fid, "$test_name/julia");
+	if exists(fid, dataset);
+		o_delete(fid, dataset);
 	end
-	fid["$test_name/julia"] = results;
+	fid[dataset] = results;
 end

@@ -8,6 +8,7 @@ OCTAVE="/usr/bin/octave"
 ANACONDA="/opt/anaconda/bin/activate"
 
 STARTDIR=$(pwd)
+TESTARG="$2"
 
 # Global options
 GOPTIONS=('number_of_tests=10')
@@ -22,10 +23,14 @@ function testdir {
 	done
 
 	for dir in tests/*; do
+		TESTNAME=$(echo $dir | cut -c 7-)
+		if [[ "$TESTARG" != "" ]] && [[ "$TESTNAME" != "$TESTARG" ]]
+			then continue
+		fi
 		cp options.$2 $dir
 		cp tester.$2 $dir
 		cd $dir
-		printf 'test_name="%s";\n' $(echo $dir | cut -c 7-) >> options.$2
+		printf 'test_name="%s";\n' "$TESTNAME" >> options.$2
 		$STARTDIR/rt.sh $1
 		rm tester.$2
 		rm options.$2
@@ -48,7 +53,7 @@ function testoctave {
 
 # MATLAB
 function testmatlab {
-	testdir "$MATLAB -nodisplay -nosplash -nodesktop -r tester" m matlab
+	testdir "$MATLAB -nodisplay -nosplash -nodesktop -nojvm -r tester" m matlab
 }
 
 # Anaconda
