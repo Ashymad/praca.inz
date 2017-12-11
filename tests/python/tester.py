@@ -3,6 +3,7 @@ import numpy as np
 import h5py
 import time
 
+from options import *
 from test import *
 
 ## Testing

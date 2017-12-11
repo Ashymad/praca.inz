@@ -1,5 +1,6 @@
 # Tester file
 
+include("options.jl");
 include("test.jl");
 
 ## Testing

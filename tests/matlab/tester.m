@@ -1,6 +1,7 @@
 % Tester file
 
 format long;
+options;
 test;
 
 %% Testing
@@ -16,7 +17,7 @@ for i = 1:number_of_tests
 end
 
 file = '/tmp/results.h5';
-dataset = ['/' test_name '/matlab'];
+dataset = ['/' char(test_name) '/matlab'];
 
 fid = H5F.open(file, 'H5F_ACC_RDWR', 'H5P_DEFAULT');
 H5L.delete(fid, dataset, 'H5P_DEFAULT');

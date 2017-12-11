@@ -1,6 +1,7 @@
 % Tester file
 
 format long;
+options;
 test;
 
 %% Testing

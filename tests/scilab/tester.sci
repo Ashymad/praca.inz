@@ -1,5 +1,6 @@
 // Tester file
 
+exec("options.sci");
 exec("test.sci");
 
 //// Testing
