@@ -1,0 +1,10 @@
+library(h5)
+library(ggplot2)
+
+f <- h5file("../tests/results.h5")
+
+julia <- f["sin/julia"]
+octave <- f["sin/octave"]
+matlab <- f["sin/matlab"]
+scilab <- f["sin/scilab"]
+python <- f["sin/python"]
