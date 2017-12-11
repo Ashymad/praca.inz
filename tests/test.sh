@@ -27,6 +27,7 @@ function testdir {
 		if [[ "$TESTARG" != "" ]] && [[ "$TESTNAME" != "$TESTARG" ]]
 			then continue
 		fi
+		echo "Test: $TESTNAME..."
 		cp options.$2 $dir
 		cp tester.$2 $dir
 		cd $dir
@@ -43,21 +44,25 @@ function testdir {
 
 # Julia
 function testjulia {
+	echo "Testing Julia..."
 	testdir "$JULIA tester.jl" jl julia
 }
 
 # Octave
 function testoctave {
+	echo "Testing GNU Octave..."
 	testdir "$OCTAVE tester.m" m octave
 }
 
 # MATLAB
 function testmatlab {
+	echo "Testing MATLAB..."
 	testdir "$MATLAB -nodisplay -nosplash -nodesktop -nojvm -r tester" m matlab
 }
 
 # Anaconda
 function testpython {
+	echo "Testing Anaconda..."
 	source $ANACONDA
 	testdir "python tester.py" py python
 }
@@ -65,6 +70,7 @@ function testpython {
 
 # Scilab
 function testscilab {
+	echo "Testing Scilab..."
 	testdir "$SCILAB -f tester.sci" sci scilab
 }
 
