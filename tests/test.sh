@@ -11,7 +11,7 @@ STARTDIR=$(pwd)
 TESTARG="$2"
 
 # Global options
-GOPTIONS=('number_of_tests=10')
+GOPTIONS=('number_of_tests=100')
 
 [ -f results.h5 ] && cp results.h5 /tmp
 
@@ -23,6 +23,7 @@ function testdir {
 	done
 
 	for dir in tests/*; do
+		cd $STARTDIR/$3
 		TESTNAME=$(echo $dir | cut -c 7-)
 		if [[ "$TESTARG" != "" ]] && [[ "$TESTNAME" != "$TESTARG" ]]
 			then continue

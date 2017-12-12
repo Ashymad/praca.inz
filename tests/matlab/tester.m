@@ -19,7 +19,9 @@ file = '/tmp/results.h5';
 dataset = ['/' char(test_name) '/matlab'];
 
 fid = H5F.open(file, 'H5F_ACC_RDWR', 'H5P_DEFAULT');
-H5L.delete(fid, dataset, 'H5P_DEFAULT');
+if H5L.exists(fid, dataset, 'H5P_DEFAULT')
+	H5L.delete(fid, dataset, 'H5P_DEFAULT');
+end
 H5F.close(fid);
 
 h5create(file, dataset, number_of_tests);

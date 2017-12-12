@@ -20,5 +20,5 @@ file = '/tmp/results.h5';
 dataset = ['/' test_name '/octave'];
 
 h5delete(file, dataset);
-h5create(file, dataset, number_of_tests);
+%h5create(file, dataset, number_of_tests);
 h5write(file, dataset, results);
