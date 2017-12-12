@@ -1,5 +1,9 @@
 ## Figures
 /wykresy/*
+
+## Actual TeX files
+praca.tex
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

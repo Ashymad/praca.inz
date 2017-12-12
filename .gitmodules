@@ -1,0 +1,3 @@
+[submodule "noweb/aghdpl-imir"]
+	path = noweb/aghdpl-imir
+	url = git@github.com:Ashymad/aghdpl-imir

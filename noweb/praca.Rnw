@@ -1,4 +1,4 @@
-\documentclass[11pt]{aghdpl}
+\documentclass[pl,12pt]{aghdpl-imir/aghdpl}
 % \documentclass[en,11pt]{aghdpl}  % praca w języku angielskim
 
 % Lista wszystkich języków stanowiących języki pozycji bibliograficznych użytych w pracy.
@@ -19,6 +19,7 @@
 
 % --- < bibliografia > ---
 
+
 \usepackage[
 style=numeric,
 sorting=none,
@@ -37,7 +38,7 @@ url=false,
 %
 % Ustawienia związane z polskimi normami dla bibliografii.
 maxbibnames=3,
-% Jeżeli używamy BibTeXa:
+% Jeżeli używamy Bibera:
 backend=biber
 ]{biblatex}
 
@@ -54,8 +55,8 @@ backend=biber
 % ------------------------
 % --- < listingi > ---
 
-% Użyj czcionki kroju Courier.
-\usepackage{courier}
+% Użyj czcionki kroju Times.
+\usepackage{newtxtext}
 
 \usepackage{listings}
 \lstloadlanguages{TeX}
@@ -85,7 +86,7 @@ backend=biber
 % ------------------------
 
 \AtBeginDocument{
-	\renewcommand{\tablename}{Tabela}
+	\renewcommand{\tablename}{Tab.}
 	\renewcommand{\figurename}{Rys.}
 }
 
@@ -101,6 +102,7 @@ backend=biber
 
 % defines the X column to use m (\parbox[c]) instead of p (`parbox[t]`)
 \newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}
+
 
 %--------------------------Ustawienia Knitr---------------------------------
 
@@ -124,34 +126,55 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 %---------------------------------------------------------------------------
 
 \author{\Sexpr{author}}
-\shortauthor{\Sexpr{shortAuthor}}
-
-%\titlePL{Przygotowanie bardzo długiej i pasjonującej pracy dyplomowej w~systemie~\LaTeX}
-%\titleEN{Preparation of a very long and fascinating bachelor or master thesis in \LaTeX}
+\sex{m} % Mężczyzna - m; kobieta - cokolwiek
+\shortauthor{{[}Im. i nazwisko]}
+\albumnum{279253}
+\address{\Sexpr{shortAuthor}}
 
 \titlePL{Analiza porównawncza wybranych cech pakietów obliczeniowych w~perspektywie ogólnoakustycznej}
 \titleEN{Comparative analysis of choosen properties of numerical computing environments in the acoustic perspective}
 
-
 \shorttitlePL{Porównanie pakietów obliczeniowych w akustyce} % skrócona wersja tytułu jeśli jest bardzo długi
 \shorttitleEN{Comparison of numerical computing environments in acoustics}
 
-\thesistype{Praca dyplomowa inżynierska}
-%\thesistype{Master of Science Thesis}
+% rodzaj pracy bez końcówki fleksyjnej np. inżyniersk, magistersk
+\thesistypePL{inżyniersk}
+\thesistypeEN{engineer}
 
-\supervisor{dr Bartłomiej Borkowski}
-%\supervisor{Marcin Szpyrka PhD, DSc}
+\supervisor{Dr inż. Bartłomiej Borkowski}
 
-\degreeprogramme{Inżynieria Akustyczna}
-%\degreeprogramme{Computer Science}
+\reviewer{prof. dr hab. inż. Jerzy Wiciak}
 
-\date{2017}
+\degreeprogrammePL{Inżynieria Akustyczna}
+\degreeprogrammeEN{Acoustic Engineering}
+
+\specialisationPL{{[}Nazwa specjalności]}
+\specialisationEN{{[}Specialisation]}
+
+\graduationyear{2017}
+\date{\today}
+\years{2017/2018}
+\yearofstudy{IV}
 
 \department{Katedra Mechaniki i Wibroakustyki}
 %\department{Department of Applied Computer Science}
 
-\faculty{Wydział Inżynierii Mechanicznej i Robotyki}
-%\faculty{Faculty of Electrical Engineering, Automatics, Computer Science and Biomedical Engineering}
+\facultyPL{Wydział Inżynierii Mechanicznej i Robotyki}
+\facultyEN{Faculty of Mechanical Engineering and Robotics}
+
+\thesisplan{ % Przykłądowy plan pracy, należy omówić z promotorem
+  \begin{enumerate}
+    \itemsep-1mm 
+    \item Omówienie tematu pracy i sposobu realizacji z promotorem.
+    \item Zebranie i opracowanie literatury dotyczącej tematu pracy.
+    \item Zebranie i opracowanie wyników badań.
+    \item Analiza wyników badań, ich omówienie i zatwierdzenie przez promotora.
+    \item Opracowanie redakcyjne.
+  \end{enumerate}
+}
+
+\summaryPL{{[}Treść streszczenia]}
+\summaryEN{{[}Summary text]}
 
 \acknowledgements{Serdecznie dziękuję \dots tu ciąg dalszych podziękowań np. dla promotora, żony, sąsiada itp.}
 
@@ -180,16 +203,10 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 \tableofcontents
 \clearpage
 
-<<Wykres>>=
-data("cars")
-plot(cars)
-@ 
-\clearpage
-
-\include{rozdzial3}
-\include{rozdzial1}
-\include{rozdzial2}
-\include{tests}
+\include{aghdpl-imir/rozdzial3}
+\include{aghdpl-imir/rozdzial1}
+\include{aghdpl-imir/rozdzial2}
+\include{aghdpl-imir/tests}
 
 
 
