@@ -7,11 +7,12 @@ SCILAB="/opt/Scilab/scilab-branch-6.0-linux-x86_64/bin/scilab-cli"
 OCTAVE="/usr/bin/octave"
 ANACONDA="/opt/anaconda/bin/activate"
 
-STARTDIR=$(pwd)
+STARTDIR="$(pwd)"
 TESTARG="$2"
 
 # Global options
-GOPTIONS=('number_of_tests=100')
+GOPTIONS=('number_of_tests=10'
+	  'max_input_size=7') # In powers of ten, e.g. 7 means max input vector lenght is 10^7
 
 [ -f results.h5 ] && cp results.h5 /tmp
 
