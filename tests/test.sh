@@ -11,7 +11,7 @@ STARTDIR="$(pwd)"
 TESTARG="$2"
 
 # Global options
-GOPTIONS=('number_of_tests=10'
+GOPTIONS=('number_of_tests=40'
 	  'max_input_size=7') # In powers of ten, e.g. 7 means max input vector lenght is 10^7
 
 [ -f results.h5 ] && cp results.h5 /tmp
