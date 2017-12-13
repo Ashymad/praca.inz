@@ -19,6 +19,10 @@ pkg load hdf5oct;
 file = '/tmp/results.h5';
 dataset = ['/' test_name '/octave'];
 
-h5delete(file, dataset);
-%h5create(file, dataset, number_of_tests);
+try
+	h5delete(file, dataset);
+catch exc
+	h5create(file, dataset, number_of_tests);
+end
+
 h5write(file, dataset, results);
