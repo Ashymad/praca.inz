@@ -3,9 +3,10 @@
 import math as m
 import numpy as np
 
-x = np.arange(0,2*m.pi,0.0000001)
+def prepare_input(input_size):
+    return np.linspace(0,2*m.pi,input_size)
 
-def test_function():
-    y = np.sin(x)
+def test_function(input_data):
+    y = np.sin(input_data)
     return
 

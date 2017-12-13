@@ -7,15 +7,17 @@ from options import *
 from test import *
 
 ## Testing
-# Skip the first test
-test_function()
 
-results = np.zeros(number_of_tests)
+results = np.zeros((max_input_size, number_of_tests))
 
-for i in range(0,number_of_tests):
-    tic = time.time()
-    test_function()
-    results[i] = time.time() - tic
+for input_size in range(0, max_input_size):
+    input_data = prepare_input(10**(input_size+1))
+    test_function(input_data)
+
+    for i in range(0,number_of_tests):
+        tic = time.time()
+        test_function(input_data)
+        results[input_size, i] = time.time() - tic
 
 f = h5py.File("/tmp/results.h5", "a")
 dataset = test_name + "/python"

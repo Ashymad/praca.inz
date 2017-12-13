@@ -4,14 +4,17 @@ exec("options.sci");
 exec("test.sci");
 
 //// Testing
-// Skip the first test
-test_function();
-results = zeros(number_of_tests,1); 
+results = zeros(number_of_tests, max_input_size); 
 
-for i = 1:number_of_tests
-	tic();
-	test_function();
-	results(i) = toc();
+for input_size = 1:max_input_size
+	input_data = prepare_input(10^input_size);
+	test_function(input_data); // First test is skipped to account for compilation
+
+	for i = 1:number_of_tests
+		tic();
+		test_function(input_data);
+		results(i, input_size) = toc();
+	end
 end
 
 // Saving to filr
