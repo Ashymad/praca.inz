@@ -4,15 +4,17 @@ include("options.jl");
 include("test.jl");
 
 ## Testing
-# Skip the first test
-test_function();
 
-results = Array{Float64}(number_of_tests);
+results = Array{Float64}(number_of_tests, max_input_size);
 
-for i = 1:number_of_tests
-	tic();
-	test_function();
-	results[i] = toq();
+for input_size = 1:max_input_size
+	input_data = prepare_input(10^input_size)
+	test_function(input_data)
+	for i = 1:number_of_tests
+		tic();
+		test_function(input_data);
+		results[i, input_size] = toq();
+	end
 end
 
 # Saving to file

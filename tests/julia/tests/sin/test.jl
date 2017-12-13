@@ -1,7 +1,10 @@
 # Sinus test
 
-const x = collect(0:0.0000001:2pi)
+function prepare_input(input_size)
+	return linspace(0, 2pi, input_size)
+end
 
-function test_function()
-	y = sin.(x)
+function test_function(input_data)
+	y = sin.(input_data)
+	return
 end
