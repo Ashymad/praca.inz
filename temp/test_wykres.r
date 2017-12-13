@@ -2,13 +2,13 @@ library(h5)
 library(ggplot2)
 library(reshape2)
 
-test_name <- "sin"
+test_name <- "fft"
 
 f <- h5file("../tests/results.h5")
 
 results <- list(
     julia=f[paste(test_name, "/julia", sep="")][],
-    octave=f[paste(test_name, "/octave", sep="")][],
+    octave=f[paste(test_name, "/octave", sep="")][][,],
     matlab=f[paste(test_name, "/matlab", sep="")][],
     scilab=f[paste(test_name, "/scilab", sep="")][][,],
     python=f[paste(test_name, "/python", sep="")][]
