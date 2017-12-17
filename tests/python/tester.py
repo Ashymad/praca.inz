@@ -8,19 +8,18 @@ from test import *
 
 ## Testing
 
-results = np.zeros((max_input_size, number_of_tests))
+results = np.zeros(number_of_tests)
 
-for input_size in range(0, max_input_size):
-    input_data = prepare_input(10**(input_size+1))
+input_data = prepare_input(10**input_size)
+output_data = test_function(input_data)
+
+for i in range(0,number_of_tests):
+    tic = time.time()
     output_data = test_function(input_data)
-
-    for i in range(0,number_of_tests):
-        tic = time.time()
-        output_data = test_function(input_data)
-        results[input_size, i] = time.time() - tic
+    results[i] = time.time() - tic
 
 f = h5py.File("/tmp/results.h5", "a")
-dataset = test_name + "/python"
+dataset = test_name + "/python/" + str(input_size)
 
 if dataset in f.keys():
     del f[dataset]
