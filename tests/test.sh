@@ -11,12 +11,12 @@ STARTDIR="$(pwd)"
 TESTARG="$2"
 
 # Global options
-GOPTIONS=('number_of_tests=40'
+GOPTIONS=('number_of_tests=100'
 	  'max_input_size=7') # In powers of ten, e.g. 7 means max input vector lenght is 10^7
 
 [ -f results.h5 ] && cp results.h5 /tmp
 
-function testdir {
+testdir () {
 	cd $STARTDIR/$3
 
 	for option in ${GOPTIONS[*]}; do
@@ -45,25 +45,25 @@ function testdir {
 }
 
 # Julia
-function testjulia {
+testjulia () {
 	echo "Testing Julia..."
 	testdir "$JULIA tester.jl" jl julia
 }
 
 # Octave
-function testoctave {
+testoctave () {
 	echo "Testing GNU Octave..."
 	testdir "$OCTAVE tester.m" m octave
 }
 
 # MATLAB
-function testmatlab {
+testmatlab () {
 	echo "Testing MATLAB..."
 	testdir "$MATLAB -nodisplay -nosplash -nodesktop -nojvm -r tester" m matlab
 }
 
 # Anaconda
-function testpython {
+testpython () {
 	echo "Testing Anaconda..."
 	source $ANACONDA
 	testdir "python tester.py" py python
@@ -71,7 +71,7 @@ function testpython {
 
 
 # Scilab
-function testscilab {
+testscilab () {
 	echo "Testing Scilab..."
 	testdir "$SCILAB -f tester.sci" sci scilab
 }
