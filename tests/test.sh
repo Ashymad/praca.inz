@@ -11,10 +11,13 @@ STARTDIR="$(pwd)"
 TESTARG="$2"
 
 # Global options
-GOPTIONS=('number_of_tests=100'
-	  'max_input_size=7') # In powers of ten, e.g. 7 means max input vector lenght is 10^7
+NUMBER_OF_TESTS=100
+INPUT_SIZES=$(seq 1 7) # In powers of ten, e.g. 7 means max input vector lenght is 10^7
 
-[ -f results.h5 ] && cp results.h5 /tmp
+GOPTIONS=("number_of_tests=$NUMBER_OF_TESTS") 
+
+! [ -f results.h5 ] && h5mkgrp results.h5 "/" 2>/dev/null
+cp results.h5 /tmp
 
 testdir () {
 	cd $STARTDIR/$3
@@ -22,7 +25,7 @@ testdir () {
 	for option in ${GOPTIONS[*]}; do
 		echo "$option;" >> options.$2
 	done
-
+	
 	for dir in tests/*; do
 		cd $STARTDIR/$3
 		TESTNAME=$(echo $dir | cut -c 7-)
@@ -34,7 +37,10 @@ testdir () {
 		cp tester.$2 $dir
 		cd $dir
 		printf 'test_name="%s";\n' "$TESTNAME" >> options.$2
-		$STARTDIR/rt.sh $1
+		for input_size in $INPUT_SIZES; do
+			printf 'input_size=%s;\n' $input_size >> options.$2
+			$STARTDIR/rt.sh $1
+		done
 		rm tester.$2
 		rm options.$2
 	done
