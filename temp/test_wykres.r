@@ -16,7 +16,7 @@ results <- list(
 )
 
 rowVars <- function(x) {
-  rowSums((x - rowMeans(x))^2)/(dim(x)[2] - 1)
+    rowSums((x - rowMeans(x))^2)/(dim(x)[2] - 1)
 }
 
 rowMax <- function(x) {
@@ -27,16 +27,15 @@ rowMin <- function(x) {
     apply(x, 1, min)
 }
 
-results <- lapply(results, function(vec) {
-    t(apply(vec, 1, function(v) v[v < max(v)]))
-})
+#results <- lapply(results, function(vec) {
+    #t(apply(vec, 1, function(v) v[v < max(v)]))
+#})
 
 stddev <- lapply(results, function(vec) {
     sqrt(rowVars(vec))
 })
-means <- lapply(results, function(vec) {
-    rowMeans(vec)
-})
+
+means <- lapply(results, rowMeans)
 mins <- lapply(results, rowMin)
 maxs <- lapply(results, rowMax)
 
