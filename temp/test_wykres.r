@@ -6,14 +6,20 @@ library(dplyr)
 test_name <- "fft"
 
 f <- h5file("../tests/results.h5")
+packages <- c("julia","octave","matlab","python","scilab")
+max_input_size <- 7
 
-results <- list(
-    julia=f[paste(test_name, "/julia", sep="")][],
-    octave=f[paste(test_name, "/octave", sep="")][],
-    matlab=f[paste(test_name, "/matlab", sep="")][],
-    scilab=f[paste(test_name, "/scilab", sep="")][],
-    python=f[paste(test_name, "/python", sep="")][]
-)
+results <- list()
+removetop <- 6
+
+for (package in packages) {
+    results[[package]] <- matrix(0,max_input_size,length(f[test_name][package]["1"][])-removetop)
+    for (input_size in 1:max_input_size) {
+        res <- as.vector(f[test_name][package][toString(input_size)][])
+        results[[package]][input_size,] <- res[head(order(res),-removetop)]
+    }
+}
+
 
 rowVars <- function(x) {
     rowSums((x - rowMeans(x))^2)/(dim(x)[2] - 1)
@@ -27,6 +33,10 @@ rowMin <- function(x) {
     apply(x, 1, min)
 }
 
+rowMedian <- function(x) {
+    apply(x, 1, median)
+}
+
 #results <- lapply(results, function(vec) {
     #t(apply(vec, 1, function(v) v[v < max(v)]))
 #})
@@ -35,7 +45,7 @@ stddev <- lapply(results, function(vec) {
     sqrt(rowVars(vec))
 })
 
-means <- lapply(results, rowMeans)
+means <- lapply(results, rowMedian)
 mins <- lapply(results, rowMin)
 maxs <- lapply(results, rowMax)
 
