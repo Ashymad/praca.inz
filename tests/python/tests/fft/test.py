@@ -13,5 +13,4 @@ def prepare_input(input_size):
 
 
 def test_function(input_data):
-    Y = np.fft.fft(input_data)
-    return
+    return np.fft.fft(input_data)

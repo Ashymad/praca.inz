@@ -5,6 +5,5 @@ function prepare_input(input_size)
 end
 
 function test_function(input_data)
-	y = sin.(input_data)
-	return
+	return sin.(input_data)
 end

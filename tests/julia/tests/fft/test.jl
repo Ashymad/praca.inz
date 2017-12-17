@@ -14,6 +14,5 @@ end
 
 
 function test_function(input_data)
-	Y = fft(input_data)
-	return
+	return fft(input_data)
 end

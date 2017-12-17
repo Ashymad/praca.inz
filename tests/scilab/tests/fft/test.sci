@@ -9,6 +9,6 @@ function input_data = prepare_input(input_size)
 	input_data = S + 2*rand(t,'normal');
 end
 
-function test_function(input_data)
-	Y = fft(input_data);
+function output_data = test_function(input_data)
+	output_data = fft(input_data);
 end

@@ -12,6 +12,6 @@ function input_data = prepare_input_(input_size, T)
 	input_data = S + 2*randn(size(t));
 end
 
-function test_function_(input_data)
-	Y = fft(input_data);
+function output_data = test_function_(input_data)
+	output_data = fft(input_data);
 end
