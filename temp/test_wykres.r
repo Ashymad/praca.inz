@@ -16,7 +16,11 @@ for (package in packages) {
     results[[package]] <- matrix(0,max_input_size,length(f[test_name][package]["1"][])-removetop)
     for (input_size in 1:max_input_size) {
         res <- as.vector(f[test_name][package][toString(input_size)][])
-        results[[package]][input_size,] <- res[-tail(order(res),removetop)]
+        if (removetop != 0) {
+            results[[package]][input_size,] <- res[-tail(order(res),removetop)]
+        } else {
+            results[[package]][input_size,] <- res
+        }
     }
 }
 
