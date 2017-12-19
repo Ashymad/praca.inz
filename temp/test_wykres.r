@@ -3,14 +3,14 @@ library(ggplot2)
 library(reshape2)
 library(dplyr)
 
-test_name <- "fft"
+test_name <- "conv"
 
 f <- h5file("../tests/results.h5")
 packages <- c("julia","octave","matlab","python","scilab")
-max_input_size <- 7
+max_input_size <- 4
 
 results <- list()
-removetop <- 6
+removetop <- length(list.datasets(f[test_name]["octave"]))
 
 for (package in packages) {
     results[[package]] <- matrix(0,max_input_size,length(f[test_name][package]["1"][])-removetop)
@@ -67,12 +67,12 @@ means.molten["VectorSize"] <- 10^means.molten["id"]
 ggplot(means.molten, aes(x=VectorSize, y=value, colour=L1)) + geom_errorbar(aes(ymin=mins.molten["value"], ymax=maxs.molten["value"]), width=.1) + scale_y_log10() + scale_x_log10() + geom_point() + geom_line()
 
 
-for (package in packages) {
-    dev.new()
-    par(mfrow=c(2,3),oma=c(0,0,2,0))
-    for (i in 2:7) {
-        plot(results[[package]][i,])
-        title(10^{i})
-    }
-    title(package, outer=TRUE)
-}
+#for (package in packages) {
+#    dev.new()
+#    par(mfrow=c(2,3),oma=c(0,0,2,0))
+#    for (i in 2:max_input_size) {
+#        plot(results[[package]][i,])
+#        title(10^{i})
+#    }
+#    title(package, outer=TRUE)
+#}
