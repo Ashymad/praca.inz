@@ -1,5 +1,6 @@
 # FFT test
 import numpy as np
+from scipy import fftpack
 import math as m
 
 Fs = 1000            # Sampling frequency                    
@@ -13,4 +14,4 @@ def prepare_input(input_size):
 
 
 def test_function(input_data):
-    return np.fft.fft(input_data)
+    return fftpack.fft(input_data)
