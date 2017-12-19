@@ -12,7 +12,10 @@ TESTARG="$2"
 
 # Global options
 NUMBER_OF_TESTS=100
-INPUT_SIZES=$(seq 1 7) # In powers of ten, e.g. 7 means max input vector lenght is 10^7
+MAX_INPUT_SIZE="$3"
+[[ "$MAX_INPUT_SIZE" == "" ]] && MAX_INPUT_SIZE=7
+
+INPUT_SIZES=$(seq 1 $MAX_INPUT_SIZE) # In powers of ten, e.g. 7 means max input vector lenght is 10^7
 
 GOPTIONS=("number_of_tests=$NUMBER_OF_TESTS") 
 
@@ -29,7 +32,7 @@ testdir () {
 	for dir in tests/*; do
 		cd $STARTDIR/$3
 		TESTNAME=$(echo $dir | cut -c 7-)
-		if [[ "$TESTARG" != "" ]] && [[ "$TESTNAME" != "$TESTARG" ]]
+		if [[ "$TESTARG" != "" ]] && [[ "$TESTARG" != "all" ]] && [[ "$TESTNAME" != "$TESTARG" ]]
 			then continue
 		fi
 		echo "Test: $TESTNAME..."
