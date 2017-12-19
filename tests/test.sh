@@ -4,7 +4,7 @@
 JULIA="/opt/juliapro/JuliaPro-0.6.1.1/julia"
 MATLAB="/opt/MATLAB/R2017b/bin/matlab"
 SCILAB="/opt/Scilab/scilab-branch-6.0-linux-x86_64/bin/scilab-cli"
-OCTAVE="/usr/bin/octave"
+OCTAVE="/usr/bin/octave-cli"
 ANACONDA="/opt/anaconda/bin/activate"
 
 STARTDIR="$(pwd)"
@@ -39,7 +39,7 @@ testdir () {
 		printf 'test_name="%s";\n' "$TESTNAME" >> options.$2
 		for input_size in $INPUT_SIZES; do
 			printf 'input_size=%s;\n' $input_size >> options.$2
-			$STARTDIR/rt.sh $1
+			sudo chrt --rr 99 $1
 		done
 		rm tester.$2
 		rm options.$2
