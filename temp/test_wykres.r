@@ -3,15 +3,14 @@ library(ggplot2)
 library(reshape2)
 library(dplyr)
 
-test_name <- "conv"
+test_name <- "sin"
 
 f <- h5file("../tests/results.h5")
 packages <- c("julia","octave","matlab","python","scilab")
-max_input_size <- 4
+max_input_size <- length(list.datasets(f[test_name]["octave"]))
 
 results <- list()
-removetop <- length(list.datasets(f[test_name]["octave"]))
-
+removetop <- 6
 for (package in packages) {
     results[[package]] <- matrix(0,max_input_size,length(f[test_name][package]["1"][])-removetop)
     for (input_size in 1:max_input_size) {
