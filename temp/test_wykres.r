@@ -3,63 +3,65 @@ library(ggplot2)
 library(reshape2)
 library(dplyr)
 
-test_name <- "sin"
+graphics.off()
+
+test_name <- "conv"
 
 f <- h5file("../tests/results.h5")
 packages <- c("julia","octave","matlab","python","scilab")
 max_input_size <- length(list.datasets(f[test_name]["octave"]))
+max_ratio  <- 1.5
+
+shaveoff  <- function(vec, max_ratio) {
+    while (max(vec)/median(vec) > max_ratio) {
+        vec  <- vec[which(vec != max(vec))]
+    }
+    vec
+}
 
 results <- list()
-removetop <- 6
 for (package in packages) {
-    results[[package]] <- matrix(0,max_input_size,length(f[test_name][package]["1"][])-removetop)
+    number_of_tests  <- length(f[test_name][package]["1"][])
+    results[[package]] <- matrix(NA,max_input_size,number_of_tests)
     for (input_size in 1:max_input_size) {
-        res <- as.vector(f[test_name][package][toString(input_size)][])
-        if (removetop != 0) {
-            results[[package]][input_size,] <- res[-tail(order(res),removetop)]
-        } else {
-            results[[package]][input_size,] <- res
-        }
+        res <- shaveoff(as.vector(f[test_name][package][toString(input_size)][]),max_ratio)
+        results[[package]][input_size,1:length(res)] <- res
     }
 }
 
 
-rowVars <- function(x) {
-    rowSums((x - rowMeans(x))^2)/(dim(x)[2] - 1)
-}
-
 rowMax <- function(x) {
-    apply(x, 1, max)
+    apply(x, 1, function(e) {
+          max(e, na.rm=TRUE)
+    })
 }
 
 rowMin <- function(x) {
-    apply(x, 1, min)
+    apply(x, 1, function(e) {
+          min(e, na.rm=TRUE)
+    })
 }
 
 rowMedian <- function(x) {
-    apply(x, 1, median)
+    apply(x, 1, function(e) {
+          median(e, na.rm=TRUE)
+    })
 }
 
-#results <- lapply(results, function(vec) {
-    #t(apply(vec, 1, function(v) v[v < max(v)]))
-#})
+rowCountNA  <- function(x) {
+    apply(x, 1, function(e) {
+          sum(is.na(e))/length(e)
+    })
+}
 
-stddev <- lapply(results, function(vec) {
-    sqrt(rowVars(vec))
-})
-
+naperc  <- lapply(results, rowCountNA)
 means <- lapply(results, rowMedian)
 mins <- lapply(results, rowMin)
 maxs <- lapply(results, rowMax)
 
 means.molten <- as.data.frame(melt(means) %>% group_by(L1) %>% mutate(id = row_number()))
-stddev.molten <- as.data.frame(melt(stddev) %>% group_by(L1) %>% mutate(id = row_number()))
 mins.molten <- as.data.frame(melt(mins) %>% group_by(L1) %>% mutate(id = row_number()))
 maxs.molten <- as.data.frame(melt(maxs) %>% group_by(L1) %>% mutate(id = row_number()))
-
-#yMin <- means.molten["value"] - stddev.molten["value"]
-#yMin[yMin < 1e-10] <- 1e-10
-#yMax <- means.molten["value"] + stddev.molten["value"]
 
 means.molten["VectorSize"] <- 10^means.molten["id"]
 
