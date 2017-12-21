@@ -4,7 +4,7 @@ function four1(data::Array{Complex{Float64},1}, isign::Int64)
     j::Int64 = 1;
     for i = 1:nn
         if j > i
-            tempr = data[j]; data[j] = data[i]; data[i] = tempr
+            data[j], data[i] = data[i], data[j]
         end
         m::Int64 = nn/2;
         while m >= 2 && j > m
@@ -17,23 +17,17 @@ function four1(data::Array{Complex{Float64},1}, isign::Int64)
     while n > mmax
         istep=2*mmax;
         theta=isign*(2*pi/mmax);
-        wtemp=sin(0.5*theta);
-        wpr = -2.0*wtemp*wtemp;
-        wpi=sin(theta);
-        wr=1.0;
-        wi=0.0;
+        wp = -2*sin(theta/2)^2 + sin(theta)*im
+        w = 1+0im;
 
         for m = 1:2:(mmax-1)
             for i=m:istep:n
                 j=i+mmax;
-                w = wr + wi*im
                 temp = w*data[div(j+1,2)]
                 data[div(j+1,2)] = data[div(i+1,2)] - temp;
                 data[div(i+1,2)] += temp;
             end
-            wtemp=wr
-            wr=wtemp*wpr-wi*wpi+wr;
-            wi=wi*wpr+wtemp*wpi+wi;
+            w += w*wp
         end
         mmax=istep;
     end
