@@ -5,12 +5,12 @@ library(dplyr)
 
 graphics.off()
 
-test_name <- "conv"
+test_name <- "four1"
 
 f <- h5file("../tests/results.h5")
 packages <- c("julia","octave","matlab","python","scilab")
 max_input_size <- length(list.datasets(f[test_name]["octave"]))
-max_ratio  <- 1.5
+max_ratio  <- 2.5
 
 shaveoff  <- function(vec, max_ratio) {
     while (max(vec)/median(vec) > max_ratio) {
