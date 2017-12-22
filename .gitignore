@@ -5,3 +5,5 @@
 .Rhistory
 ## Julia
 .juliahistory
+## Python
+__pycache__/
