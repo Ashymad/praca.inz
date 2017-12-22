@@ -4,7 +4,7 @@ exec("options.sci");
 exec("test.sci");
 
 //// Testing
-results = zeros(number_of_tests, 1); 
+results = zeros(1, number_of_tests); 
 
 input_data = prepare_input(10^input_size);
 output_data = test_function(input_data); // First test is skipped to account for compilation
