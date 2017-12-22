@@ -1,48 +1,49 @@
-function four1(data::Array{Complex{Float64},1}, isign::Int64)
-    nn::Int64 = length(data)
-    n::Int64 = nn*2
-    j::Int64 = 1;
+function four1(data::Array{T,1}, isign::Int64 = 1) where {T<:Number}
+    nn = length(data)
+    j::Int64 = 1
+    res::Array{Complex{Float64},1} = copy(data)
+
     for i = 1:nn
         if j > i
-            data[j], data[i] = data[i], data[j]
+            res[j], res[i] = data[i], data[j]
         end
-        m::Int64 = nn/2;
+        m = nn/2
         while m >= 2 && j > m
-            j -= m;
-            m = m/2;
+            j -= m
+            m = m/2
         end
-        j += m;
+        j += m
     end
-    mmax=2;
-    while n > mmax
-        istep=2*mmax;
-        theta=isign*(2*pi/mmax);
-        wp = -2*sin(theta/2)^2 + sin(theta)*im
-        w = 1+0im;
 
-        for m = 1:div(mmax,2)
-            for i=m:div(istep+1,2):nn
-                j=i+div(mmax,2);
-                temp = w*data[j]
-                data[j] = data[i] - temp;
-                data[i] += temp;
+    mmax = 1;
+    while nn > mmax
+        istep = 2*mmax
+        theta = isign*(pi/mmax)
+        wp = -2*sin(theta/2)^2 + sin(theta)*im
+        w = 1 + 0im
+
+        for m = 1:mmax
+            for i = m:istep:nn
+                j = i + mmax
+                temp = w*res[j]
+                res[j] = res[i] - temp
+                res[i] += temp
             end
             w += w*wp
         end
-        mmax=istep;
+        mmax = istep
     end
+
+    res
 end
 
-input_size = 512;
+input_size = 2048
 Fs = 1000
-T = 1/Fs;             # Sampling period       
-X = zeros(input_size) + 0im;
-Y = zeros(input_size) + 0im;
-    
-for i = 1:input_size
-    t = T*(i-1);
-    X[i] = 0.7*sin(2.0*pi*50.0*t) + sin(2.0*pi*120.0*t);
-    Y[i] = X[i];
-end
+T = 1/Fs           # Sampling period       
 
-four1(Y, 1);
+t = T*(0:(input_size-1))
+X = 0.7*sin.(2*pi*50*t) + sin.(2*pi*120*t)
+
+@time Y = four1(X, 1)
+
+;
