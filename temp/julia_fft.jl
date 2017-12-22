@@ -20,12 +20,12 @@ function four1(data::Array{Complex{Float64},1}, isign::Int64)
         wp = -2*sin(theta/2)^2 + sin(theta)*im
         w = 1+0im;
 
-        for m = 1:2:(mmax-1)
-            for i=m:istep:n
-                j=i+mmax;
-                temp = w*data[div(j+1,2)]
-                data[div(j+1,2)] = data[div(i+1,2)] - temp;
-                data[div(i+1,2)] += temp;
+        for m = 1:div(mmax,2)
+            for i=m:div(istep+1,2):nn
+                j=i+div(mmax,2);
+                temp = w*data[j]
+                data[j] = data[i] - temp;
+                data[i] += temp;
             end
             w += w*wp
         end
