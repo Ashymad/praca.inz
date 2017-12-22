@@ -14,9 +14,9 @@ def four1(data, isign):
             res[j-1], res[i-1] = data[i-1], data[j-1]
         m = nn//2
         while m >= 2 and j > m:
-            j = j - m
+            j -= m
             m = m//2
-        j = j + m
+        j += m
 
     mmax = 1
     while nn > mmax:
@@ -30,8 +30,8 @@ def four1(data, isign):
                 j = i + mmax
                 temp = w*res[j-1]
                 res[j-1] = res[i-1] - temp
-                res[i-1] = res[i-1] + temp
-            w = w + w*wp
+                res[i-1] += temp
+            w += w*wp
         mmax = istep
     return res
 
