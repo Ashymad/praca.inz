@@ -1,5 +1,9 @@
 function four1(data::Array{T,1}, isign::Int64 = 1) where {T<:Number}
     nn = length(data)
+    nnlog = log2(nn)
+    if ceil(nnlog) != nnlog
+	    error("Length of data vector must be a power of 2.")
+    end
     j::Int64 = 1
     res::Array{Complex{Float64},1} = copy(data)
 
