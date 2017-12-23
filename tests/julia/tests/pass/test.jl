@@ -5,5 +5,5 @@ function prepare_input(input_size)
 end
 
 function test_function(input_data)
-	return input_size
+	return input_data
 end
