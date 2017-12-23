@@ -1,0 +1,1 @@
+../../../matlab/tests/wavread/test.m
