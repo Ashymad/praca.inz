@@ -110,6 +110,7 @@ backend=biber
 
 knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='wykresy/',
                       echo=FALSE, warning=FALSE, message=FALSE)
+knitr::opts_knit$set(concordance = TRUE);
 
 @ 
 
@@ -127,11 +128,11 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 
 \author{\Sexpr{author}}
 \sex{m} % Mężczyzna - m; kobieta - cokolwiek
-\shortauthor{{[}Im. i nazwisko]}
+\shortauthor{\Sexpr{shortAuthor}}
 \albumnum{279253}
 \address{\Sexpr{shortAuthor}}
 
-\titlePL{Analiza porównawncza wybranych cech pakietów obliczeniowych w~perspektywie ogólnoakustycznej}
+\titlePL{Analiza porównawcza wybranych cech pakietów obliczeniowych w~perspektywie ogólnoakustycznej}
 \titleEN{Comparative analysis of choosen properties of numerical computing environments in the acoustic perspective}
 
 \shorttitlePL{Porównanie pakietów obliczeniowych w akustyce} % skrócona wersja tytułu jeśli jest bardzo długi
@@ -203,10 +204,32 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 \tableofcontents
 \clearpage
 
-\include{aghdpl-imir/rozdzial3}
-\include{aghdpl-imir/rozdzial1}
-\include{aghdpl-imir/rozdzial2}
-\include{aghdpl-imir/tests}
+\chapter{Wprowadzenie}
+\label{cha:wprowadzenie}
+\section{Wstęp}
+Jaka jest akustyka, każdy widzi.
+asd
+\section{Cel pracy}
+Zaliczenie.
+
+\chapter{Środowiska obliczeniowe}
+\label{chap:srodowiska}
+\section{Anaconda}
+\label{sec:anaconda}
+\section{GNU Octave}
+\label{sec:octave}
+\section{Julia(Pro)}
+\label{sec:julia}
+\section{MATLAB}
+\label{sec:matlab}
+\section{Scilab}
+\label{sec:scilab}
+
+
+%\include{aghdpl-imir/rozdzial3}
+%\include{aghdpl-imir/rozdzial1}
+%\include{aghdpl-imir/rozdzial2}
+%\include{aghdpl-imir/tests}
 
 
 
@@ -216,6 +239,6 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 % \include{dodatekB}
 % itd.
 
-\printbibliography
+% \printbibliography
 
 \end{document}
