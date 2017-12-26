@@ -18,8 +18,43 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{siunitx}
-\usepackage{float}
+\usepackage{siunitx}% Jednostki SI
+\usepackage{float}% Do umieszczenia floatów [H]
+\usepackage{listings}% Do zamieszczania kodu
+\usepackage{color}
+
+% --- < kolorowanie kodu > ---
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
+
+%%
+%% Julia definition (c) 2014 Jubobs
+%%
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while,begin},%
+   sensitive=true,%
+   alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
 
 % --- < bibliografia > ---
 
@@ -140,7 +175,7 @@ opts_chunk$set(
                fig.pos='H',
                fig.path='figures-knitr/',  # a unique ID here if you got
                cache.path='cache-knitr/',  # many documents in one dir
-               cache=FALSE,
+               cache=TRUE,
                tidy=FALSE,
                dev='tikz',
                external=TRUE,
@@ -349,14 +384,14 @@ Jaka jest akustyka, każdy widzi\cite{Lam92}.
 
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
-
-\section{Anaconda}
+Zbadano pięć pekietów, które wybrano szczególnie ze względu na podobieństwo do MATLABa[odnośnik do alternativeto], oraz popularność[TIOBE].  
+\section{Anaconda/Python}
 \label{sec:anaconda}
 
 \section{GNU Octave}
 \label{sec:octave}
 
-\section{Julia(Pro)}
+\section{JuliaPro/Julia}
 \label{sec:julia}
 
 \section{MATLAB}
@@ -380,20 +415,30 @@ Jaka jest akustyka, każdy widzi\cite{Lam92}.
 \subsection{Splot}
 \label{sec:splot}
 
+\lstinputlisting[language=Python]{../tests/python/tests/conv/test.py}%
+
 \subsection{FFT}
 \label{sec:fft}
 
 \subsubsection{Funkcja biblioteczna}
 \label{sec:fftbib}
 
+\lstinputlisting[language=Octave]{../tests/octave/tests/fft/test.m}%
+
 \subsubsection{Algorytm własny}
 \label{sec:fftwla}
+
+\lstinputlisting[language=julia]{../tests/julia/tests/four1/test.jl}%
 
 \subsection{Sinus}
 \label{sec:sin}
 
+\lstinputlisting[language=MATLAB]{../tests/matlab/tests/sin/test.m}%
+
 \subsection{Wczytywanie pliku audio}
 \label{sec:wavread}
+
+\lstinputlisting[language=Scilab]{../tests/scilab/tests/wavread/test.sci}%
 
 \section{Proces analizy wyników}
 \label{sec:analiza}
