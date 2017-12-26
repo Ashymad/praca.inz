@@ -184,9 +184,9 @@ library(ggplot2)
 library(reshape2)
 library(dplyr)
 
-rowMax <- function(x) {
+rowMax <- function(x, shaveoffpercent=5) {
     apply(x, 1, function(e) {
-          max(e, na.rm=TRUE)
+          max(shaveoff(e, shaveoffpercent), na.rm=TRUE)
     })
 }
 
@@ -208,11 +208,8 @@ rowCountNA  <- function(x) {
     })
 }
 
-shaveoff  <- function(vec, max_ratio) {
-    while (max(vec)/median(vec) > max_ratio) {
-        vec  <- vec[which(vec != max(vec))]
-    }
-    vec
+shaveoff  <- function(vec, percent) {
+    vec[-tail(order(vec), floor(percent*length(vec)/100))]
 }
 
 getResults <- function(file, test_name) {
@@ -224,7 +221,7 @@ getResults <- function(file, test_name) {
         number_of_tests  <- length(file[test_name][package]["1"][])
         results[[package]] <- matrix(NA,max_input_size,number_of_tests)
         for (input_size in 1:max_input_size) {
-            res <- shaveoff(as.vector(file[test_name][package][toString(input_size)][]),max_ratio)
+            res <- as.vector(file[test_name][package][toString(input_size)][])
             results[[package]][input_size,1:length(res)] <- res
         }
     }
