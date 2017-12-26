@@ -173,7 +173,6 @@ options(tikzMetricPackages = c(
 
 
 knit_theme$set(knit_theme$get("default"))
-# print(knit_theme$get("default")) for more themes
 @ 
 
 %--------------------------Funkcje------------------------------------------
@@ -242,10 +241,10 @@ preparePlot <- function(results) {
     plot <- ggplot(means.molten, aes(x=VectorSize, y=value, colour=L1)) 
     plot <- plot + geom_errorbar(aes(ymin=mins.molten["value"], ymax=maxs.molten["value"]), width=.1)
     plot <- plot + scale_y_log10() + scale_x_log10() + geom_point() + geom_line()
-    plot <- plot + xlab("Wielko\\'s\\'c wektora wej\\'sciowego")
+    plot <- plot + xlab("Ilo\\'s\\'c element\\'ow wektora wej\\'sciowego")
     plot <- plot + ylab("Czas wykonywania procedury [$\\si{\\second}$]")
     plot <- plot + labs(colour="Pakiet obliczeniowy")
-    plot <- plot + theme(legend.position=c(0,1), legend.justification=c(0,1))
+    plot <- plot + theme_bw() + theme(legend.position=c(0.01,0.99), legend.justification=c(0.01,0.99))
     plot
 }
 @ 
