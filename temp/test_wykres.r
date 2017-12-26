@@ -5,31 +5,6 @@ library(dplyr)
 
 graphics.off()
 
-test_name <- "four1"
-
-f <- h5file("../tests/results.h5")
-packages <- c("julia","octave","matlab","python","scilab")
-max_input_size <- length(list.datasets(f[test_name]["octave"]))
-max_ratio  <- 2.5
-
-shaveoff  <- function(vec, max_ratio) {
-    while (max(vec)/median(vec) > max_ratio) {
-        vec  <- vec[which(vec != max(vec))]
-    }
-    vec
-}
-
-results <- list()
-for (package in packages) {
-    number_of_tests  <- length(f[test_name][package]["1"][])
-    results[[package]] <- matrix(NA,max_input_size,number_of_tests)
-    for (input_size in 1:max_input_size) {
-        res <- shaveoff(as.vector(f[test_name][package][toString(input_size)][]),max_ratio)
-        results[[package]][input_size,1:length(res)] <- res
-    }
-}
-
-
 rowMax <- function(x) {
     apply(x, 1, function(e) {
           max(e, na.rm=TRUE)
@@ -54,20 +29,57 @@ rowCountNA  <- function(x) {
     })
 }
 
+shaveoff  <- function(vec, max_ratio) {
+    while (max(vec)/median(vec) > max_ratio) {
+        vec  <- vec[which(vec != max(vec))]
+    }
+    vec
+}
+
+getResults <- function(h5file, test_name) {
+    packages <- c("julia","octave","matlab","python","scilab")
+    max_input_size <- length(list.datasets(f[test_name]["octave"]))
+    max_ratio  <- 2.5
+    results <- list()
+    for (package in packages) {
+        number_of_tests  <- length(f[test_name][package]["1"][])
+        results[[package]] <- matrix(NA,max_input_size,number_of_tests)
+        for (input_size in 1:max_input_size) {
+            res <- shaveoff(as.vector(f[test_name][package][toString(input_size)][]),max_ratio)
+            results[[package]][input_size,1:length(res)] <- res
+        }
+    }
+    results
+}
+
+preparePlot <- function(results) {
+    means <- lapply(results, rowMedian)
+    mins <- lapply(results, rowMin)
+    maxs <- lapply(results, rowMax)
+
+    means.molten <- as.data.frame(melt(means) %>% group_by(L1) %>% mutate(id = row_number()))
+    mins.molten <- as.data.frame(melt(mins) %>% group_by(L1) %>% mutate(id = row_number()))
+    maxs.molten <- as.data.frame(melt(maxs) %>% group_by(L1) %>% mutate(id = row_number()))
+
+    means.molten["VectorSize"] <- 10^means.molten["id"]
+
+    plot <- ggplot(means.molten, aes(x=VectorSize, y=value, colour=L1)) 
+    plot <- plot + geom_errorbar(aes(ymin=mins.molten["value"], ymax=maxs.molten["value"]), width=.1)
+    plot <- plot + scale_y_log10() + scale_x_log10() + geom_point() + geom_line()
+    plot <- plot + xlab("Wielkość wektora wejściowego") + ylab("Czas wykonywania procedury [\\si{\\seconds}]")
+    plot <- plot + labs(colour="Pakiet obliczeniowy")
+    plot
+}
+
+test_name <- "conv"
+
+f <- h5file("../tests/results.h5")
+
+results <- getResults(f, test_name)
+
+preparePlot(results)
+
 naperc  <- lapply(results, rowCountNA)
-means <- lapply(results, rowMedian)
-mins <- lapply(results, rowMin)
-maxs <- lapply(results, rowMax)
-
-means.molten <- as.data.frame(melt(means) %>% group_by(L1) %>% mutate(id = row_number()))
-mins.molten <- as.data.frame(melt(mins) %>% group_by(L1) %>% mutate(id = row_number()))
-maxs.molten <- as.data.frame(melt(maxs) %>% group_by(L1) %>% mutate(id = row_number()))
-
-means.molten["VectorSize"] <- 10^means.molten["id"]
-
-ggplot(means.molten, aes(x=VectorSize, y=value, colour=L1)) + geom_errorbar(aes(ymin=mins.molten["value"], ymax=maxs.molten["value"]), width=.1) + scale_y_log10() + scale_x_log10() + geom_point() + geom_line()
-
-
 #for (package in packages) {
 #    dev.new()
 #    par(mfrow=c(2,3),oma=c(0,0,2,0))
