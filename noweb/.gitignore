@@ -1,7 +1,8 @@
 ## Knitr files
 _region_.*
 ## Figures
-/wykresy/*
+/figures-knitr/*
+/cache-knitr/*
 
 ## Actual TeX files
 praca.tex
