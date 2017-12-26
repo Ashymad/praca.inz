@@ -36,7 +36,7 @@ shaveoff  <- function(vec, max_ratio) {
     vec
 }
 
-getResults <- function(h5file, test_name) {
+getResults <- function(f, test_name) {
     packages <- c("julia","octave","matlab","python","scilab")
     max_input_size <- length(list.datasets(f[test_name]["octave"]))
     max_ratio  <- 2.5
@@ -73,9 +73,9 @@ preparePlot <- function(results) {
 
 test_name <- "conv"
 
-f <- h5file("../tests/results.h5")
+file <- h5file("../tests/results.h5")
 
-results <- getResults(f, test_name)
+results <- getResults(file, test_name)
 
 preparePlot(results)
 
