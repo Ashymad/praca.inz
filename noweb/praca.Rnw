@@ -204,26 +204,96 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 \tableofcontents
 \clearpage
 
-\chapter{Wprowadzenie}
-\label{cha:wprowadzenie}
-\section{Wstęp}
-Jaka jest akustyka, każdy widzi.
-asd
-\section{Cel pracy}
-Zaliczenie.
+\chapter{Wprowadzenie i cel pracy}
+\label{cha:wstep}
+Jaka jest akustyka, każdy widzi\cite{Lam92}.
 
-\chapter{Środowiska obliczeniowe}
-\label{chap:srodowiska}
+\chapter{Badane pakiety obliczeniowe}
+\label{cha:pakiety}
+
 \section{Anaconda}
 \label{sec:anaconda}
+
 \section{GNU Octave}
 \label{sec:octave}
+
 \section{Julia(Pro)}
 \label{sec:julia}
+
 \section{MATLAB}
 \label{sec:matlab}
+
 \section{Scilab}
 \label{sec:scilab}
+
+\chapter{Proces badawczy}
+\label{chap:probad}
+
+\section{Środowisko badawcze}
+\label{sec:srodowisko}
+
+\section{System testujący}
+\label{sec:systest}
+
+\section{Badane funkcje i algorytmy}
+\label{sec:algo}
+
+\subsection{Splot}
+\label{sec:splot}
+
+\subsection{FFT}
+\label{sec:fft}
+
+\subsubsection{Funkcja biblioteczna}
+\label{sec:fftbib}
+
+\subsubsection{Algorytm własny}
+\label{sec:fftwla}
+
+\subsection{Sinus}
+\label{sec:sin}
+
+\subsection{Wczytywanie pliku audio}
+\label{sec:wavread}
+
+\section{Proces analizy wyników}
+\label{sec:analiza}
+
+
+\chapter{Wyniki testów}
+\label{chap:wyniki}
+
+\section{Splot}
+\label{sec:wynsplot}
+
+\section{FFT}
+\label{sec:wynfft}
+
+\subsection{Funkcja biblioteczna}
+\label{sec:wynfftbib}
+
+\subsection{Algorytm własny}
+\label{sec:wynfftwla}
+
+\section{Sinus}
+\label{sec:wynsin}
+
+\section{Wczytywanie pliku audio}
+\label{sec:wynwavread}
+
+\section{Sumaryczne zestawienie wyników}
+\label{sec:sum}
+
+\chapter{Podsumowanie}
+\label{chap:podsumowanie}
+
+\section{Sumaryczna analiza wyników}
+\label{sec:sumanaliza}
+
+\section{Dalsze kierunki badań}
+\label{sec:kier}
+
+
 
 
 %\include{aghdpl-imir/rozdzial3}
@@ -239,6 +309,6 @@ Zaliczenie.
 % \include{dodatekB}
 % itd.
 
-% \printbibliography
+\printbibliography
 
 \end{document}
