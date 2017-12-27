@@ -436,7 +436,16 @@ wersji Linuxa. Jest to problem w wersji 6.0, który nie został
 jeszcze naprawiony. Ponadto oficjalne odnośniki do pobrania
 wersji \emph{nightly} zwracają błąd 404, toteż jedyną opcją było
 pobranie wersji z systemu CI (Continuous Integration -- system
-automatycznej kompilacji i testowania kodu).
+automatycznej kompilacji i testowania kodu). Dodatkowo, jako że
+pakiet JuliaPro nie zawiera w sobie biblioteki pozwalającej
+odczytywać pliki audio, wykorzystano, wybraną ze względu na
+popularność, bibliotekę \emph{WAV.jl} w wersji v0.9.0.
+
+Do zbadania sposobu wykorzystywania zasobów komputera przez procesy 
+pakietów obliczeniowych wykorzystano aplikację \emph{htop}, a do
+przetwarzania i analizy danych wynikowych testów wykorzystano język
+\emph{R}.
+
 
 \section{System testujący}
 \label{sec:systest}
