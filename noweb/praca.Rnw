@@ -384,7 +384,7 @@ Jaka jest akustyka, każdy widzi\cite{Lam92}.
 
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
-Zbadano pięć pekietów, które wybrano szczególnie ze względu na podobieństwo do MATLABa[odnośnik do alternativeto], oraz popularność[TIOBE].  
+Zbadano pięć pakietów, które wybrano szczególnie ze względu na podobieństwo do MATLABa[odnośnik do alternativeto], oraz popularność[TIOBE].  
 \section{Anaconda/Python}
 \label{sec:anaconda}
 
@@ -408,6 +408,8 @@ Zbadano pięć pekietów, które wybrano szczególnie ze względu na podobieńst
 
 \section{System testujący}
 \label{sec:systest}
+
+\lstinputlisting[language=bash]{../tests/test.sh}%
 
 \section{Badane funkcje i algorytmy}
 \label{sec:algo}
