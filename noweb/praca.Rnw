@@ -20,11 +20,80 @@
 \usepackage{amsthm}
 \usepackage{siunitx}% Jednostki SI
 \usepackage{float}% Do umieszczenia floatów [H]
-\usepackage{listings}% Do zamieszczania kodu
+\usepackage{enumitem}
+\setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
+
+% --- < bibliografia > --
+
+
+\usepackage[
+style=numeric,
+sorting=none,
+% 
+% Zastosuj styl wpisu bibliograficznego właściwy językowi publikacji.
+language=autobib,
+autolang=other,
+% Zapisuj datę dostępu do strony WWW w formacie RRRR-MM-DD.
+urldate=iso8601,
+% Nie dodawaj numerów stron, na których występuje cytowanie.
+backref=false,
+% Podawaj ISBN.
+isbn=true,
+% Nie podawaj URL-i, o ile nie jest to konieczne.
+url=false,
+% 
+% Ustawienia związane z polskimi normami dla bibliografii.
+maxbibnames=3,
+% Jeżeli używamy Bibera:
+backend=biber
+]{biblatex}
+
+\usepackage{csquotes}
+% Ponieważ `csquotes` nie posiada polskiego stylu, można skorzystać z mocno zbliżonego stylu chorwackiego.
+\DeclareQuoteAlias{croatian}{polish}
+
+\addbibresource{bibliografia.bib}
+
+% Nie wyświetlaj wybranych pól.
+% \AtEveryBibitem{\clearfield{note}}
+
+
+% ------------------------
+% --- < listingi > ---
+
+% Użyj czcionki kroju Times.
+\usepackage{newtxtext}
+
+\usepackage{listings}
+\lstloadlanguages{TeX}
+
+\lstset{
+  literate={ą}{{\k{a}}}1
+  {ć}{{\'c}}1
+  {ę}{{\k{e}}}1
+  {ó}{{\'o}}1
+  {ń}{{\'n}}1
+  {ł}{{\l{}}}1
+  {ś}{{\'s}}1
+  {ź}{{\'z}}1
+  {ż}{{\.z}}1
+  {Ą}{{\k{A}}}1
+  {Ć}{{\'C}}1
+  {Ę}{{\k{E}}}1
+  {Ó}{{\'O}}1
+  {Ń}{{\'N}}1
+  {Ł}{{\L{}}}1
+  {Ś}{{\'S}}1
+  {Ź}{{\'Z}}1
+  {Ż}{{\.Z}}1,
+  basicstyle=\footnotesize\ttfamily,
+}
+
 \usepackage{color}
 
 % --- < kolorowanie kodu > ---
 
+% From overleaf.com
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
@@ -49,84 +118,18 @@
       macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
       using,while,begin},%
    sensitive=true,%
-   alsoother={$},%
+   alsoother={$},%$
    morecomment=[l]\#,%
    morecomment=[n]{\#=}{=\#},%
    morestring=[s]{"}{"},%
    morestring=[m]{'}{'},%
 }[keywords,comments,strings]%
 
-% --- < bibliografia > ---
-
-
-\usepackage[
-style=numeric,
-sorting=none,
-%
-% Zastosuj styl wpisu bibliograficznego właściwy językowi publikacji.
-language=autobib,
-autolang=other,
-% Zapisuj datę dostępu do strony WWW w formacie RRRR-MM-DD.
-urldate=iso8601,
-% Nie dodawaj numerów stron, na których występuje cytowanie.
-backref=false,
-% Podawaj ISBN.
-isbn=true,
-% Nie podawaj URL-i, o ile nie jest to konieczne.
-url=false,
-%
-% Ustawienia związane z polskimi normami dla bibliografii.
-maxbibnames=3,
-% Jeżeli używamy Bibera:
-backend=biber
-]{biblatex}
-
-\usepackage{csquotes}
-% Ponieważ `csquotes` nie posiada polskiego stylu, można skorzystać z mocno zbliżonego stylu chorwackiego.
-\DeclareQuoteAlias{croatian}{polish}
-
-\addbibresource{bibliografia.bib}
-
-% Nie wyświetlaj wybranych pól.
-%\AtEveryBibitem{\clearfield{note}}
-
-
-% ------------------------
-% --- < listingi > ---
-
-% Użyj czcionki kroju Times.
-\usepackage{newtxtext}
-
-\usepackage{listings}
-\lstloadlanguages{TeX}
-
-\lstset{
-	literate={ą}{{\k{a}}}1
-           {ć}{{\'c}}1
-           {ę}{{\k{e}}}1
-           {ó}{{\'o}}1
-           {ń}{{\'n}}1
-           {ł}{{\l{}}}1
-           {ś}{{\'s}}1
-           {ź}{{\'z}}1
-           {ż}{{\.z}}1
-           {Ą}{{\k{A}}}1
-           {Ć}{{\'C}}1
-           {Ę}{{\k{E}}}1
-           {Ó}{{\'O}}1
-           {Ń}{{\'N}}1
-           {Ł}{{\L{}}}1
-           {Ś}{{\'S}}1
-           {Ź}{{\'Z}}1
-           {Ż}{{\.Z}}1,
-	basicstyle=\footnotesize\ttfamily,
-}
-
 % ------------------------
 
 \AtBeginDocument{
-	\renewcommand{\tablename}{Tab.}
-	\renewcommand{\figurename}{Rys.}
+  \renewcommand{\tablename}{Tab.}
+  \renewcommand{\figurename}{Rys.}
 }
 
 % ------------------------
@@ -142,7 +145,7 @@ backend=biber
 % defines the X column to use m (\parbox[c]) instead of p (`parbox[t]`)
 \newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}
 
-%--------------------------Ustawienia Knitr---------------------------------
+% --------------------------Ustawienia Knitr---------------------------------
 
 <<Opcje globalne, include=FALSE>>=
 
@@ -220,25 +223,25 @@ library(dplyr)
 
 rowMax <- function(x, shaveoffpercent=5) {
     apply(x, 1, function(e) {
-          max(shaveoff(e, shaveoffpercent), na.rm=TRUE)
+        max(shaveoff(e, shaveoffpercent), na.rm=TRUE)
     })
 }
 
 rowMin <- function(x) {
     apply(x, 1, function(e) {
-          min(e, na.rm=TRUE)
+        min(e, na.rm=TRUE)
     })
 }
 
 rowMedian <- function(x) {
     apply(x, 1, function(e) {
-          median(e, na.rm=TRUE)
+        median(e, na.rm=TRUE)
     })
 }
 
 rowCountNA  <- function(x) {
     apply(x, 1, function(e) {
-          sum(is.na(e))/length(e)
+        sum(is.na(e))/length(e)
     })
 }
 
@@ -337,7 +340,6 @@ file <- h5file("/mnt/data/Documents/Workspace/Thesis/tests/results.h5")
 
   \thesisplan{ % Przykłądowy plan pracy, należy omówić z promotorem
     \begin{enumerate}
-      \itemsep-1mm 
     \item Omówienie tematu pracy i sposobu realizacji z promotorem.
     \item Zebranie i opracowanie literatury dotyczącej tematu pracy.
     \item Zebranie i opracowanie wyników badań.
@@ -367,11 +369,11 @@ file <- h5file("/mnt/data/Documents/Workspace/Thesis/tests/results.h5")
 % Ponowne zdefiniowanie stylu `plain`, aby usunąć numer strony z pierwszej strony spisu treści i poszczególnych rozdziałów.
 \fancypagestyle{plain}
 {
-	% Usuń nagłówek i stopkę
-	\fancyhf{}
-	% Usuń linie.
-	\renewcommand{\headrulewidth}{0pt}
-	\renewcommand{\footrulewidth}{0pt}
+  % Usuń nagłówek i stopkę
+  \fancyhf{}
+  % Usuń linie.
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
 }
 
 \setcounter{tocdepth}{2}
@@ -405,6 +407,36 @@ Zbadano pięć pakietów, które wybrano szczególnie ze względu na podobieńst
 
 \section{Środowisko badawcze}
 \label{sec:srodowisko}
+
+W celu eliminacji wszelkich czynników, który występowanie mogłoby
+wpłynąć na wiarygodność wyników przygotowano minimalne środowisko
+badawcze na bazie Linuxa z patchem (łatką) CONFIG\_PREEMPT\_RT
+(RTLinux), gdzie RT oznacza RealTime (czasu rzeczywistego).
+Pozwala on, procesowi o wysokim priorytecie, otrzymać zasoby
+komputera (czas procesora, dostęp do RAMu i dysku) w pierwszej
+kolejności, przed większością procesów systemowych oraz, co jest
+normalnym zachowaniem Linuxa, wszystkimi procesami o niższym
+priorytecie[BIBTEX:https://lwn.net/Articles/146861/]. Dzięki temu można mieć pewność, że
+żaden proces uruchomiony w tle nie spowoduje zaniżonych wyników
+badań. 
+
+Wykorzystano dystrybucję \emph{Manjaro Linux}, gdyż posiada ona
+RTLinux w oficjalnych repozytoriach. Wykorzystana wersja
+Linuxa to 4.11.12\_rt16. Wykorzystane wersje pakietów to:
+\begin{itemize}%
+\item Anaconda 5.01/Python 3.6.3
+\item GNU Octave 4.2.1
+\item JuliaPro v0.6.1.1/Julia v0.6.1
+\item MATLAB R2017b
+\item Scilab 6.0 (Wersja z systemu CI z 29.11.2017)
+\end{itemize}%
+Są to najnowsze stabilne wersję tych pakietów na dzień 29.11.2017,
+poza Scilabem, którego wersja stabilna nie uruchamia się na tej
+wersji Linuxa. Jest to problem w wersji 6.0, który nie został
+jeszcze naprawiony. Ponadto oficjalne odnośniki do pobrania
+wersji \emph{nightly} zwracają błąd 404, toteż jedyną opcją było
+pobranie wersji z systemu CI (Continuous Integration -- system
+automatycznej kompilacji i testowania kodu).
 
 \section{System testujący}
 \label{sec:systest}
