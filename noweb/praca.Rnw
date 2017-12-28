@@ -249,17 +249,20 @@ shaveoff  <- function(vec, percent) {
     vec[-tail(order(vec), floor(percent*length(vec)/100))]
 }
 
-getResults <- function(file, test_name) {
+getResults <- function(file) {
     packages <- c("julia","octave","matlab","python","scilab")
-    max_input_size <- length(list.datasets(file[test_name]["octave"]))
-    max_ratio  <- 2.5
+    tests <- c("sin", "conv", "fft", "four1", "wavread", "pass")
     results <- list()
-    for (package in packages) {
-        number_of_tests  <- length(file[test_name][package]["1"][])
-        results[[package]] <- matrix(NA,max_input_size,number_of_tests)
-        for (input_size in 1:max_input_size) {
-            res <- as.vector(file[test_name][package][toString(input_size)][])
-            results[[package]][input_size,1:length(res)] <- res
+    for (test_name in tests) {
+        results[[test_name]] <- list()
+        max_input_size <- length(list.datasets(file[test_name]["octave"]))
+        for (package in packages) {
+            number_of_tests  <- length(file[test_name][package]["1"][])
+            results[[test_name]][[package]] <- matrix(NA,max_input_size,number_of_tests)
+            for (input_size in 1:max_input_size) {
+                res <- as.vector(file[test_name][package][toString(input_size)][])
+                results[[test_name]][[package]][input_size,1:length(res)] <- res
+            }
         }
     }
     results
@@ -294,7 +297,7 @@ author <- "Szymon Mikulicz"
 shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],sep='')
 
 file <- h5file("/mnt/data/Documents/Workspace/Thesis/tests/results.h5")
-
+results <- getResults(file)
 @ 
 
 %---------------------------------------------------------------------------
@@ -457,7 +460,7 @@ który zajmuje się uruchamianiem pakietów, interpretuje
 przyjmowane argumenty oraz przekazuje opcje do pakietów, oraz
 ze skryptów w każdym z testowanych języków, które uruchamiają
 testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
-Najważniejszą częścią skryptu testującego jest funkcja testdir(),
+Najważniejszą częścią skryptu testującego jest funkcja testdir,
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
 testowanego, \emph{\$2} -- rozszerzenie plików pakietu oraz \emph{\$3} --
 nazwa folderu w którym znajdują się testy. Testy muszą znajdywać
@@ -517,9 +520,7 @@ foldery i pliki.
 
 <<splot, fig.cap="splot">>=
 
-results <- getResults(file, "conv")
-
-preparePlot(results)
+preparePlot(results$conv)
 
 @ 
 
@@ -532,9 +533,7 @@ preparePlot(results)
 
 <<fft, fig.cap="splot">>=
 
-results <- getResults(file, "fft")
-
-preparePlot(results)
+preparePlot(results$fft)
 
 @ 
 
@@ -544,9 +543,7 @@ preparePlot(results)
 
 <<four1, fig.cap="splot">>=
 
-results <- getResults(file, "four1")
-
-preparePlot(results)
+preparePlot(results$four1)
 
 @ 
 
@@ -556,9 +553,7 @@ preparePlot(results)
 
 <<sin, fig.cap="splot">>=
 
-results <- getResults(file, "sin")
-
-preparePlot(results)
+preparePlot(results$sin)
 
 @ 
 
@@ -568,9 +563,7 @@ preparePlot(results)
 
 <<wavread, fig.cap="splot">>=
 
-results <- getResults(file, "wavread")
-
-preparePlot(results)
+preparePlot(results$wavread)
 
 @ 
 
