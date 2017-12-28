@@ -450,8 +450,30 @@ przetwarzania i analizy danych wynikowych testów wykorzystano język
 \section{System testujący}
 \label{sec:systest}
 
-\lstinputlisting[language=bash]{../tests/test.sh}%
+Został napisany automatyczny system testujący pakiety w celu
+wygodnego powtarzania testów. Składa się on z skryptu w bashu
+(powłoka systemowa w większości systemów opartych na Linuxie),
+który zajmuje się uruchamianiem pakietów, interpretuje
+przyjmowane argumenty oraz przekazuje opcje do pakietów, oraz
+ze skryptów w każdym z testowanych języków, które uruchamiają
+testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
+Najważniejszą częścią skryptu testującego jest funkcja testdir(),
+która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
+testowanego, \emph{\$2} -- rozszerzenie plików pakietu oraz \emph{\$3} --
+nazwa folderu w którym znajdują się testy. Testy muszą znajdywać
+się w podfolderach i zawierać się w pliku \emph{test.\$2}. Struktura tego
+pliku zostanie omówiona później.
 
+\lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
+
+Poniżej znajduje się jeden z plików \emph{tester}. Jak można
+zauważyć wyniki zapisywanie są w pliku w formacie HDF5 --
+jest to binarny format zapisu danych liczbowych w postaci
+macierzy wielowymiarowych, który jest obsługiwany przez
+wszystkie pakiety (do GNU Octave wymagana jest dodatkowa
+biblioteka) i zawiera informację o strukturze, przypominającej
+foldery i pliki.
+\lstinputlisting[language=Julia]{../tests/julia/tester.jl}
 \section{Badane funkcje i algorytmy}
 \label{sec:algo}
 
