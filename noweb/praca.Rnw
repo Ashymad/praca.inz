@@ -23,6 +23,10 @@
 \usepackage{enumitem}
 \setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
 
+% specjalistyczne pakiety
+
+\usepackage{dirtree}% Drzewo folderów
+
 % --- < bibliografia > --
 
 
@@ -341,7 +345,7 @@ results <- getResults(file)
   \facultyPL{Wydział Inżynierii Mechanicznej i Robotyki}
   \facultyEN{Faculty of Mechanical Engineering and Robotics}
 
-  \thesisplan{ % Przykłądowy plan pracy, należy omówić z promotorem
+  \thesisplan{ % Przykładowy plan pracy, należy omówić z promotorem
     \begin{enumerate}
     \item Omówienie tematu pracy i sposobu realizacji z promotorem.
     \item Zebranie i opracowanie literatury dotyczącej tematu pracy.
@@ -449,7 +453,6 @@ pakietów obliczeniowych wykorzystano aplikację \emph{htop}, a do
 przetwarzania i analizy danych wynikowych testów wykorzystano język
 \emph{R}.
 
-
 \section{System testujący}
 \label{sec:systest}
 
@@ -457,17 +460,47 @@ Został napisany automatyczny system testujący pakiety w celu
 wygodnego powtarzania testów. Składa się on z skryptu w bashu
 (powłoka systemowa w większości systemów opartych na Linuxie),
 który zajmuje się uruchamianiem pakietów, interpretuje
-przyjmowane argumenty oraz przekazuje opcje do pakietów, oraz
+przyjmowane argumenty i przekazuje opcje do pakietów, oraz
 ze skryptów w każdym z testowanych języków, które uruchamiają
 testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
-Najważniejszą częścią skryptu testującego jest funkcja testdir,
+Najważniejszą częścią skryptu testującego jest funkcja \emph{testdir},
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
 testowanego, \emph{\$2} -- rozszerzenie plików pakietu oraz \emph{\$3} --
 nazwa folderu w którym znajdują się testy. Testy muszą znajdywać
 się w podfolderach i zawierać się w pliku \emph{test.\$2}. Struktura tego
-pliku zostanie omówiona później.
+pliku jest omówiona w punkcie \ref{sec:algo}.
+\lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}
 
-\lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
+Funkcja \emph{testdir} uruchamiana jest dla każdego z pakietów
+z odpowiednimi argumentami, ponadto w pliku \emph{test.sh},
+znajduje się tablica z globalnymi ustawieniami, które zostaną
+zapisane w pliku \emph{options.\$2} i następnie wczytane przez
+kod testujący w testowanym języku w pliku \emph{tester.\$2}.
+\begin{figure}[H]%
+  \centering%
+  \begin{minipage}{0.3\textwidth}%
+    \dirtree{%
+      .1 tests/.
+      .2 test.sh.
+      .2 matlab/.
+      .3 tester.m.
+      .3 tests/.
+      .4 sin/.
+      .5 test.m.
+      .4 fft/.
+      .5 test.m.
+      .4 \dots.
+      .2 julia/.
+      .3 \dots.
+      .2 \dots.
+    }%
+  \end{minipage}%
+  \caption{Struktura folderów systemu testującego}%
+  \label{fig:dirstruc}%
+\end{figure}%
+
+Na rysunku \ref{fig:dirstruc} można zobaczyć jak wygląda struktura
+folderów na której operuje system testujący.
 
 Poniżej znajduje się jeden z plików \emph{tester}. Jak można
 zauważyć wyniki zapisywanie są w pliku w formacie HDF5 --
@@ -477,13 +510,35 @@ wszystkie pakiety (do GNU Octave wymagana jest dodatkowa
 biblioteka) i zawiera informację o strukturze, przypominającej
 foldery i pliki.
 \lstinputlisting[language=Julia]{../tests/julia/tester.jl}
+
 \section{Badane funkcje i algorytmy}
 \label{sec:algo}
 
-\subsection{Splot}
-\label{sec:splot}
+Zbadano pięć funkcji, cztery biblioteczne i jedną własną.
+Starano się wybrać funkcję które są koniecznym elementem 
+budulcowym w aplikacjach przetwarzających sygnały audio.
+Każdy test znajduje się w jednym pliku w którym muszą
+znajdywać się funkcje: \emph{prepare\_input} -- 
+przygotowuje dane wejściowe dla testowanej funkcji, jako
+argument przyjmuje ilość elementów wektora danych,
+\emph{test\_function} -- testowana funkcja, przyjmuje
+dane przygotowane przez funkcję \emph{prepare\_input},
+przetwarza je i zwraca wynik. W kolejnych punktach zostaną
+opisane pokrótce te algorytmy wraz z przykładowym kodem
+w jednym z testowanych języków.
 
-\lstinputlisting[language=Python]{../tests/python/tests/conv/test.py}%
+\subsection{Sinus}
+\label{sec:sin}
+
+Jako pierwszą zbadano, jedną z najbardziej podstawowych
+funkcji matematycznych, jaką jest sinus. Kod testu w
+MATLABie/GNU Octave można znaleźć poniżej. 
+\lstinputlisting[language=MATLAB, firstline=3]{../tests/matlab/tests/sin/test.m}
+
+Jest to najprostszy test, funkcja przygotowująca dane
+tworzy tablicę punktów rozmieszczonych w równych odległościach
+pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
+funkcję \emph{sin()} na tych danych.
 
 \subsection{FFT}
 \label{sec:fft}
@@ -496,12 +551,12 @@ foldery i pliki.
 \subsubsection{Algorytm własny}
 \label{sec:fftwla}
 
-\lstinputlisting[language=julia]{../tests/julia/tests/four1/test.jl}%
+\lstinputlisting[language=julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
 
-\subsection{Sinus}
-\label{sec:sin}
+\subsection{Splot}
+\label{sec:splot}
 
-\lstinputlisting[language=MATLAB]{../tests/matlab/tests/sin/test.m}%
+\lstinputlisting[language=Python]{../tests/python/tests/conv/test.py}%
 
 \subsection{Wczytywanie pliku audio}
 \label{sec:wavread}
