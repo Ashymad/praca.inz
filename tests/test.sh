@@ -23,11 +23,11 @@ GOPTIONS=("number_of_tests=$NUMBER_OF_TESTS")
 cp results.h5 /tmp
 
 testdir () {
-	cd $STARTDIR/$3
-
-	for option in ${GOPTIONS[*]}; do
+	cd $STARTDIR/$3 #Przejdź do folderu zawierającego testy
+	#GOPTIONS - Tablica zawierająca opcje globalne
+	for option in ${GOPTIONS[*]}; do  #np. ilość testów
 		echo "$option;" >> options.$2
-	done
+	done #Te opcje zapisywane są w pliku
 	
 	for dir in tests/*; do
 		cd $STARTDIR/$3
