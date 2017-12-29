@@ -25,6 +25,7 @@
 
 
 % floaty w sekcji w które są stworzone
+
 \usepackage{placeins}
 
 \let\Oldsection\section
@@ -494,12 +495,6 @@ folderów.
 \lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
 \label{tab:testdir}%
 \end{table}%
-
-Funkcja \emph{testdir} uruchamiana jest dla każdego z pakietów
-z odpowiednimi argumentami, ponadto w pliku \emph{test.sh},
-znajduje się tablica z globalnymi ustawieniami, które zostaną
-zapisane w pliku \emph{options.\$2} i następnie wczytane przez
-kod testujący w testowanym języku w pliku \emph{tester.\$2}.
 \begin{figure}[h]%
   \centering%
   \begin{minipage}{0.3\textwidth}%
@@ -522,19 +517,30 @@ kod testujący w testowanym języku w pliku \emph{tester.\$2}.
   \caption{Struktura folderów systemu testującego}%
   \label{fig:dirstruc}%
 \end{figure}%
-
-Poniżej znajduje się jeden z plików \emph{tester}. Jak można
-zauważyć wyniki zapisywanie są w pliku w formacie HDF5 --
+\begin{table}[h]%
+  \caption{Kod pliku testującego (Julia)}%
+  \lstinputlisting[language=Julia]{../tests/julia/tester.jl}%
+  \label{tab:tester}%
+\end{table}%
+Funkcja \emph{testdir} uruchamiana jest dla każdego z pakietów
+z odpowiednimi argumentami, ponadto w pliku \emph{test.sh},
+znajduje się tablica z globalnymi ustawieniami, które zostaną
+zapisane w pliku \emph{options.\$2} i następnie wczytane przez
+kod testujący w testowanym języku w pliku \emph{tester.\$2}
+(Tab. \ref{tab:tester}). Skrypt \emph{test.sh} można uruchomić
+z trzema argumentami, kolejno: nazwa folderu z testami
+(nazwa pakietu), nazwa testu (folderu z plikiem \emph{test.\$2})
+i maksymalny rząd wielkości ilości elementów wektora wejściowego.
+Argumenty pierwszy i drugi przekazywane są do funkcji \emph{testdir} jako
+odpowiednio \emph{\$3} i \emph{\$TESTARG}, natomiast zmienna
+\emph{\$INPUT\_SIZES} zawiera szereg kolejnych potęg liczby dziesięć,
+aż do maksymalnego rzędu wielkości ilości elementów wektora wejściowego.
+Jak można zauważyć wyniki zapisywanie są w pliku w formacie HDF5 --
 jest to binarny format zapisu danych liczbowych w postaci
 macierzy wielowymiarowych, który jest obsługiwany przez
 wszystkie pakiety (do GNU Octave wymagana jest dodatkowa
 biblioteka) i zawiera informację o strukturze, przypominającej
 foldery i pliki.
-\begin{table}[h]%
-\caption{Kod pliku testującego (Julia)}%
-\lstinputlisting[language=Julia]{../tests/julia/tester.jl}%
-\label{tab:tester}%
-\end{table}%
 
 \section{Badane funkcje i algorytmy}
 \label{sec:algo}
@@ -556,56 +562,67 @@ w jednym z testowanych języków.
 \label{sec:sin}
 
 Jako pierwszą zbadano, jedną z najbardziej podstawowych
-funkcji matematycznych, jaką jest sinus. Kod testu w
-MATLABie/GNU Octave można znaleźć poniżej. 
-\begin{table}[h]%
-\caption{Kod testu \emph{sin} (MATLAB/GNU Octave)}%
-\lstinputlisting[language=MATLAB, firstline=3]{../tests/matlab/tests/sin/test.m}%
-\label{tab:sintest}%
-\end{table}%
-
-Jest to najprostszy test, funkcja przygotowująca dane
+funkcji matematycznych, jaką jest sinus. Jest to najprostszy
+test, funkcja przygotowująca dane
 tworzy tablicę punktów rozmieszczonych w równych odległościach
 pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
-funkcję \emph{sin()} na tych danych.
+funkcję \emph{sin()} na tych danych (Rys. \ref{tab:sintest}.
+
+\begin{table}[h]%
+  \caption{Kod testu \emph{sin} (MATLAB/GNU Octave)}%
+  \lstinputlisting[language=MATLAB, firstline=6]{../tests/matlab/tests/sin/test.m}%
+  \label{tab:sintest}%
+\end{table}%
 
 \subsection{FFT}
 \label{sec:fft}
 
+FFT (Fast Fourier Transform) jest niezwykle istotnym algorytmem w analizie
+sygnałów audio, pozwala wykonać dyskretną transformatę
+Fouriera w znacznie krótszym czasie niż algorytm naiwny.
+
 \subsubsection{Funkcja biblioteczna}
 \label{sec:fftbib}
 
+Danymi wejściowymi jest sygnał audio, będący sumą dwóch
+sinusów o częstotliwościach \SI{50}{\hertz} i \SI{120}{\hertz}
+oraz szumu białego, o częstotliwości próbkowania \SI{1}{\kilo\hertz}.
+Funkcja testowana wywołuje na tym sygnale funkcję \emph{fft()}
+(Tab. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
+funkcji \emph{fft()} dla pakietu MATLAB[odnośnik]. W pakiecie \emph{Anaconda} jest
+dostępnych kilka implementacji FFT, wykorzystano tę której wyniki
+były najlepsze -- \emph{scipy.fftpack.fft} z pakietu \emph{SciPy}.
 \begin{table}[h]%
-\caption{Kod testu \emph{fft} (MATLAB/GNU Octave)}%
-\lstinputlisting[language=Octave]{../tests/octave/tests/fft/test.m}%
-\label{tab:ffttest}%
+  \caption{Kod testu \emph{fft} (MATLAB/GNU Octave)}%
+  \lstinputlisting[language=Octave, firstline=6]{../tests/octave/tests/fft/test.m}%
+  \label{tab:ffttest}%
 \end{table}%
 
 \subsubsection{Algorytm własny}
 \label{sec:fftwla}
 
 \begin{table}[h]%
-\caption{Kod testu \emph{four1} (Julia)}%
-\lstinputlisting[language=julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
-\label{tab:four1test}%
+  \caption{Kod testu \emph{four1} (Julia)}%
+  \lstinputlisting[language=julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
+  \label{tab:four1test}%
 \end{table}%
 
 \subsection{Splot}
 \label{sec:splot}
 
 \begin{table}[h]%
-\caption{Kod testu \emph{conv} (Python)}%
-\lstinputlisting[language=Python]{../tests/python/tests/conv/test.py}%
-\label{tab:convtest}%
+  \caption{Kod testu \emph{conv} (Python)}%
+  \lstinputlisting[language=Python]{../tests/python/tests/conv/test.py}%
+  \label{tab:convtest}%
 \end{table}%
 
 \subsection{Wczytywanie pliku audio}
 \label{sec:wavread}
 
 \begin{table}[h]%
-\caption{Kod testu \emph{wavread} (Scilab)}%
-\lstinputlisting[language=Scilab]{../tests/scilab/tests/wavread/test.sci}%
-\label{tab:wavreadtest}%
+  \caption{Kod testu \emph{wavread} (Scilab)}%
+  \lstinputlisting[language=Scilab]{../tests/scilab/tests/wavread/test.sci}%
+  \label{tab:wavreadtest}%
 \end{table}%
 
 \section{Proces analizy wyników}
