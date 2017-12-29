@@ -187,6 +187,9 @@ library(ggplot2)
 library(reshape2)
 library(dplyr)
 
+packages <- c("julia","octave","matlab","python","scilab")
+tests <- c("sin", "conv", "fft", "four1", "wavread")
+
 rowMax <- function(x, shaveoffpercent=5) {
     apply(x, 1, function(e) {
         max(shaveoff(e, shaveoffpercent), na.rm=TRUE)
@@ -216,8 +219,6 @@ shaveoff  <- function(vec, percent) {
 }
 
 getResults <- function(h5df_file) {
-    packages <- c("julia","octave","matlab","python","scilab")
-    tests <- c("sin", "conv", "fft", "four1", "wavread", "pass")
     results <- list()
     for (test_name in tests) {
         results[[test_name]] <- list()
@@ -254,6 +255,28 @@ preparePlot <- function(res) {
     plot <- plot + theme_bw() + theme(legend.position=c(0.01,0.99), legend.justification=c(0.01,0.99))
     plot
 }
+
+summaryMelt <- function(res, func) {
+    as.data.frame(melt(lapply(res, function(package) {
+        melt(lapply(package, function(x) {
+            tail(func(x),1)
+        }))
+    })) %>% group_by(L1) %>% mutate(id = packages[row_number()]))
+}
+
+summaryPlot <- function(res) {
+    sumres <- summaryMelt(res, rowMedian)
+    summax <- summaryMelt(res, rowMax)
+    summin <- summaryMelt(res, rowMin)
+
+    plot <- ggplot(sumres, aes(x=L1, y=value, colour=id)) 
+    plot <- plot + geom_point() + theme_bw() + scale_y_sqrt()
+    plot <- plot + geom_errorbar(aes(ymin=summin["value"], ymax=summax["value"]), width=.1)
+    plot <- plot + ylab("Czas wykonywania procedury [$\\si{\\second}$]")
+    plot <- plot + xlab("Testowana funkcja")
+    plot <- plot + labs(colour="Pakiet obliczeniowy")
+    plot
+}
 @ 
 %----------------------------Zmienne----------------------------------------
 
@@ -263,6 +286,8 @@ shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],s
 
 results.file <- h5file("/mnt/data/Documents/Workspace/Thesis/tests/results.h5")
 results.list <- getResults(results.file)
+h5close(results.file)
+
 @ 
 
 %-------------------------Ustawienia TikzDevice---------------------------
@@ -595,7 +620,9 @@ argument przyjmuje ilość elementów wektora danych,
 dane przygotowane przez funkcję \emph{prepare\_input},
 przetwarza je i zwraca wynik. W kolejnych punktach zostaną
 opisane pokrótce te testy wraz z przykładowym kodem
-w jednym z testowanych języków.
+w jednym z testowanych języków. Jeśli nie jest napisane
+inaczej, to w testach w pythonie korzystano z funkcji
+z biblioteki \emph{NumPy}.
 
 \subsection{Sinus}
 \label{sec:sin}
@@ -606,10 +633,16 @@ test, funkcja przygotowująca dane
 tworzy tablicę punktów rozmieszczonych w równych odległościach
 pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
 funkcję \emph{sin()} na tych danych (Rys. \ref{tab:sintest}.
+W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
+\emph{numexpr}, która pozwala znacznie przyspieszyć wykonywanie
+prostych operacji matematycznych, jak dodawanie, mnożenie czy
+właśnie obliczanie sinusa. Staje się to dzięki podziałowi
+operacji na wszystkie dostępne wątki procesora i wykonywanie
+równoległych obliczeń.
 
 \begin{table}[h]%
-  \caption{Kod testu \emph{sin} (MATLAB/GNU Octave)}%
-  \lstinputlisting[language=MATLAB, firstline=6]{../tests/matlab/tests/sin/test.m}%
+  \caption{Kod testu \emph{sin} (Python)}%
+  \lstinputlisting[language=Python, firstline=3]{../tests/python/tests/sin/test.py}%
   \label{tab:sintest}%
 \end{table}%
 
@@ -632,8 +665,8 @@ funkcji \emph{fft()} dla pakietu MATLAB[odnośnik]. W pakiecie \emph{Anaconda} j
 dostępnych kilka implementacji FFT, wykorzystano tę której wyniki
 były najlepsze -- \emph{scipy.fftpack.fft} z biblioteki \emph{SciPy}.
 \begin{table}[h]%
-  \caption{Kod testu \emph{fft} (MATLAB/GNU Octave)}%
-  \lstinputlisting[language=Octave, firstline=6]{../tests/octave/tests/fft/test.m}%
+  \caption{Kod testu \emph{fft} (Python)}%
+  \lstinputlisting[language=Python, firstline=2]{../tests/python/tests/fft/test.py}%
   \label{tab:ffttest}%
 \end{table}%
 
@@ -655,11 +688,6 @@ jest potęgą liczby dwa, są one wydłużane przez dodanie
 odpowiedniej ilości zer.
 
 [Tutaj opis algorytmu]
-%\begin{table}[h]%
-%  \caption{Kod testu \emph{four1} (Julia)}%
-%  \lstinputlisting[language=julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
-%  \label{tab:four1test}%
-%\end{table}%
 
 \subsection{Splot}
 \label{sec:splot}
@@ -672,8 +700,8 @@ wywołuje splot na dwóch tablicach z wartościami losowymi
 (Tab. \ref{tab:convtest}).
 
 \begin{table}[h]%
-  \caption{Kod testu \emph{conv} (Python)}%
-  \lstinputlisting[language=Python, firstline=2]{../tests/python/tests/conv/test.py}%
+  \caption{Kod testu \emph{conv} (MATLAB/GNU Octave)}%
+  \lstinputlisting[language=MATLAB, firstline=6]{../tests/matlab/tests/conv/test.m}%
   \label{tab:convtest}%
 \end{table}%
 
@@ -739,7 +767,6 @@ preparePlot(results.list$fft)
 \subsection{Algorytm własny}
 \label{sec:wynfftwla}
 
-
 <<four1, fig.cap="splot">>=
 
 preparePlot(results.list$four1)
@@ -748,7 +775,6 @@ preparePlot(results.list$four1)
 
 \section{Sinus}
 \label{sec:wynsin}
-
 
 <<sin, fig.cap="splot">>=
 
@@ -759,7 +785,6 @@ preparePlot(results.list$sin)
 \section{Wczytywanie pliku audio}
 \label{sec:wynwavread}
 
-
 <<wavread, fig.cap="splot">>=
 
 preparePlot(results.list$wavread)
@@ -769,6 +794,11 @@ preparePlot(results.list$wavread)
 \section{Sumaryczne zestawienie wyników}
 \label{sec:sum}
 
+<<summary, fig.cap="splot">>=
+
+summaryPlot(results.list)
+
+@ 
 \chapter{Podsumowanie}
 \label{chap:podsumowanie}
 
