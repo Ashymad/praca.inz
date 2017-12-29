@@ -41,6 +41,7 @@
 % specjalistyczne pakiety
 
 \usepackage{dirtree}% Drzewo folderów
+\usepackage{textcomp}% Symbole trademark, registered...
 
 % --- < bibliografia > --
 
@@ -442,13 +443,18 @@ Pozwala on, procesowi o wysokim priorytecie, otrzymać zasoby
 komputera (czas procesora, dostęp do RAMu i dysku) w pierwszej
 kolejności, przed większością procesów systemowych oraz, co jest
 normalnym zachowaniem Linuxa, wszystkimi procesami o niższym
-priorytecie[BIBTEX:https://lwn.net/Articles/146861/]. Dzięki temu można mieć pewność, że
-żaden proces uruchomiony w tle nie spowoduje zaniżonych wyników
-badań. 
+priorytecie[BIBTEX:https://lwn.net/Articles/146861/]. Dzięki temu
+można mieć pewność, że żaden proces uruchomiony w tle nie spowoduje
+zaniżonych wyników badań. Testy przeprowadzono na dwóch komputerach:
+laptopie z ośmiowątkowym procesorem Intel\textregistered\
+Core\texttrademark\ piątej generacji oraz komputerze
+stacjonarnym z czterowątkowym procesorem AMD z serii 
+Phenom\texttrademark\ II w celu porównania wyników na różnych
+platformach.
 
-Wykorzystano dystrybucję \emph{Manjaro Linux}, gdyż posiada ona
-RTLinux w oficjalnych repozytoriach. Wykorzystana wersja
-Linuxa to 4.11.12\_rt16. Wykorzystane wersje pakietów to:
+Wykorzystano dystrybucję \emph{Arch Linux}, gdyż posiada ona
+RTLinux w repozytoriach użytkowników. Wykorzystana wersja
+Linuxa to 4.14.8\_rt9. Wykorzystane wersje pakietów to:
 \begin{itemize}%
 \item Anaconda 5.01/Python 3.6.3
 \item GNU Octave 4.2.1
@@ -482,6 +488,11 @@ który zajmuje się uruchamianiem pakietów, interpretuje
 przyjmowane argumenty i przekazuje opcje do pakietów, oraz
 ze skryptów w każdym z testowanych języków, które uruchamiają
 testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
+\begin{table}[h]%
+\caption{Kod funkcji \emph{testdir}}%
+\lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
+\label{tab:testdir}%
+\end{table}%
 Najważniejszą częścią skryptu testującego jest funkcja \emph{testdir}
 (Tablica \ref{tab:testdir}),
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
@@ -491,11 +502,6 @@ się w podfolderach i zawierać się w pliku \emph{test.\$2}. Struktura tego
 pliku jest omówiona w punkcie \ref{sec:algo}, natomiast rysunek
 \ref{fig:dirstruc} pokazuje jak powinna wyglądać struktura
 folderów.
-\begin{table}[h]%
-\caption{Kod funkcji \emph{testdir}}%
-\lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
-\label{tab:testdir}%
-\end{table}%
 \begin{figure}[h]%
   \centering%
   \begin{minipage}{0.3\textwidth}%
@@ -542,13 +548,16 @@ uruchamiane są bez interfejsu graficznego w celu zmniejszenia
 czasu startowego i pominięcia jego wpływu na wydajność pakietu.
 Plik testujący \emph{tester.\$2} po wykonaniu
 odpowiedniej ilości testów (ilość ustalana jest w pliku
-\emph{test.sh} i następnie przekazywana do pliku \emph{options.\$2})
+\emph{test.sh} i następnie przekazywana do pliku \emph{options.\$2}
+jako zmienna \emph{number\_of\_tests})
 zapisuje wyniki do pliku w formacie HDF5.
 Jest to binarny format zapisu danych liczbowych w postaci
 macierzy wielowymiarowych, który jest obsługiwany przez
 wszystkie pakiety (do GNU Octave wymagana jest dodatkowa
 biblioteka) i zawiera informację o strukturze, przypominającej
-foldery i pliki (Rys. \ref{fig:h5struc}).
+foldery i pliki. Wynik dla każdego rzędu wielkości zapisany jest
+w oddzielnej tablicy, nazwanej numerem oznaczającym rząd wielkości,
+w grupie \emph{/<test>/<pakiet>/} (Rys. \ref{fig:h5struc}).
 \begin{figure}[h]%
   \centering%
   \begin{minipage}{0.3\textwidth}%
