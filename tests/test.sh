@@ -42,7 +42,7 @@ testdir () {
 		printf 'test_name="%s";\n' "$TESTNAME" >> options.$2
 		for input_size in $INPUT_SIZES; do
 			printf 'input_size=%s;\n' $input_size >> options.$2
-			sudo chrt --rr 99 $1
+			chrt --rr 99 $1
 		done
 		rm tester.$2
 		rm options.$2
