@@ -1,3 +1,5 @@
+\PassOptionsToPackage{binary-units=true}{siunitx}
+
 \documentclass[pl,12pt]{aghdpl}
 % \documentclass[en,11pt]{aghdpl}  % praca w języku angielskim
 
@@ -18,7 +20,6 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{siunitx}% jednostki si
 \usepackage{float}% do umieszczenia floatów [h]
 \usepackage{enumitem}
 \setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
@@ -518,8 +519,8 @@ folderów.
   \label{fig:dirstruc}%
 \end{figure}%
 \begin{table}[h]%
-  \caption{Kod pliku testującego (Julia)}%
-  \lstinputlisting[language=Julia]{../tests/julia/tester.jl}%
+  \caption{Fragment kodu pliku testującego (Julia)}%
+  \lstinputlisting[language=Julia, firstline=8, lastline=17]{../tests/julia/tester.jl}%
   \label{tab:tester}%
 \end{table}%
 Funkcja \emph{testdir} uruchamiana jest dla każdego z pakietów
@@ -535,12 +536,40 @@ Argumenty pierwszy i drugi przekazywane są do funkcji \emph{testdir} jako
 odpowiednio \emph{\$3} i \emph{\$TESTARG}, natomiast zmienna
 \emph{\$INPUT\_SIZES} zawiera szereg kolejnych potęg liczby dziesięć,
 aż do maksymalnego rzędu wielkości ilości elementów wektora wejściowego.
-Jak można zauważyć wyniki zapisywanie są w pliku w formacie HDF5 --
-jest to binarny format zapisu danych liczbowych w postaci
+Skrypt uruchamia każdy z pakietów za pomocą komendy \emph{chrt},
+nadając najwyższy priorytet ich procesom, wszystkie pakiety
+uruchamiane są bez interfejsu graficznego w celu zmniejszenia
+czasu startowego i pominięcia jego wpływu na wydajność pakietu.
+Plik testujący \emph{tester.\$2} po wykonaniu
+odpowiedniej ilości testów (ilość ustalana jest w pliku
+\emph{test.sh} i następnie przekazywana do pliku \emph{options.\$2})
+zapisuje wyniki do pliku w formacie HDF5.
+Jest to binarny format zapisu danych liczbowych w postaci
 macierzy wielowymiarowych, który jest obsługiwany przez
 wszystkie pakiety (do GNU Octave wymagana jest dodatkowa
 biblioteka) i zawiera informację o strukturze, przypominającej
-foldery i pliki.
+foldery i pliki (Rys. \ref{fig:h5struc}).
+\begin{figure}[h]%
+  \centering%
+  \begin{minipage}{0.3\textwidth}%
+    \dirtree{%
+      .1 /.
+      .2 sin/.
+      .3 matlab/.
+      .4 1.
+      .4 2.
+      .4 \dots.
+      .3 julia/.
+      .4 \dots.
+      .3 \dots.
+      .2 fft/.
+      .3 \dots.
+      .2 \dots.
+    }%
+  \end{minipage}%
+  \caption{Struktura wyników w pliku HDF5}%
+  \label{fig:h5struc}%
+\end{figure}%
 
 \section{Badane funkcje i algorytmy}
 \label{sec:algo}
@@ -555,7 +584,7 @@ argument przyjmuje ilość elementów wektora danych,
 \emph{test\_function} -- testowana funkcja, przyjmuje
 dane przygotowane przez funkcję \emph{prepare\_input},
 przetwarza je i zwraca wynik. W kolejnych punktach zostaną
-opisane pokrótce te algorytmy wraz z przykładowym kodem
+opisane pokrótce te testy wraz z przykładowym kodem
 w jednym z testowanych języków.
 
 \subsection{Sinus}
@@ -591,7 +620,7 @@ Funkcja testowana wywołuje na tym sygnale funkcję \emph{fft()}
 (Tab. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
 funkcji \emph{fft()} dla pakietu MATLAB[odnośnik]. W pakiecie \emph{Anaconda} jest
 dostępnych kilka implementacji FFT, wykorzystano tę której wyniki
-były najlepsze -- \emph{scipy.fftpack.fft} z pakietu \emph{SciPy}.
+były najlepsze -- \emph{scipy.fftpack.fft} z biblioteki \emph{SciPy}.
 \begin{table}[h]%
   \caption{Kod testu \emph{fft} (MATLAB/GNU Octave)}%
   \lstinputlisting[language=Octave, firstline=6]{../tests/octave/tests/fft/test.m}%
@@ -601,32 +630,64 @@ były najlepsze -- \emph{scipy.fftpack.fft} z pakietu \emph{SciPy}.
 \subsubsection{Algorytm własny}
 \label{sec:fftwla}
 
-\begin{table}[h]%
-  \caption{Kod testu \emph{four1} (Julia)}%
-  \lstinputlisting[language=julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
-  \label{tab:four1test}%
-\end{table}%
+Ważnym elementem użytkowania pakietów obliczeniowych jest
+tworzenie własnych procedur, gdyż nie wszystkie
+potrzebne funkcje są zawsze w bibliotekach. Aby przetestować
+jak dobrze dany pakiet jest w stanie zoptymalizować
+ręcznie stworzoną procedurę, napisano w każdym z języków
+dokładnie tę samą funkcję. Funkcją tą jest algorytm FFT,
+opisany przez <Imię Autora>[Odnośnik], zaadaptowany do
+korzystania z natywnych typów liczb zespolonych, które
+występują we wszystkich badanych pakietach. Dane wejściowe
+są identyczne jak w punkcie \ref{sec:fftbib}, lecz, jako że
+ten algorytm operuje tylko na tablicach, których rozmiar
+jest potęgą liczby dwa, są one wydłużane przez dodanie
+odpowiedniej ilości zer.
+
+[Tutaj opis algorytmu]
+%\begin{table}[h]%
+%  \caption{Kod testu \emph{four1} (Julia)}%
+%  \lstinputlisting[language=julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
+%  \label{tab:four1test}%
+%\end{table}%
 
 \subsection{Splot}
 \label{sec:splot}
 
+Splot jest istotną operacją dla przetwarzania sygnałów,
+gdyż pozwala on stosować filtry (FIR, IIR), oraz symulować
+wpływ środowisk akustycznych na sygnał poprzez splecenie
+ich odpowiedzi impulsowych z sygnałem. Funkcja testowana
+wywołuje splot na dwóch tablicach z wartościami losowymi
+(Tab. \ref{tab:convtest}).
+
 \begin{table}[h]%
   \caption{Kod testu \emph{conv} (Python)}%
-  \lstinputlisting[language=Python]{../tests/python/tests/conv/test.py}%
+  \lstinputlisting[language=Python, firstline=2]{../tests/python/tests/conv/test.py}%
   \label{tab:convtest}%
 \end{table}%
 
 \subsection{Wczytywanie pliku audio}
 \label{sec:wavread}
 
+Aby móc sygnał poddać obróbce należy go najpierw wczytać
+do pamięci pakietu. W przypadku dużych plików, wczytywanie
+może być stosunkowo długim procesem. Aby to przetestować
+funkcja przygotowująca tworzy plik w formacie WAV, z
+częstotliwością próbkowania \SI{48}{\kilo\hertz} i
+rozdzielczością bitową \SI{16}{\bit}, o odpowiedniej liczbie
+próbek, natomiast funkcja testowana wczytuje go do pamięci
+(Tab. \ref{tab:wavreadtest}).
+
 \begin{table}[h]%
   \caption{Kod testu \emph{wavread} (Scilab)}%
-  \lstinputlisting[language=Scilab]{../tests/scilab/tests/wavread/test.sci}%
+  \lstinputlisting[language=Scilab, firstline=3]{../tests/scilab/tests/wavread/test.sci}%
   \label{tab:wavreadtest}%
 \end{table}%
 
 \section{Proces analizy wyników}
 \label{sec:analiza}
+
 
 
 \chapter{Wyniki testów}
