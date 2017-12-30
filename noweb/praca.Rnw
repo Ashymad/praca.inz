@@ -284,7 +284,7 @@ summaryPlot <- function(res) {
 author <- "Szymon Mikulicz"
 shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],sep='')
 
-results.file <- h5file("/mnt/data/Documents/Workspace/Thesis/tests/results.h5")
+results.file <- h5file("../tests/results.h5", "r")
 results.list <- getResults(results.file)
 h5close(results.file)
 
@@ -741,6 +741,7 @@ spowolnieniem zasobów przez nie wykorzystywanych.
 
 \chapter{Wyniki testów}
 \label{chap:wyniki}
+
 
 \section{Splot}
 \label{sec:wynsplot}
