@@ -284,10 +284,13 @@ summaryPlot <- function(res) {
 author <- "Szymon Mikulicz"
 shortAuthor <- paste(substr(author,1,1),'. ',unlist(strsplit(author,'[ ]'))[2],sep='')
 
-results.file <- h5file("../tests/results.h5", "r")
-results.list <- getResults(results.file)
+results.file <- h5file("../tests/results.amd.h5", "r")
+results.amd <- getResults(results.file)
 h5close(results.file)
 
+results.file <- h5file("../tests/results.intel.h5", "r")
+results.intel <- getResults(results.file)
+h5close(results.file)
 @ 
 
 %-------------------------Ustawienia TikzDevice---------------------------
@@ -516,7 +519,7 @@ testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
 \lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
 \label{tab:testdir}%
 \end{table}%
-Najważniejszą częścią skryptu testującego jest funkcja \emph{testdir}
+Najważniejszą częścią skryptu testującego jest funkcja \lstinline{testdir()}
 (Tablica \ref{tab:testdir}),
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
 testowanego, \emph{\$2} -- rozszerzenie plików pakietu oraz \emph{\$3} --
@@ -671,7 +674,12 @@ Funkcja testowana wywołuje na tym sygnale funkcję \lstinline{fft()}
 (Tab. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
 funkcji \lstinline{fft()} dla pakietu MATLAB[odnośnik]. W pakiecie \emph{Anaconda} jest
 dostępnych kilka implementacji FFT, wykorzystano tę której wyniki
-były najlepsze -- \emph{fftpack.fft} z biblioteki \emph{SciPy}.
+były najlepsze -- \emph{fftpack.fft} z biblioteki \emph{SciPy}. 
+Natomiast w Julii zastosowano dyrektywę
+\lstinline{FFTW.set_num_threads(Sys.CPU_CORES)}, która pozwala
+wykorzystać wszystkie dostępne wątki procesora do obliczeń,
+znacznie przyspieszając obliczenia[odnośnik do doumentacji].
+
 \begin{table}[h]%
   \caption{Kod testu \emph{fft} (Python)}%
   \lstinputlisting[language=Python, firstline=2]{../tests/python/tests/fft/test.py}%
@@ -730,8 +738,8 @@ próbek, natomiast funkcja testowana wczytuje go do pamięci
   \label{tab:wavreadtest}%
 \end{table}%
 
-\section{Proces analizy wyników}
-\label{sec:analiza}
+\chapter{Wyniki testów}
+\label{chap:wyniki}
 
 Do przetwarzania danych wynikowych wykorzystano biblioteki
 \emph{reshape2} i \emph{dplyr}[odnośniki?], natomiast
@@ -747,22 +755,25 @@ wartość średnia występowały dla wszystkich pakietów, uznano
 że są one spowodowane tymczasowym niedoborem lub
 spowolnieniem zasobów przez nie wykorzystywanych.
 
-\chapter{Wyniki testów}
-\label{chap:wyniki}
-
 Każdy test wywoływał funkcję testowaną
-\Sexpr{length(results.list$fft$octave[1,])} razy co
+\Sexpr{length(results.intel$fft$octave[1,])} razy co
 pozwoliło zminimalizować wpływ losowych czynników
 niepożądanych na wyniki. Kolejne punkty zawierają
 wykresy z wynikami oraz ich interpretację. W punkcie
 \ref{sec:sum} znajduje się podsumowanie wyników.
 
-\section{Splot}
-\label{sec:wynsplot}
+\section{Sinus}
+\label{sec:wynsin}
 
-<<splot, fig.cap="splot">>=
+<<sin.intel, fig.cap="splot">>=
 
-preparePlot(results.list$conv)
+preparePlot(results.intel$sin)
+
+@ 
+
+<<sin.amd, fig.cap="splot">>=
+
+preparePlot(results.amd$sin)
 
 @ 
 
@@ -772,46 +783,75 @@ preparePlot(results.list$conv)
 \subsection{Funkcja biblioteczna}
 \label{sec:wynfftbib}
 
+<<fft.intel, fig.cap="splot">>=
 
-<<fft, fig.cap="splot">>=
+preparePlot(results.intel$fft)
 
-preparePlot(results.list$fft)
+@ 
+
+<<fft.amd, fig.cap="splot">>=
+
+preparePlot(results.amd$fft)
 
 @ 
 
 \subsection{Algorytm własny}
 \label{sec:wynfftwla}
 
-<<four1, fig.cap="splot">>=
+<<four1.intel, fig.cap="splot">>=
 
-preparePlot(results.list$four1)
+preparePlot(results.intel$four1)
 
 @ 
 
-\section{Sinus}
-\label{sec:wynsin}
+<<four1.amd, fig.cap="splot">>=
 
-<<sin, fig.cap="splot">>=
+preparePlot(results.amd$four1)
 
-preparePlot(results.list$sin)
+@ 
+
+\section{Splot}
+\label{sec:wynsplot}
+
+<<conv.intel, fig.cap="splot">>=
+
+preparePlot(results.intel$conv)
+
+@ 
+
+<<conv.amd, fig.cap="splot">>=
+
+preparePlot(results.amd$conv)
 
 @ 
 
 \section{Wczytywanie pliku audio}
 \label{sec:wynwavread}
 
-<<wavread, fig.cap="splot">>=
+<<wavread.intel, fig.cap="splot">>=
 
-preparePlot(results.list$wavread)
+preparePlot(results.intel$wavread)
+
+@ 
+
+<<wavread.amd, fig.cap="splot">>=
+
+preparePlot(results.amd$wavread)
 
 @ 
 
 \section{Sumaryczne zestawienie wyników}
 \label{sec:sum}
 
-<<summary, fig.cap="splot">>=
+<<summary.intel, fig.cap="splot">>=
 
-summaryPlot(results.list)
+summaryPlot(results.intel)
+
+@ 
+
+<<summary.amd, fig.cap="splot">>=
+
+summaryPlot(results.amd)
 
 @ 
 \chapter{Podsumowanie}
