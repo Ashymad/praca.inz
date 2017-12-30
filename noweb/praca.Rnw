@@ -84,7 +84,7 @@ backend=biber
 \usepackage{newtxtext}
 
 \usepackage{listings}
-\lstloadlanguages{TeX}
+\lstloadlanguages{MATLAB}
 
 \lstset{
   literate={ą}{{\k{a}}}1
@@ -431,6 +431,7 @@ knit_theme$set(knit_theme$get("default"))
 \label{cha:wstep}
 Jaka jest akustyka, każdy widzi\cite{Lam92}.
 
+W 
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
@@ -551,7 +552,7 @@ folderów.
   \lstinputlisting[language=Julia, firstline=8, lastline=17]{../tests/julia/tester.jl}%
   \label{tab:tester}%
 \end{table}%
-Funkcja \emph{testdir} uruchamiana jest dla każdego z pakietów
+Funkcja \lstinline{testdir()} uruchamiana jest dla każdego z pakietów
 z odpowiednimi argumentami, ponadto w pliku \emph{test.sh},
 znajduje się tablica z globalnymi ustawieniami, które zostaną
 zapisane w pliku \emph{options.\$2} i następnie wczytane przez
@@ -560,11 +561,12 @@ kod testujący w testowanym języku w pliku \emph{tester.\$2}
 z trzema argumentami, kolejno: nazwa folderu z testami
 (nazwa pakietu), nazwa testu (folderu z plikiem \emph{test.\$2})
 i maksymalny rząd wielkości ilości elementów wektora wejściowego.
-Argumenty pierwszy i drugi przekazywane są do funkcji \emph{testdir} jako
-odpowiednio \emph{\$3} i \emph{\$TESTARG}, natomiast zmienna
-\emph{\$INPUT\_SIZES} zawiera szereg kolejnych potęg liczby dziesięć,
+Argumenty pierwszy i drugi przekazywane są do funkcji \lstinline{testdir()} jako
+odpowiednio \lstinline{$3} i \lstinline{$TESTARG}, natomiast zmienna
+\lstinline{$INPUT_SIZES}%$
+zawiera szereg kolejnych potęg liczby dziesięć,
 aż do maksymalnego rzędu wielkości ilości elementów wektora wejściowego.
-Skrypt uruchamia każdy z pakietów za pomocą komendy \emph{chrt},
+Skrypt uruchamia każdy z pakietów za pomocą komendy \lstinline{chrt},
 nadając najwyższy priorytet ich procesom, wszystkie pakiety
 uruchamiane są bez interfejsu graficznego w celu zmniejszenia
 czasu startowego i pominięcia jego wpływu na wydajność pakietu.
@@ -572,10 +574,16 @@ Plik testujący \emph{tester.\$2} pomija wynik pierwszego
 testu by uwzględnić \emph{prekompilację} -- w celu przyspieszenia
 wykonywania instrukcji część pakietów kompiluje napisany skrypt do
 postaci kodu maszynowego, co może powodować nadmiarowo długi czas
-wykonywania się skryptu za pierwszym razem. Po wykonaniu
+wykonywania się skryptu za pierwszym razem. Każde uruchomienie
+funkcji testowanej zawarte jest pomiędzy wywołaniami funkcji
+mierzących czas systemowy: są to \lstinline{tic()} i \lstinline{toc()}
+w MATLABie, GNU Octave i Scilabie, \lstinline{tic()} i
+\lstinline{toq()} w Julii, natomiast
+w Pythonie wywoływane jest \lstinline{tic = time.time()} i
+\lstinline{time.time() - tic}. Po wykonaniu
 odpowiedniej ilości testów (ilość ustalana jest w pliku
 \emph{test.sh} i następnie przekazywana do pliku \emph{options.\$2}
-jako zmienna \emph{number\_of\_tests})
+jako zmienna \lstinline{number_of_tests})
 zapisuje wyniki do pliku w formacie HDF5.
 Jest to binarny format zapisu danych liczbowych w postaci
 macierzy wielowymiarowych, który jest obsługiwany przez
@@ -613,11 +621,11 @@ Zbadano pięć funkcji, cztery biblioteczne i jedną własną.
 Starano się wybrać funkcję które są koniecznym elementem 
 budulcowym w aplikacjach przetwarzających sygnały audio.
 Każdy test znajduje się w jednym pliku w którym muszą
-znajdywać się funkcje: \emph{prepare\_input} -- 
+znajdywać się funkcje: \lstinline{prepare_input} -- 
 przygotowuje dane wejściowe dla testowanej funkcji, jako
 argument przyjmuje ilość elementów wektora danych,
-\emph{test\_function} -- testowana funkcja, przyjmuje
-dane przygotowane przez funkcję \emph{prepare\_input},
+\lstinline{test_function} -- testowana funkcja, przyjmuje
+dane przygotowane przez funkcję \lstinline{prepare_input},
 przetwarza je i zwraca wynik. W kolejnych punktach zostaną
 opisane pokrótce te testy wraz z przykładowym kodem
 w jednym z testowanych języków. Jeśli nie jest napisane
@@ -632,7 +640,7 @@ funkcji matematycznych, jaką jest sinus. Jest to najprostszy
 test, funkcja przygotowująca dane
 tworzy tablicę punktów rozmieszczonych w równych odległościach
 pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
-funkcję \emph{sin()} na tych danych (Rys. \ref{tab:sintest}.
+funkcję \lstinline{sin()} na tych danych (Rys. \ref{tab:sintest}.
 W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
 \emph{numexpr}, która pozwala znacznie przyspieszyć wykonywanie
 prostych operacji matematycznych, jak dodawanie, mnożenie czy
@@ -659,11 +667,11 @@ Fouriera w znacznie krótszym czasie niż algorytm naiwny.
 Danymi wejściowymi jest sygnał audio, będący sumą dwóch
 sinusów o częstotliwościach \SI{50}{\hertz} i \SI{120}{\hertz}
 oraz szumu białego, o częstotliwości próbkowania \SI{1}{\kilo\hertz}.
-Funkcja testowana wywołuje na tym sygnale funkcję \emph{fft()}
+Funkcja testowana wywołuje na tym sygnale funkcję \lstinline{fft()}
 (Tab. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
-funkcji \emph{fft()} dla pakietu MATLAB[odnośnik]. W pakiecie \emph{Anaconda} jest
+funkcji \lstinline{fft()} dla pakietu MATLAB[odnośnik]. W pakiecie \emph{Anaconda} jest
 dostępnych kilka implementacji FFT, wykorzystano tę której wyniki
-były najlepsze -- \emph{scipy.fftpack.fft} z biblioteki \emph{SciPy}.
+były najlepsze -- \emph{fftpack.fft} z biblioteki \emph{SciPy}.
 \begin{table}[h]%
   \caption{Kod testu \emph{fft} (Python)}%
   \lstinputlisting[language=Python, firstline=2]{../tests/python/tests/fft/test.py}%
@@ -742,6 +750,12 @@ spowolnieniem zasobów przez nie wykorzystywanych.
 \chapter{Wyniki testów}
 \label{chap:wyniki}
 
+Każdy test wywoływał funkcję testowaną
+\Sexpr{length(results.list$fft$octave[1,])} razy co
+pozwoliło zminimalizować wpływ losowych czynników
+niepożądanych na wyniki. Kolejne punkty zawierają
+wykresy z wynikami oraz ich interpretację. W punkcie
+\ref{sec:sum} znajduje się podsumowanie wyników.
 
 \section{Splot}
 \label{sec:wynsplot}
