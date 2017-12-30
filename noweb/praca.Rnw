@@ -765,13 +765,13 @@ wykresy z wynikami oraz ich interpretację. W punkcie
 \section{Sinus}
 \label{sec:wynsin}
 
-<<sin.intel, fig.cap="splot">>=
+<<sin.intel, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (Laptop/Intel)">>=
 
 preparePlot(results.intel$sin)
 
 @ 
 
-<<sin.amd, fig.cap="splot">>=
+<<sin.amd, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (PC/AMD)">>=
 
 preparePlot(results.amd$sin)
 
@@ -783,13 +783,13 @@ preparePlot(results.amd$sin)
 \subsection{Funkcja biblioteczna}
 \label{sec:wynfftbib}
 
-<<fft.intel, fig.cap="splot">>=
+<<fft.intel, fig.cap="Wyniki testu funkcji \\lstinline{fft()} (Laptop/Intel)">>=
 
 preparePlot(results.intel$fft)
 
 @ 
 
-<<fft.amd, fig.cap="splot">>=
+<<fft.amd, fig.cap="Wyniki testu funkcji \\lstinline{fft()} (PC/AMD)">>=
 
 preparePlot(results.amd$fft)
 
@@ -798,13 +798,13 @@ preparePlot(results.amd$fft)
 \subsection{Algorytm własny}
 \label{sec:wynfftwla}
 
-<<four1.intel, fig.cap="splot">>=
+<<four1.intel, fig.cap="Wyniki testu funkcji \\lstinline{four1()} (Laptop/Intel)">>=
 
 preparePlot(results.intel$four1)
 
 @ 
 
-<<four1.amd, fig.cap="splot">>=
+<<four1.amd, fig.cap="Wyniki testu funkcji \\lstinline{four1()} (PC/AMD)">>=
 
 preparePlot(results.amd$four1)
 
@@ -813,13 +813,13 @@ preparePlot(results.amd$four1)
 \section{Splot}
 \label{sec:wynsplot}
 
-<<conv.intel, fig.cap="splot">>=
+<<conv.intel, fig.cap="Wyniki testu funkcji \\lstinline{conv()} (Laptop/Intel)">>=
 
 preparePlot(results.intel$conv)
 
 @ 
 
-<<conv.amd, fig.cap="splot">>=
+<<conv.amd, fig.cap="Wyniki testu funkcji \\lstinline{conv()} (PC/AMD)">>=
 
 preparePlot(results.amd$conv)
 
@@ -828,13 +828,13 @@ preparePlot(results.amd$conv)
 \section{Wczytywanie pliku audio}
 \label{sec:wynwavread}
 
-<<wavread.intel, fig.cap="splot">>=
+<<wavread.intel, fig.cap="Wyniki testu funkcji \\lstinline{wavread()} (Laptop/Intel)">>=
 
 preparePlot(results.intel$wavread)
 
 @ 
 
-<<wavread.amd, fig.cap="splot">>=
+<<wavread.amd, fig.cap="Wyniki testu funkcji \\lstinline{wavread()} (PC/AMD)">>=
 
 preparePlot(results.amd$wavread)
 
@@ -843,13 +843,13 @@ preparePlot(results.amd$wavread)
 \section{Sumaryczne zestawienie wyników}
 \label{sec:sum}
 
-<<summary.intel, fig.cap="splot">>=
+<<summary.intel, fig.cap="Wyniki testów dla najdłuższego wektora (Laptop/Intel)">>=
 
 summaryPlot(results.intel)
 
 @ 
 
-<<summary.amd, fig.cap="splot">>=
+<<summary.amd, fig.cap="Wyniki testów dla najdłuższego wektora (PC/AMD)">>=
 
 summaryPlot(results.amd)
 
