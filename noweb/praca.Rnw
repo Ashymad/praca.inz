@@ -23,6 +23,7 @@
 \usepackage{float}% do umieszczenia floatów [h]
 \usepackage{enumitem}
 \setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
+\usepackage[bookmarks]{hyperref}
 
 % floaty w sekcji w które są stworzone
 
@@ -258,7 +259,9 @@ preparePlot <- function(res) {
 summaryMelt <- function(res, func) {
     as.data.frame(melt(lapply(res, function(package) {
         melt(lapply(package, function(x) {
-            tail(func(x),1)
+            fff <- func(x)
+            tens <- 10^(1:length(fff))
+            sum(fff*tens)/sum(tens)
         }))
     })) %>% group_by(L1) %>% mutate(id = packages[row_number()]))
 }
@@ -485,7 +488,8 @@ platformach.
 
 Wykorzystano dystrybucję \emph{Arch Linux}, gdyż posiada ona
 RTLinux w repozytoriach użytkowników. Wykorzystana wersja
-Linuxa to 4.14.8\_rt9. Wykorzystane wersje pakietów to:
+Linuxa to 4.14.8 z patchem w wersji 9. Wykorzystane wersje
+pakietów to:
 \begin{itemize}%
 \item Anaconda 5.01/Python 3.6.3
 \item GNU Octave 4.2.1
@@ -592,7 +596,7 @@ w Pythonie wywoływane jest \lstinline{tic=time.time()} i
 odpowiedniej ilości testów (ilość ustalana jest w pliku
 \emph{test.sh} i następnie przekazywana do pliku \emph{options.\$2}
 jako zmienna \lstinline{number_of_tests})
-zapisuje wyniki do pliku w formacie HDF5.
+zapisuje wyniki do pliku w formacie HDF5[odnośnik].
 Jest to binarny format zapisu danych liczbowych w postaci
 macierzy wielowymiarowych, który jest obsługiwany przez
 wszystkie pakiety (do GNU Octave wymagana jest dodatkowa
@@ -648,7 +652,7 @@ funkcji matematycznych, jaką jest sinus. Jest to najprostszy
 test, funkcja przygotowująca dane
 tworzy tablicę punktów rozmieszczonych w równych odległościach
 pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
-funkcję \lstinline{sin()} na tych danych (Rys. \ref{tab:sintest}).
+funkcję \lstinline{sin()} na tych danych (Tab. \ref{tab:sintest}).
 W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
 \emph{numexpr}, która pozwala znacznie przyspieszyć wykonywanie
 prostych operacji matematycznych, jak dodawanie, mnożenie czy
@@ -699,17 +703,38 @@ tworzenie własnych procedur, gdyż nie wszystkie
 potrzebne funkcje są zawsze w bibliotekach. Aby przetestować
 jak dobrze dany pakiet jest w stanie zoptymalizować
 ręcznie stworzoną procedurę, napisano w każdym z języków
-dokładnie tę samą funkcję. Funkcją tą jest algorytm FFT,
-opisany przez <Imię Autora>[Odnośnik], zaadaptowany do
+dokładnie tę samą funkcję. Funkcją tą jest procedura FFT
+\lstinline{four1()} opisana w
+\emph{Numerical Recipes in C}[Odnośnik]
+(oparta na procedurze opisanej przez N. M. Brennera), przepisana
+z języka C do jeżyków testowanych pakietów oraz zaadaptowana do
 korzystania z natywnych typów liczb zespolonych, które
 występują we wszystkich badanych pakietach. Dane wejściowe
 są identyczne jak w punkcie \ref{sec:fftbib}, lecz, jako że
-ten algorytm operuje tylko na tablicach, których rozmiar
+ta procedura operuje tylko na tablicach, których rozmiar
 jest potęgą liczby dwa, są one wydłużane przez dodanie
 odpowiedniej ilości zer.
 
-[Tutaj opis algorytmu]
-
+Procedura \lstinline{four1()} implementuje algorytm
+Cooleya-Tukeya i składa się z dwóch sekcji. Pierwsza sekcja
+to pętla która zamienia miejscami elementy wektora
+wejściowego w taki sposób, że gdyby ponumerować wszystkie
+elementy wektora wejściowego od zera rosnąco w systemie dwójkowym, to po
+zamianach ta numeracja była by malejąca, w tym celu zamieniane
+są elementy wektora wejściowego które są swoim odbiciem lustrzanym
+(np. 001 i 100). Druga sekcja zawiera pętle, która
+wykonuje się $log_2N$ razy (gdzie $N$ to długość wektora
+wejściowego). Dwie wewnętrzne pętle
+wymnażają odpowiednio elementy poprzednich transformat
+obliczając nową, o dwa razy większym rozmiarze. 
+Każdy z elementów wektora jest jednopunktową
+transformatą Fouriera, które następnie łączy się w transformaty
+o długościach $2, 4, 8, \dots, N$, stosując lemat
+Danielsona-Lanczosa (\ref{eq:lanczos}). 
+\begin{equation}
+F_k=F^e_k+e^{2k\pi i/N}F^o_k
+\label{eq:lanczos}
+\end{equation}
 \subsection{Splot}
 \label{sec:splot}
 
@@ -774,6 +799,18 @@ wykresy z wynikami oraz ich interpretację. W punkcie
 
 \section{Sinus}
 \label{sec:wynsin}
+
+<<sin.intel, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (Laptop/Intel)">>=
+
+preparePlot(results.intel$sin)
+
+@ 
+<<sin.amd, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (PC/AMD)">>=
+
+preparePlot(results.amd$sin)
+
+@ 
+
 Jak można zauważyć (Rys. \ref{fig:sin.intel} i \ref{fig:sin.amd}),
 zastosowanie biblioteki \emph{NumExpr} w Pythonie,
 pozwala obliczyć sinus dla dużych w wektorów wejściowych,
@@ -793,6 +830,7 @@ dla AMD). Różnice pomiędzy Julią a GNU Octave i Scilabem są niewielkie
 dla Intela i 
 \SI{\Sexpr{percentFaster(results.amd$sin, "octave", "julia")}}{\percent} %$
 dla AMD)
+Funkcja 
 W Julii funkcje takie jak \lstinline{linspace()}, lub
 konstrukcje \lstinline{start:step:end} nie tworzą całych
 tablic, ale specjalne obiekty których elementy są wyliczane
@@ -805,18 +843,6 @@ wektora wejściowego. Używając funkcji \lstinline{collect()}
 można zamienić te obiekty na wektory. Z przeprowadzonych
 krótkich testów wynikło jednak, że wpływ tego jest stosunkowo
 niewielki, na poziomie \SI{10}{\percent}.
-
-<<sin.intel, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (Laptop/Intel)">>=
-
-preparePlot(results.intel$sin)
-
-@ 
-
-<<sin.amd, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (PC/AMD)">>=
-
-preparePlot(results.amd$sin)
-
-@ 
 
 \section{FFT}
 \label{sec:wynfft}
@@ -885,13 +911,11 @@ preparePlot(results.amd$wavread)
 \label{sec:sum}
 
 <<summary.intel, fig.cap="Wyniki testów dla najdłuższego wektora (Laptop/Intel)">>=
-
 summaryPlot(results.intel)
 
 @ 
 
 <<summary.amd, fig.cap="Wyniki testów dla najdłuższego wektora (PC/AMD)">>=
-
 summaryPlot(results.amd)
 
 @ 
