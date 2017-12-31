@@ -731,13 +731,20 @@ Każdy z elementów wektora jest jednopunktową
 transformatą Fouriera, które następnie łączy się w transformaty
 o długościach $2, 4, 8, \dots, N$, stosując lemat
 Danielsona-Lanczosa (\ref{eq:lanczos}). 
-\begin{equation}
-F_k=F^e_k+e^{2k\pi i/N}F^o_k
-\label{eq:lanczos}
-\end{equation}
+\begin{equation}%
+  F_k=F^e_k+e^{-2k\pi i/N}F^o_k
+  \label{eq:lanczos}
+\end{equation}%
+gdzie%
+\begin{eqwhere}[2cm]%
+\item[$F_k$] $k$-ty punkt dyskretnej transformaty Fouriera
+\item[$F_k^e$] $k$-ty punkt elementów transformaty o parzystym indeksie
+\item[$F_k^o$] $k$-ty punkt elementów transformaty o nieparzystym indeksie
+\end{eqwhere}%
+  
 \subsection{Splot}
 \label{sec:splot}
-
+  
 Splot jest istotną operacją dla przetwarzania sygnałów,
 gdyż pozwala on stosować filtry (FIR, IIR), oraz symulować
 wpływ środowisk akustycznych na sygnał poprzez splecenie
