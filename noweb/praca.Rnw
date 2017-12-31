@@ -276,6 +276,12 @@ summaryPlot <- function(res) {
     plot <- plot + labs(colour="Pakiet obliczeniowy")
     plot
 }
+
+percentFaster <- function(res, name1, name2) {
+    means <- rowMeans(res[[name1]])/rowMeans(res[[name2]])
+    tenseq <- 10^(1:length(means))
+    round(100 - 100*sum(tenseq)/sum(means*tenseq))
+}
 @ 
 %----------------------------Zmienne----------------------------------------
 
@@ -759,7 +765,8 @@ zajmuje się oczyszczaniem pamięci ze zmiennych,
 do których nie ma już odnośników w programie).
 
 Każdy test wywoływał funkcję testowaną
-\Sexpr{length(results.intel$fft$octave[1,])} razy co
+\num{\Sexpr{length(results.intel$fft$octave[1,])}}
+razy co
 pozwoliło zminimalizować wpływ losowych czynników
 niepożądanych na wyniki. Kolejne punkty zawierają
 wykresy z wynikami oraz ich interpretację. W punkcie
@@ -770,13 +777,26 @@ wykresy z wynikami oraz ich interpretację. W punkcie
 Jak można zauważyć (Rys. \ref{fig:sin.intel} i \ref{fig:sin.amd}),
 zastosowanie biblioteki \emph{NumExpr} w Pythonie,
 pozwala obliczyć sinus dla dużych w wektorów wejściowych,
-znacznie szybciej w Anacondzie niż w pozostałych pakietach.
+znacznie szybciej w Anacondzie, w czasie średnio o
+\SI{\Sexpr{percentFaster(results.intel$sin, "matlab", "python")}}{\percent} %$
+krótszym niż MATLAB.
 Różnica jest mniejsza w przypadku komputera stacjonarnego,
-prawdopodobnie z powodu mniejszej ilości wątków procesora.
+prawdopodobnie z powodu mniejszej ilości wątków procesora
+(\SI{\Sexpr{percentFaster(results.amd$sin, "matlab", "python")}}{\percent}). %$
+MATLAB jest drugi pod względem czasu wykonywania procedury
+wykonując funkcję \lstinline{sin()} w średnio o
+\SI{\Sexpr{percentFaster(results.intel$sin, "julia", "matlab")}}{\percent} %$
+krótszym czasie niż Julia.
+(\SI{\Sexpr{percentFaster(results.amd$sin, "julia", "matlab")}}{\percent} %$
+dla AMD). Różnice pomiędzy Julią a GNU Octave i Scilabem są niewielkie
+(\SI{\Sexpr{percentFaster(results.intel$sin, "octave", "julia")}}{\percent} %$
+dla Intela i 
+\SI{\Sexpr{percentFaster(results.amd$sin, "octave", "julia")}}{\percent} %$
+dla AMD)
 W Julii funkcje takie jak \lstinline{linspace()}, lub
 konstrukcje \lstinline{start:step:end} nie tworzą całych
 tablic, ale specjalne obiekty których elementy są wyliczane
-dopiero, gdy jest wymagany do nich dostęp[odnośnik do dokunetacji],
+dopiero, gdy jest wymagany do nich dostęp[odnośnik do dokumentacji],
 pozwala to przyspieszyć operacje, które nie wykorzystują
 wszystkich wartości z wektora, natomiast w przypadku tego testu
 działa to na niekorzyść, gdyż z każdym wywołaniem funkcji
