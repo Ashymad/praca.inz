@@ -82,11 +82,12 @@ backend=biber
 
 % Użyj czcionki kroju Times.
 \usepackage{newtxtext}
+\usepackage{newtxmath}
 
 \usepackage{listings}
 \lstloadlanguages{MATLAB}
 
-\lstset{
+\lstset{%
   literate={ą}{{\k{a}}}1
   {ć}{{\'c}}1
   {ę}{{\k{e}}}1
@@ -104,12 +105,7 @@ backend=biber
   {Ł}{{\L{}}}1
   {Ś}{{\'S}}1
   {Ź}{{\'Z}}1
-  {Ż}{{\.Z}}1,
-  basicstyle=\footnotesize\ttfamily,
-  numbers=left,
-  showstringspaces=false,
-  numberstyle=\tiny,
-  frame=l
+  {Ż}{{\.Z}}1
 }
 
 \usepackage{color}
@@ -122,14 +118,17 @@ backend=biber
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 \lstset{ %
-  backgroundcolor=\color{white},   % choose the background color
-  basicstyle=\footnotesize,        % size of fonts used for the code
-  breaklines=true,                 % automatic line breaking only at whitespace
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  keywordstyle=\color{blue},       % keyword style
-  stringstyle=\color{mymauve},     % string literal style
+  backgroundcolor=\color{white},     % choose the background color
+  basicstyle=\ttfamily\footnotesize, % size of fonts used for the code
+  breaklines, breakatwhitespace,     % automatic line breaking only at whitespace
+  commentstyle=\color{mygreen},      % comment style
+  numbers=left,
+  showstringspaces=false,
+  numberstyle=\tiny,
+  frame=l,
+  escapeinside={\%*}{*)},            % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},         % keyword style
+  stringstyle=\color{mymauve}        % string literal style
 }
 
 %%
@@ -308,7 +307,7 @@ opts_chunk$set(
                fig.height=5/sqrt(2),
                fig.lp="fig:",
                fig.env="figure",
-               fig.pos='H',
+               fig.pos='h',
                fig.path='figures-knitr/',  # a unique ID here if you got
                cache.path='cache-knitr/',  # many documents in one dir
                cache=TRUE,
@@ -582,8 +581,8 @@ funkcji testowanej zawarte jest pomiędzy wywołaniami funkcji
 mierzących czas systemowy: są to \lstinline{tic()} i \lstinline{toc()}
 w MATLABie, GNU Octave i Scilabie, \lstinline{tic()} i
 \lstinline{toq()} w Julii, natomiast
-w Pythonie wywoływane jest \lstinline{tic = time.time()} i
-\lstinline{time.time() - tic}. Po wykonaniu
+w Pythonie wywoływane jest \lstinline{tic=time.time()} i
+\lstinline{time.time()-tic}. Po wykonaniu
 odpowiedniej ilości testów (ilość ustalana jest w pliku
 \emph{test.sh} i następnie przekazywana do pliku \emph{options.\$2}
 jako zmienna \lstinline{number_of_tests})
@@ -591,7 +590,7 @@ zapisuje wyniki do pliku w formacie HDF5.
 Jest to binarny format zapisu danych liczbowych w postaci
 macierzy wielowymiarowych, który jest obsługiwany przez
 wszystkie pakiety (do GNU Octave wymagana jest dodatkowa
-biblioteka) i zawiera informację o strukturze, przypominającej
+biblioteka \emph{hdf5oct}[odnośnik]) i zawiera informację o strukturze, przypominającej
 foldery i pliki. Wynik dla każdego rzędu wielkości zapisany jest
 w oddzielnej tablicy, nazwanej numerem oznaczającym rząd wielkości,
 w grupie \emph{/<test>/<pakiet>/} (Rys. \ref{fig:h5struc}).
@@ -643,7 +642,7 @@ funkcji matematycznych, jaką jest sinus. Jest to najprostszy
 test, funkcja przygotowująca dane
 tworzy tablicę punktów rozmieszczonych w równych odległościach
 pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
-funkcję \lstinline{sin()} na tych danych (Rys. \ref{tab:sintest}.
+funkcję \lstinline{sin()} na tych danych (Rys. \ref{tab:sintest}).
 W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
 \emph{numexpr}, która pozwala znacznie przyspieszyć wykonywanie
 prostych operacji matematycznych, jak dodawanie, mnożenie czy
@@ -674,7 +673,7 @@ Funkcja testowana wywołuje na tym sygnale funkcję \lstinline{fft()}
 (Tab. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
 funkcji \lstinline{fft()} dla pakietu MATLAB[odnośnik]. W pakiecie \emph{Anaconda} jest
 dostępnych kilka implementacji FFT, wykorzystano tę której wyniki
-były najlepsze -- \emph{fftpack.fft} z biblioteki \emph{SciPy}. 
+były najlepsze -- \lstinline{fftpack.fft()} z biblioteki \emph{SciPy}. 
 Natomiast w Julii zastosowano dyrektywę
 \lstinline{FFTW.set_num_threads(Sys.CPU_CORES)}, która pozwala
 wykorzystać wszystkie dostępne wątki procesora do obliczeń,
@@ -753,7 +752,11 @@ znaczne zmniejszenie czytelności wykresów. Ponieważ tego typu
 wyniki, których wartość była ponad dwa razy wyższa niż
 wartość średnia występowały dla wszystkich pakietów, uznano
 że są one spowodowane tymczasowym niedoborem lub
-spowolnieniem zasobów przez nie wykorzystywanych.
+spowolnieniem zasobów przez nie wykorzystywanych albo
+uruchomieniem \emph{GC} (\emph{Garbage Collector} --
+jest to pewna część języka programowania, która
+zajmuje się oczyszczaniem pamięci ze zmiennych,
+do których nie ma już odnośników w programie).
 
 Każdy test wywoływał funkcję testowaną
 \Sexpr{length(results.intel$fft$octave[1,])} razy co
@@ -764,6 +767,24 @@ wykresy z wynikami oraz ich interpretację. W punkcie
 
 \section{Sinus}
 \label{sec:wynsin}
+Jak można zauważyć (Rys. \ref{fig:sin.intel} i \ref{fig:sin.amd}),
+zastosowanie biblioteki \emph{NumExpr} w Pythonie,
+pozwala obliczyć sinus dla dużych w wektorów wejściowych,
+znacznie szybciej w Anacondzie niż w pozostałych pakietach.
+Różnica jest mniejsza w przypadku komputera stacjonarnego,
+prawdopodobnie z powodu mniejszej ilości wątków procesora.
+W Julii funkcje takie jak \lstinline{linspace()}, lub
+konstrukcje \lstinline{start:step:end} nie tworzą całych
+tablic, ale specjalne obiekty których elementy są wyliczane
+dopiero, gdy jest wymagany do nich dostęp[odnośnik do dokunetacji],
+pozwala to przyspieszyć operacje, które nie wykorzystują
+wszystkich wartości z wektora, natomiast w przypadku tego testu
+działa to na niekorzyść, gdyż z każdym wywołaniem funkcji
+\lstinline{sin.()} muszą być wyliczone wszystkie elementy
+wektora wejściowego. Używając funkcji \lstinline{collect()}
+można zamienić te obiekty na wektory. Z przeprowadzonych
+krótkich testów wynikło jednak, że wpływ tego jest stosunkowo
+niewielki, na poziomie \SI{10}{\percent}.
 
 <<sin.intel, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (Laptop/Intel)">>=
 
