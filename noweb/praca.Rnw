@@ -316,7 +316,7 @@ opts_chunk$set(
                fig.height=5/sqrt(2),
                fig.lp="fig:",
                fig.env="figure",
-               fig.pos='h',
+               fig.pos='!htb',
                fig.path='figures-knitr/',  # a unique ID here if you got
                cache.path='cache-knitr/',  # many documents in one dir
                cache=TRUE,
@@ -807,17 +807,6 @@ wykresy z wynikami oraz ich interpretację. W punkcie
 \section{Sinus}
 \label{sec:wynsin}
 
-<<sin.intel, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (Laptop/Intel)">>=
-
-preparePlot(results.intel$sin)
-
-@ 
-<<sin.amd, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (PC/AMD)">>=
-
-preparePlot(results.amd$sin)
-
-@ 
-
 Jak można zauważyć (Rys. \ref{fig:sin.intel} i \ref{fig:sin.amd}),
 zastosowanie biblioteki \emph{NumExpr} w Pythonie,
 pozwala obliczyć sinus dla dużych w wektorów wejściowych,
@@ -851,11 +840,59 @@ można zamienić te obiekty na wektory. Z przeprowadzonych
 krótkich testów wynikło jednak, że wpływ tego jest stosunkowo
 niewielki, na poziomie \SI{10}{\percent}.
 
+<<sin.intel, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (Laptop/Intel)">>=
+
+preparePlot(results.intel$sin)
+
+@ 
+
+<<sin.amd, fig.cap="Wyniki testu funkcji \\lstinline{sin()} (PC/AMD)">>=
+
+preparePlot(results.amd$sin)
+
+@ 
+
 \section{FFT}
 \label{sec:wynfft}
 
 \subsection{Funkcja biblioteczna}
 \label{sec:wynfftbib}
+
+Wyniki testu funkcji \lstinline{fft()} są o tyle ciekawe,
+że wszystkie pakiety, poza Anacondą, wykorzystują bibliotekę
+\emph{FFTW}[odnośnik] (skrót pochodzi od
+\emph{Fastest Fourier Transform in the West}) -- jest to jedna
+z naszybszych bibliotek liczących transformatę Fouriera, napisana
+głownie w C. Nie jest ona używana przez \emph{SciPy} z powodu
+niekompatybilnych licencji, lecz istnieje możliwość wykorzystania
+\emph{FFTW} w Pythonie wykorzystując bibliotekę \emph{PyFFTW}. Nie
+zawiera się ona jednak w podstawowej dystrybucji Anacondy, toteż
+jej nie wykorzystano do testów, choć mogłaby ona zmniejszyć
+czas obliczeń. Każdy z pakietów wykorzystuje własną wersję \emph{FFTW}
+z pewnymi modyfikacjami, które potrafią poprawić wydajność,
+ponadto \emph{FFTW} pozwala na wykorzystanie tzw. \emph{planowania FFT}
+-- jest to proces w którym biblioteka wstępnie oblicza macierz
+transformacji dla danego rozmiaru FFT, co pozwala znacznie
+przyspieszyć obliczanie kolejnych FFT o tym samym rozmiarze
+po prostu mnożąc sygnał przez tę macierz. To, oraz fakt, że
+\emph{FFTW} pozwala modyfikować wiele parametrów algorytmu
+obliczania FFT, powoduje że różnice, choć nie bardzo duże,
+istnieją (Rys. \ref{fig:fft.intel} i \ref{fig:fft.amd}.
+
+Najkrócej oblicza GNU Octave w czasie średnio o
+\SI{\Sexpr{percentFaster(results.intel$fft, "matlab", "octave")}}{\percent} %$
+krótszym niż MATLAB, o
+\SI{\Sexpr{percentFaster(results.intel$fft, "julia", "octave")}}{\percent} %$
+krótszym niż Julia, o
+\SI{\Sexpr{percentFaster(results.intel$fft, "python", "octave")}}{\percent} %$
+krótszym niż Python i aż o
+\SI{\Sexpr{percentFaster(results.intel$fft, "scilab", "octave")}}{\percent} %$
+krótszym niż Scilab (odpowiednio
+\SI{\Sexpr{percentFaster(results.amd$fft, "matlab", "octave")}}{\percent} %$
+, \SI{\Sexpr{percentFaster(results.amd$fft, "julia", "octave")}}{\percent} %$
+, \SI{\Sexpr{percentFaster(results.amd$fft, "python", "octave")}}{\percent} %$
+ i \SI{\Sexpr{percentFaster(results.amd$fft, "scilab", "octave")}}{\percent} %$
+dla AMD).
 
 <<fft.intel, fig.cap="Wyniki testu funkcji \\lstinline{fft()} (Laptop/Intel)">>=
 
