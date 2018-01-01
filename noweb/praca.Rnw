@@ -946,7 +946,7 @@ krótszym niż GNU Octave (odpowiednio
 \SI{\Sexpr{percentFaster(results.amd$four1, "scilab", "julia")}}{\percent} i %$
 \SI{\Sexpr{percentFaster(results.amd$four1, "octave", "julia")}}{\percent} %$
 dla AMD).
-To są niesamowicie olbrzymie różnice i ukazują potencjał
+To są niesamowicie duże różnice i ukazują potencjał
 jaki ma Julia jako narzędzie do szybkiego prototypowania.
 
 <<four1.intel, fig.cap="Wyniki testu funkcji \\lstinline{four1()} (Laptop/Intel)">>=
@@ -964,11 +964,71 @@ preparePlot(results.amd$four1)
 \section{Splot}
 \label{sec:wynsplot}
 
+Wyniki testów funkcji \lstinline{conv()}, są niezwykle
+ineteresujące (Rys. \ref{fig:conv.intel} i \ref{fig:conv.amd}),
+gdyż występują tu olbrzymie różnice pomiędzy pakietami.
+Szczególnie wyróżnia się Julia wykonując splot w czasie o
+\SI{\Sexpr{percentFaster(results.intel$conv, "matlab", "julia")}}{\percent} %$
+krótszym niż MATLAB (%
+\SI{\Sexpr{percentFaster(results.amd$conv, "matlab", "julia")}}{\percent} %$
+dla AMD). Ta duża różnica może być spowodowana
+wyjątkowo dobrą optymalizacją pętli przez Julię
+(jak pokazano w punkcie \ref{sec:wynfftwla}).
+MATLAB za to splata w czasie o
+\SI{\Sexpr{percentFaster(results.intel$conv, "python", "matlab")}}{\percent} %$
+krótszym niż Python na laptopie, natomiast w czasie tylko o
+\SI{\Sexpr{percentFaster(results.amd$conv, "python", "matlab")}}{\percent} %$
+krótszym na komputerze stacjonarnym. Może to wskazywać
+na wysoką wielowątkowość algorytmu z którego
+korzysta \emph{NumPy}, lub też na wykorzystanie Intel\textregistered\
+Math Kernel Library (patrz punkt \ref{sec:anaconda}) przez tę funkcję.
+Od Scilaba MATLAB wykonuje splot o
+\SI{\Sexpr{percentFaster(results.intel$conv, "scilab", "matlab")}}{\percent} %$
+krócej, natomiast od GNU Octave o
+\SI{\Sexpr{percentFaster(results.intel$conv, "octave", "matlab")}}{\percent} %$
+krócej (%
+\SI{\Sexpr{percentFaster(results.amd$conv, "scilab", "matlab")}}{\percent} i %$
+\SI{\Sexpr{percentFaster(results.amd$conv, "octave", "matlab")}}{\percent} %$
+dla AMD).
+
 <<conv.intel, fig.cap="Wyniki testu funkcji \\lstinline{conv()} (Laptop/Intel)">>=
 
 preparePlot(results.intel$conv)
 
 @ 
+
+\begin{table}[!hbt]
+\caption{Implementacja splotu FFT w MATLABie/GNU Octave}
+\begin{lstlisting}[language=MATLAB]
+function Y = fftconv(X1, X2)
+    pad1 = zeros(1, length(X2) - 1);
+    pad2 = zeros(1, length(X1) - 1);
+    Y = abs(ifft(fft([X1 pad1]).*fft([X2 pad2])));
+end
+\end{lstlisting}
+\label{tab:fftconv}
+\end{table}
+
+Algorytm stosowany przez te pakiety opiera się
+najprawdopodobniej na definicji splotu, nie jest to jednak
+najefektywniejsze rozwiązanie, gdyż jest możliwe
+obliczenie splotu za pomocą FFT. Należy w tym celu
+wydłużyć oba wektory wejściowe o odpowiednią ilość
+zer, tak by oba miały długość równą sumie długości
+wektorów wejściowych mniej jeden. Następnym krokiem
+jest zamiana obu wektorów na dziedzinę częstotliwości,
+poprzez FFT, wymnożenie transformat z obu sygnałów i
+wykonanie odwrotnego FFT na sygnale wynikowym (Tab.
+\ref{tab:fftconv} przedstawia przykładową implementację).
+Ten algorytm korzysta z faktu, że splot w dziedzinie
+czasu równy jest mnożeniu w dziedzinie częstotliwości.
+Czas wykonania takiej procedury będzie zbliżony do
+czasu potrzebnego na wykonanie trzech operacji FFT,
+krótkie testy pokazały ponad stukrotnie krótszy
+czas wykonania tej procedury w GNU Octave od procedury
+bibliotecznej dla dużych wektorów wejściowych.
+Ta procedura jest zaimplementowana w bibliotece
+\emph{SciPy} jako \lstinline{signal.fftconvolve()}.
 
 <<conv.amd, fig.cap="Wyniki testu funkcji \\lstinline{conv()} (PC/AMD)">>=
 
