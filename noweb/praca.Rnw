@@ -283,7 +283,7 @@ summaryPlot <- function(res) {
 percentFaster <- function(res, name1, name2) {
     means <- rowMeans(res[[name1]])/rowMeans(res[[name2]])
     tenseq <- 10^(1:length(means))
-    round(100 - 100*sum(tenseq)/sum(means*tenseq))
+    round(100 - 100*sum(tenseq)/sum(means*tenseq), 1)
 }
 @ 
 %----------------------------Zmienne----------------------------------------
@@ -885,13 +885,13 @@ krótszym niż MATLAB, o
 \SI{\Sexpr{percentFaster(results.intel$fft, "julia", "octave")}}{\percent} %$
 krótszym niż Julia, o
 \SI{\Sexpr{percentFaster(results.intel$fft, "python", "octave")}}{\percent} %$
-krótszym niż Python i aż o
+krótszym niż Python i o
 \SI{\Sexpr{percentFaster(results.intel$fft, "scilab", "octave")}}{\percent} %$
 krótszym niż Scilab (odpowiednio
-\SI{\Sexpr{percentFaster(results.amd$fft, "matlab", "octave")}}{\percent} %$
-, \SI{\Sexpr{percentFaster(results.amd$fft, "julia", "octave")}}{\percent} %$
-, \SI{\Sexpr{percentFaster(results.amd$fft, "python", "octave")}}{\percent} %$
- i \SI{\Sexpr{percentFaster(results.amd$fft, "scilab", "octave")}}{\percent} %$
+\SI{\Sexpr{percentFaster(results.amd$fft, "matlab", "octave")}}{\percent}, %$
+\SI{\Sexpr{percentFaster(results.amd$fft, "julia", "octave")}}{\percent}, %$
+\SI{\Sexpr{percentFaster(results.amd$fft, "python", "octave")}}{\percent} i %$
+\SI{\Sexpr{percentFaster(results.amd$fft, "scilab", "octave")}}{\percent} %$
 dla AMD).
 
 <<fft.intel, fig.cap="Wyniki testu funkcji \\lstinline{fft()} (Laptop/Intel)">>=
@@ -908,6 +908,46 @@ preparePlot(results.amd$fft)
 
 \subsection{Algorytm własny}
 \label{sec:wynfftwla}
+
+Jak widać na wykresach (Rys. \ref{fig:four1.intel} i \ref{fig:four1.amd}),
+funkcja \lstinline{four()} nie chociaż ani trochę tak
+wydajna jak algorytmy biblioteczne, lecz nie to było jej
+celem. Dzięki porównaniu szybkości tej funkcji można zobaczyć jak
+dobrze sobie radzi każdy z pakietów z optymalizacją
+kodu napisanego przez użytkownika. Algorytm funkcji testowanej
+(Opis w punkcie \ref{sec:fftwla})
+zawiera dużo pętli i nie stosuje \emph{wektoryzacji} kodu --
+czyli używania funkcji operujących na wektorach zamiast
+korzystania z pętli. Praktyka \emph{wektoryzacji} jest
+zalecana w badanych językach, za wyjątkiem Julii[odnośnik?],
+lecz wymaga ona większej wprawy, toteż należy brać pod uwagę
+że testowany kod nie jest optymalny pod względem wydajności,
+natomiast jest on dobrym przykładem kodu napisanego na szybko
+w celu przetestowania jakiejś idei.
+Jako że stosowany algorytm jest bardzo prosty i nie
+stosuje żadnych zaawansowanych technik optymalizacji
+FFT różnice pomiędzy pakietami są niemalże identyczne
+dla każdego z rozmiarów wektora wejściowego. Z tego
+samego powodu nie ma też dużych różnic pomiędzy
+wynikami z laptopa i komputera stacjonarnego.
+
+Dobra optymalizacja pętli w Julii, pozwala uzyskać jej
+najlepszy czas w tym teście, obliczając FFT, w czasie o
+\SI{\Sexpr{percentFaster(results.amd$four1, "matlab", "julia")}}{\percent} %$
+krótszym niż MATLAB, o
+\SI{\Sexpr{percentFaster(results.intel$four1, "python", "julia")}}{\percent} %$
+krótszym niż Python, o
+\SI{\Sexpr{percentFaster(results.intel$four1, "scilab", "julia")}}{\percent} %$
+krótszym niż Scilab i o
+\SI{\Sexpr{percentFaster(results.intel$four1, "octave", "julia")}}{\percent} %$
+krótszym niż GNU Octave (odpowiednio
+\SI{\Sexpr{percentFaster(results.amd$four1, "matlab", "julia")}}{\percent}, %$
+\SI{\Sexpr{percentFaster(results.amd$four1, "python", "julia")}}{\percent}, %$
+\SI{\Sexpr{percentFaster(results.amd$four1, "scilab", "julia")}}{\percent} i %$
+\SI{\Sexpr{percentFaster(results.amd$four1, "octave", "julia")}}{\percent} %$
+dla AMD).
+To są niesamowicie olbrzymie różnice i ukazują potencjał
+jaki ma Julia jako narzędzie do szybkiego prototypowania.
 
 <<four1.intel, fig.cap="Wyniki testu funkcji \\lstinline{four1()} (Laptop/Intel)">>=
 
