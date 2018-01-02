@@ -1041,7 +1041,7 @@ preparePlot(results.amd$conv)
 
 Jak obrazują wykresy (Rys. \ref{fig:wavread.intel} i \ref{fig:wavread.amd})
 biblioteka \emph{WAV.jl} w Julii jest wyjątkowo
-nieefektywna we wczytywaniu plików dłuższych niż ok \SI{0.2}{\second},
+nieefektywna we wczytywaniu plików dłuższych niż około \SI{0.2}{\second},
 w istocie GNU Octave wczytuje pliki w czasie o
 \SI{\Sexpr{percentFaster(results.intel$wavread, "julia", "octave")}}{\percent} %$
 krótszym niż Julia (%
@@ -1070,6 +1070,17 @@ Wskazuje to na pomijalny wpływ prędkości dysku na
 wczytywanie plików audio w tych pakietach, a istniejące
 różnice pomiędzy wynikami z laptopa i PC, spowodowane
 są prawdopodobnie wolniejszym procesorem i pamięcią RAM.
+
+
+Należy wspomnieć, że \emph{WAV.jl} nie jest jedyną
+biblioteką do wczytywania plików \emph{wav}, choć jest
+to biblioteka najpopularniejsza oraz jest ona wykorzystywana
+przez bibliotekę \emph{FileIO} oferującą zunifikowany
+interfejs do wczytywania wszelkiego rodzaju plików.
+Jedną z alternatyw jest biblioteka \emph{LibSndFile.jl},
+która korzysta z biblioteki \emph{libsndfile} napisanej
+w C[odnośnik]. Krótkie testy wykazały dziewięciokrotnie
+krótszy czas wczytywania przy wykorzystaniu tej biblioteki.
 
 
 <<wavread.intel, fig.cap="Wyniki testu funkcji \\lstinline{wavread()} (Laptop/SSD)">>=
