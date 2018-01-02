@@ -826,7 +826,6 @@ dla AMD). Różnice pomiędzy Julią a GNU Octave i Scilabem są niewielkie
 dla Intela i 
 \SI{\Sexpr{percentFaster(results.amd$sin, "octave", "julia")}}{\percent} %$
 dla AMD)
-Funkcja 
 W Julii funkcje takie jak \lstinline{linspace()}, lub
 konstrukcje \lstinline{start:step:end} nie tworzą całych
 tablic, ale specjalne obiekty których elementy są wyliczane
@@ -971,9 +970,9 @@ Szczególnie wyróżnia się Julia wykonując splot w czasie o
 \SI{\Sexpr{percentFaster(results.intel$conv, "matlab", "julia")}}{\percent} %$
 krótszym niż MATLAB (%
 \SI{\Sexpr{percentFaster(results.amd$conv, "matlab", "julia")}}{\percent} %$
-dla AMD). Ta duża różnica może być spowodowana
-wyjątkowo dobrą optymalizacją pętli przez Julię
-(jak pokazano w punkcie \ref{sec:wynfftwla}).
+dla AMD). Ta duża różnica jest spowodowana wykorzystaniem
+algorytmu splotu wykorzystującego FFT
+(patrz następny akapit).
 MATLAB za to splata w czasie o
 \SI{\Sexpr{percentFaster(results.intel$conv, "python", "matlab")}}{\percent} %$
 krótszym niż Python na laptopie, natomiast w czasie tylko o
@@ -1009,8 +1008,9 @@ end
 \label{tab:fftconv}
 \end{table}
 
-Algorytm stosowany przez te pakiety opiera się
-najprawdopodobniej na definicji splotu, nie jest to jednak
+Algorytm stosowany badane pakiety, za wyjątkiem
+Julii, opiera się najprawdopodobniej na definicji
+splotu, nie jest to jednak
 najefektywniejsze rozwiązanie, gdyż jest możliwe
 obliczenie splotu za pomocą FFT. Należy w tym celu
 wydłużyć oba wektory wejściowe o odpowiednią ilość
@@ -1039,13 +1039,46 @@ preparePlot(results.amd$conv)
 \section{Wczytywanie pliku audio}
 \label{sec:wynwavread}
 
-<<wavread.intel, fig.cap="Wyniki testu funkcji \\lstinline{wavread()} (Laptop/Intel)">>=
+Jak obrazują wykresy (Rys. \ref{fig:wavread.intel} i \ref{fig:wavread.amd})
+biblioteka \emph{WAV.jl} w Julii jest wyjątkowo
+nieefektywna we wczytywaniu plików dłuższych niż ok \SI{0.2}{\second},
+w istocie GNU Octave wczytuje pliki w czasie o
+\SI{\Sexpr{percentFaster(results.intel$wavread, "julia", "octave")}}{\percent} %$
+krótszym niż Julia (%
+\SI{\Sexpr{percentFaster(results.amd$wavread, "julia", "octave")}}{\percent} %$
+na HDD). Tak długie czasy wczytywania
+plików audio mogą nakłonić użytkowników do rozglądania
+się za alternatywnymi rozwiązaniami. Scilab również
+odbiega od reszty pakietów, GNU Octave wczytuje w czasie o
+\SI{\Sexpr{percentFaster(results.intel$wavread, "scilab", "octave")}}{\percent} %$
+krótszym od niego (%
+\SI{\Sexpr{percentFaster(results.amd$wavread, "scilab", "octave")}}{\percent} %$
+dla HDD).
+Od MATLABa ani od Pythona, GNU Octave nie jest dużo szybsze,
+bo wczytuje tylko w odpowiednio o
+\SI{\Sexpr{percentFaster(results.intel$wavread, "matlab", "octave")}}{\percent} %$
+i o
+\SI{\Sexpr{percentFaster(results.intel$wavread, "python", "octave")}}{\percent} %$
+krótszym niż te pakiety (%
+\SI{\Sexpr{percentFaster(results.amd$wavread, "matlab", "octave")}}{\percent} %$
+i
+\SI{\Sexpr{percentFaster(results.amd$wavread, "python", "octave")}}{\percent} %$
+na HDD). Interesujący jest brak znaczących różnic pomiędzy
+wynikami z laptopa z wykorzystaniem znacznie szybszego
+dysku typu SSD, a komputerem stacjonarnym z dyskiem HDD.
+Wskazuje to na pomijalny wpływ prędkości dysku na
+wczytywanie plików audio w tych pakietach, a istniejące
+różnice pomiędzy wynikami z laptopa i PC, spowodowane
+są prawdopodobnie wolniejszym procesorem i pamięcią RAM.
+
+
+<<wavread.intel, fig.cap="Wyniki testu funkcji \\lstinline{wavread()} (Laptop/SSD)">>=
 
 preparePlot(results.intel$wavread)
 
 @ 
 
-<<wavread.amd, fig.cap="Wyniki testu funkcji \\lstinline{wavread()} (PC/AMD)">>=
+<<wavread.amd, fig.cap="Wyniki testu funkcji \\lstinline{wavread()} (PC/HDD)">>=
 
 preparePlot(results.amd$wavread)
 
@@ -1054,12 +1087,12 @@ preparePlot(results.amd$wavread)
 \section{Sumaryczne zestawienie wyników}
 \label{sec:sum}
 
-<<summary.intel, fig.cap="Wyniki testów dla najdłuższego wektora (Laptop/Intel)">>=
+<<summary.intel, fig.cap="Wyniki testów dla najdłuższego wektora (Laptop)">>=
 summaryPlot(results.intel)
 
 @ 
 
-<<summary.amd, fig.cap="Wyniki testów dla najdłuższego wektora (PC/AMD)">>=
+<<summary.amd, fig.cap="Wyniki testów dla najdłuższego wektora (PC)">>=
 summaryPlot(results.amd)
 
 @ 
