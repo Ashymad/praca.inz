@@ -282,7 +282,7 @@ summaryPlot <- function(res) {
 
 percentFaster <- function(res, name1, name2) {
     means <- rowMeans(res[[name1]])/rowMeans(res[[name2]])
-    tenseq <- 10^(1:length(means))
+    tenseq <- 5^(1:length(means))
     round(100 - 100*sum(tenseq)/sum(means*tenseq), 1)
 }
 @ 
@@ -440,9 +440,9 @@ knit_theme$set(knit_theme$get("default"))
 
 \chapter{Wprowadzenie i cel pracy}
 \label{cha:wstep}
-Jaka jest akustyka, każdy widzi\cite{Lam92}.
 
-W 
+\Sexpr{library("rmsfact"); rmsfact()}\cite{Lam92}
+
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
@@ -1008,7 +1008,7 @@ end
 \label{tab:fftconv}
 \end{table}
 
-Algorytm stosowany badane pakiety, za wyjątkiem
+Algorytm stosowany przez badane pakiety, za wyjątkiem
 Julii, opiera się najprawdopodobniej na definicji
 splotu, nie jest to jednak
 najefektywniejsze rozwiązanie, gdyż jest możliwe
@@ -1098,12 +1098,26 @@ preparePlot(results.amd$wavread)
 \section{Sumaryczne zestawienie wyników}
 \label{sec:sum}
 
-<<summary.intel, fig.cap="Wyniki testów dla najdłuższego wektora (Laptop)">>=
+Patrząc na wykresy (Rys. \ref{fig:summary.intel} i \ref{fig:summary.amd})
+można łatwo spostrzec, że nie ma jednego pakietu, którego
+zastosowanie w każdej sytuacji pozwoli uzyskać wyniki w
+najkrótszym czasie. W każdym z wykonanych testów inne
+pakiety były w stanie wykonać testowaną funkcję najszybciej.
+
+
+Jednym wyjątkiem jest Scilab który wykonał każdy z testów
+w najdłuższym (w dwóch przypadkach) lub drugim od końca (w
+trzech przypadkach) czasie. To, oraz problemy z instalacją
+tego pakietu (patrz punkt \ref{sec:srodowisko}), to duże
+powody by nie korzystać z tego pakietu, lecz wyszukać
+skorzystać z alternatywy.
+
+<<summary.intel, fig.cap="Średnia ważona wyników testów (Laptop)">>=
 summaryPlot(results.intel)
 
 @ 
 
-<<summary.amd, fig.cap="Wyniki testów dla najdłuższego wektora (PC)">>=
+<<summary.amd, fig.cap="Średnia ważona wyników testów (PC)">>=
 summaryPlot(results.amd)
 
 @ 
