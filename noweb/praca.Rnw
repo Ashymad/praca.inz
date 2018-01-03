@@ -977,10 +977,11 @@ MATLAB za to splata w czasie o
 \SI{\Sexpr{percentFaster(results.intel$conv, "python", "matlab")}}{\percent} %$
 krótszym niż Python na laptopie, natomiast w czasie tylko o
 \SI{\Sexpr{percentFaster(results.amd$conv, "python", "matlab")}}{\percent} %$
-krótszym na komputerze stacjonarnym. Może to wskazywać
-na wysoką wielowątkowość algorytmu z którego
-korzysta \emph{NumPy}, lub też na wykorzystanie Intel\textregistered\
-Math Kernel Library (patrz punkt \ref{sec:anaconda}) przez tę funkcję.
+krótszym na komputerze stacjonarnym, gdyz tam
+kod w Pythonie wykonuje się szybciej. Może to wskazywać
+na nie wykorzystanie przez algorytm wielowątkowości
+procesora, co spowodowało lepszy wynik na wyżej taktowanym
+procesorze AMD.
 Od Scilaba MATLAB wykonuje splot o
 \SI{\Sexpr{percentFaster(results.intel$conv, "scilab", "matlab")}}{\percent} %$
 krócej, natomiast od GNU Octave o
@@ -1099,18 +1100,65 @@ preparePlot(results.amd$wavread)
 \label{sec:sum}
 
 Patrząc na wykresy (Rys. \ref{fig:summary.intel} i \ref{fig:summary.amd})
-można łatwo spostrzec, że nie ma jednego pakietu, którego
+można zaobserwować, że nie ma jednego pakietu, którego
 zastosowanie w każdej sytuacji pozwoli uzyskać wyniki w
-najkrótszym czasie. W każdym z wykonanych testów inne
-pakiety były w stanie wykonać testowaną funkcję najszybciej.
-
+najkrótszym możliwym czasie. W każdym z wykonanych testów inne
+pakiety wykonały testowaną funkcję najszybciej, a inne najwolniej.
 
 Jednym wyjątkiem jest Scilab który wykonał każdy z testów
 w najdłuższym (w dwóch przypadkach) lub drugim od końca (w
 trzech przypadkach) czasie. To, oraz problemy z instalacją
 tego pakietu (patrz punkt \ref{sec:srodowisko}), to duże
-powody by nie korzystać z tego pakietu, lecz wyszukać
-skorzystać z alternatywy.
+powody by przemyśleć wykorzystanie alternatywnego rozwiązania.
+
+MATLAB jest na bardzo silnej pozycji będąc drugim najszybszym
+pakietem w każdym z testów. Choć w żadnym przypadku nie jest
+najszybszy, w każdym jest szybki. Z pewnością jest to narzędzie,
+którego zastosowanie w każdej sytuacji będzie pozwalało szybko
+wykonać potrzebne obliczenia jest więc dobrym wyborem na każdą
+okazję, lecz do każdego z zadań znajdzie się szybsza alternatywa,
+na przykład jeżeli celem jest napisanie algorytmu który będzie
+w dużym stopniu wykorzystywał pętle, lepiej skorzystać z Julii.
+
+Anaconda jest doskonałą alternatywą dla MATLABa, gdyż, pod względem
+prędkości ustępuje mu nieznacznie, albo w ogóle (w teście funkcji
+\lstinline{sin()}). Zastosowanie rozwiązań opisanych w 
+punktach \ref{sec:wynfft} i \ref{sec:wynsplot} może pozwolić
+dodatkowo zwiększyć szybkość wykonywania funkcji \lstinline{fft()}
+i \lstinline{conv()} pomniejszając różnice jeszcze bardziej.
+
+Również dobrą alternatywą jest Julia, która w dwóch testach
+wykonała funkcje trochę szybciej
+(\lstinline{conv()} i \lstinline{four1()}), a w dwóch
+trochę wolniej (\lstinline{sin()} i \lstinline{fft()}), co
+stawiałoby ją na dobrej pozycji gdyby nie niesamowicie wolne
+wykonanie testu wczytywania plików \emph{wav}. Co może nie być
+problemem jeżeli się z tej funkcjonalności nie korzysta, ponadto
+w punkcie \ref{sec:wynwavread} opisano rozwiązanie które
+częściowo rozwiązuje ten problem.
+
+GNU Octave jest o tyle ciekawym przypadkiem, że w testach
+funkcji \lstinline{fft()} i \lstinline{wavread()} wypada
+minimalnie lepiej niż MATLAB, lecz w testach \lstinline{conv()}
+i \lstinline{four1()} wykazuje niezwykle długi czas
+obliczeń w porównaniu z pozostałymi pakietami.
+W teście \lstinline{sin()} jest na ostatnim miejscu
+ex aequo z Scilabem. Jedno z rozwiązań na wolne wykonywanie
+się splotu zostało opisane w punkcie \ref{sec:wynsplot},
+lecz tak zły wynik w teście \lstinline{four1()} jest
+poważną przeszkodą do wykorzystania tego pakietu jako
+narzędzie do szybkiego prototypowania aplikacji
+przetwarzających sygnały audio.
+
+Nie zauważono znacznych różnic pomiędzy wynikami z
+laptopa i PC, poza oczywistymi dłuższymi czasami
+na PC spowodowanymi wolniejszy procesorem. Jednym
+wyjątkiem jest test funkcji \lstinline{conv()}
+w którym test w Pythonie wykonał się (proporcjonalnie
+do MATLABA) szybciej na komputerze stacjonarnym niż na
+laptopie. Mimo tego można uznać, że wyniki są niewiele
+zależne od rodzaju procesora, w istocie ich duże podobieństwo
+sugeruje dużą powtarzalność.
 
 <<summary.intel, fig.cap="Średnia ważona wyników testów (Laptop)">>=
 summaryPlot(results.intel)
