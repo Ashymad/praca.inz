@@ -19,6 +19,7 @@
 \usepackage[toc, page]{appendix}
 \renewcommand\appendixpagename{Załączniki}
 \renewcommand\appendixtocname{Załączniki}
+
 % dodatkowe pakiety
 
 \usepackage{mathtools}
@@ -452,6 +453,12 @@ knit_theme$set(knit_theme$get("default"))
 
 \Sexpr{library("rmsfact"); rmsfact()}\cite{Lam92}
 
+% Odnośniki do umieszczenia w bibl:
+% https://docs.anaconda.com/
+% https://docs.julialang.org/
+% https://www.anaconda.com/enterprise/
+
+
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
@@ -459,6 +466,17 @@ Zbadano pięć pakietów, które wybrano szczególnie ze względu na podobieńst
 
 \section{Anaconda/Python}
 \label{sec:anaconda}
+
+\emph{Anaconda Distribution}[odnośnik] to najpopularniejsza dystrybucja jeżyka
+programowania \emph{Python} do zastosowań techniczno-naukowych,
+zawiera bardzo dużą liczbę pakietów do tych celów, jest dostarczana przez
+firmę Anaconda, jest otwartoźródłowa oraz darmowa. \emph{Anaconda Enterprise} jest to
+wersja dystrybucji dla klientów biznesowych posiadająca pełne wsparcie
+oraz większe możliwości[odnośnik]. W dalszej części pracy \emph{Anaconda Distribution}
+będzie nazywana po prostu Anaconda.
+
+Python jest najpopularniejszym językiem programowania wśród języków badanych pakietów,
+i znajduje się w pierwszej piątce najpopularniejszych języków[odnośnik].
 
 \section{GNU Octave}
 \label{sec:octave}
@@ -642,11 +660,11 @@ Zbadano pięć funkcji, cztery biblioteczne i jedną własną.
 Starano się wybrać funkcję które są koniecznym elementem 
 budulcowym w aplikacjach przetwarzających sygnały audio.
 Każdy test znajduje się w jednym pliku w którym muszą
-znajdywać się funkcje: \lstinline{prepare_input} -- 
+znajdywać się funkcje: \lstinline{prepare_input()} -- 
 przygotowuje dane wejściowe dla testowanej funkcji, jako
 argument przyjmuje ilość elementów wektora danych,
-\lstinline{test_function} -- testowana funkcja, przyjmuje
-dane przygotowane przez funkcję \lstinline{prepare_input},
+\lstinline{test_function()} -- testowana funkcja, przyjmuje
+dane przygotowane przez funkcję \lstinline{prepare_input()},
 przetwarza je i zwraca wynik. W kolejnych punktach zostaną
 opisane pokrótce te testy wraz z przykładowym kodem
 w jednym z testowanych języków. Jeśli nie jest napisane
@@ -1189,25 +1207,22 @@ summaryPlot(results.amd)
 
 
 
+% Bibliografia
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliografia}
+\printbibliography
 
-%\include{aghdpl-imir/rozdzial3}
-%\include{aghdpl-imir/rozdzial1}
-%\include{aghdpl-imir/rozdzial2}
-%\include{aghdpl-imir/tests}
 
-
-
-% itd.
-%\appendix
+% Załączniki
 \begin{appendices}
+  \makeatletter%
+  \addtocontents{toc}{\let\protect\l@chapter\protect\l@section}
+  \makeatother%
+
   \chapter{Kod testu \emph{four1} (Julia)}
   \label{chap:zalfour1}
   {\singlespacing\lstinputlisting[language=Julia, firstline=13]{../tests/julia/tests/four1/test.jl}}
 \end{appendices}
-%\include{dodatekA}
-% \include{dodatekB}
-% itd.
-
-\printbibliography
 
 \end{document}
