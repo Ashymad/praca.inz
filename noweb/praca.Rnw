@@ -16,9 +16,9 @@
 
 % Załączniki
 
-\usepackage[toc,page]{appendix}
+\usepackage[toc, page]{appendix}
 \renewcommand\appendixpagename{Załączniki}
-
+\renewcommand\appendixtocname{Załączniki}
 % dodatkowe pakiety
 
 \usepackage{mathtools}
@@ -33,6 +33,9 @@
 % floaty w sekcji w które są stworzone
 
 \usepackage{placeins}
+
+\let\Oldchapter\chapter
+\renewcommand{\chapter}{\FloatBarrier\Oldchapter}
 
 \let\Oldsection\section
 \renewcommand{\section}{\FloatBarrier\Oldsection}
@@ -59,7 +62,8 @@ sorting=none,
 language=autobib,
 autolang=other,
 % Zapisuj datę dostępu do strony WWW w formacie RRRR-MM-DD.
-urldate=iso8601,
+urldate=edtf,
+seconds=true,
 % Nie dodawaj numerów stron, na których występuje cytowanie.
 backref=false,
 % Podawaj ISBN.
@@ -440,7 +444,7 @@ knit_theme$set(knit_theme$get("default"))
 }
 
 \setcounter{tocdepth}{2}
-\tableofcontents
+{\singlespacing\tableofcontents}
 \clearpage
 
 \chapter{Wprowadzenie i cel pracy}
@@ -1198,7 +1202,7 @@ summaryPlot(results.amd)
 \begin{appendices}
   \chapter{Kod testu \emph{four1} (Julia)}
   \label{chap:zalfour1}
-  \singlespacing\lstinputlisting[language=Julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
+  {\singlespacing\lstinputlisting[language=Julia, firstline=13]{../tests/julia/tests/four1/test.jl}}
 \end{appendices}
 %\include{dodatekA}
 % \include{dodatekB}
