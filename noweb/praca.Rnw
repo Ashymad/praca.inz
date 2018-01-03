@@ -14,6 +14,11 @@
 
 \usepackage[T1]{fontenc}
 
+% Załączniki
+
+\usepackage[toc,page]{appendix}
+\renewcommand\appendixpagename{Załączniki}
+
 % dodatkowe pakiety
 
 \usepackage{mathtools}
@@ -715,7 +720,7 @@ ta procedura operuje tylko na tablicach, których rozmiar
 jest potęgą liczby dwa, są one wydłużane przez dodanie
 odpowiedniej ilości zer.
 
-Procedura \lstinline{four1()} implementuje algorytm
+Procedura \lstinline{four1()} (Zał. \ref{chap:zalfour1}) implementuje algorytm
 Cooleya-Tukeya i składa się z dwóch sekcji. Pierwsza sekcja
 to pętla która zamienia miejscami elementy wektora
 wejściowego w taki sposób, że gdyby ponumerować wszystkie
@@ -1189,8 +1194,13 @@ summaryPlot(results.amd)
 
 
 % itd.
-% \appendix
-% \include{dodatekA}
+%\appendix
+\begin{appendices}
+  \chapter{Kod testu \emph{four1} (Julia)}
+  \label{chap:zalfour1}
+  \singlespacing\lstinputlisting[language=Julia, firstline=13]{../tests/julia/tests/four1/test.jl}%
+\end{appendices}
+%\include{dodatekA}
 % \include{dodatekB}
 % itd.
 
