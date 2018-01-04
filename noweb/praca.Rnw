@@ -371,7 +371,7 @@ knit_theme$set(knit_theme$get("default"))
 
 \makeatletter%
 \@ifclassloaded{aghdpl}{
-  \address{\Sexpr{shortAuthor}}
+  \address{Legionów 49, 05-220 Zielonka}
   \sex{m} % Mężczyzna - m; kobieta - cokolwiek
   \shortauthor{\Sexpr{shortAuthor}}
   \albumnum{279253}
@@ -476,7 +476,16 @@ oraz większe możliwości[odnośnik]. W dalszej części pracy \emph{Anaconda D
 będzie nazywana po prostu Anaconda.
 
 Python jest najpopularniejszym językiem programowania wśród języków badanych pakietów,
-i znajduje się w pierwszej piątce najpopularniejszych języków[odnośnik].
+i znajduje się w pierwszej piątce najpopularniejszych języków na świecie[odnośnik].
+Z tego powodu ilość wysokiej jakości bibliotek do tego języka jest niezwykle duża,
+także niemalże każda pożądana funkcjonalność może być dodana. Instalacja
+bibliotek w Anacondzie odbywa się przy użyciu graficznej aplikacji
+\emph{Anaconda Navigator} lub aplikacji wiersza poleceń \emph{conda}.
+Używając komendy \lstinline{conda install <nazwa biblioteki>} można zainstalować
+bibliotekę z repozytorium Anacondy -- \emph{Anaconda Cloud}. Istnieje również
+możliwość instalacji bibliotek z \emph{PyPI}, czyli ogólnego zbioru bibliotek do Pythona 
+przy użyciu polecenia \lstinline{pip install <nazwa pakietu>}.
+
 
 \section{GNU Octave}
 \label{sec:octave}
@@ -681,11 +690,7 @@ tworzy tablicę punktów rozmieszczonych w równych odległościach
 pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
 funkcję \lstinline{sin()} na tych danych (Tab. \ref{tab:sintest}).
 W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
-\emph{numexpr}, która pozwala znacznie przyspieszyć wykonywanie
-prostych operacji matematycznych, jak dodawanie, mnożenie czy
-właśnie obliczanie sinusa. Staje się to dzięki podziałowi
-operacji na wszystkie dostępne wątki procesora i wykonywanie
-równoległych obliczeń.
+\emph{numexpr} (Patrz punkt \ref{sec:anaconda}).
 
 \begin{table}[h]%
   \caption{Kod testu \emph{sin} (Python)}%
@@ -767,6 +772,7 @@ gdzie%
 \item[$F_k$] $k$-ty punkt dyskretnej transformaty Fouriera
 \item[$F_k^e$] $k$-ty punkt elementów transformaty o parzystym indeksie
 \item[$F_k^o$] $k$-ty punkt elementów transformaty o nieparzystym indeksie
+\item[$N$] ilość punktów dyskretnej transformaty Fouriera
 \end{eqwhere}%
   
 \subsection{Splot}
