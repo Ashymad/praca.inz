@@ -486,7 +486,23 @@ bibliotek w Anacondzie odbywa się przy użyciu graficznej aplikacji
 Używając komendy \lstinline{conda install <nazwa biblioteki>} można zainstalować
 bibliotekę z repozytorium Anacondy -- \emph{Anaconda Cloud}. Istnieje również
 możliwość instalacji bibliotek z \emph{PyPI}, czyli ogólnego zbioru bibliotek do Pythona 
-przy użyciu polecenia \lstinline{pip install <nazwa pakietu>}.
+przy użyciu polecenia \lstinline{pip install <nazwa biblioteki>}. 
+
+Najważniejsze biblioteki związane z zastosowaniami techniczno-naukowymi to
+są zawarte w zbiorze bibliotek tworzących ekosystem \emph{SciPy}, którego
+elementarne części to Python oraz biblioteki: \emph{NumPy}, \emph{SciPy}
+i \emph{Matplotlib}. Ponadto w testach wykorzystano, również zawarte w
+\emph{Anaconda Distribution}, biblioteki \emph{Numba} i \emph{NumExpr}.
+
+\emph{NumPy}[odnośnik] jest to biblioteka, która dodaje wielowymiarowe typy wektorowe
+i macierzowe, zaawansowane funkcje modyfikujące obiekty tych typów,
+narzędzie do integracji kodu napisanego w C/C++ oraz Fortranie jak
+również kolekcję funkcji matematycznych operujących na tych typach,
+związanych przede wszystkim z algebrą liniową oraz transformacją Fouriera.
+
+Biblioteka \emph{SciPy}
+
+
 
 
 \section{GNU Octave}
@@ -965,23 +981,26 @@ dla każdego z rozmiarów wektora wejściowego. Z tego
 samego powodu nie ma też dużych różnic pomiędzy
 wynikami z laptopa i komputera stacjonarnego.
 
-Dobra optymalizacja pętli w Julii, pozwala uzyskać jej
+Użycie biblioteki \emph{NumBa} (patrz punkt \ref{sec:anaconda}) pozwala uzyskać Pythonowi
 najlepszy czas w tym teście, obliczając FFT, w czasie o
-\SI{\Sexpr{percentFaster(results.amd$four1, "matlab", "julia")}}{\percent} %$
-krótszym niż MATLAB, o
-\SI{\Sexpr{percentFaster(results.intel$four1, "python", "julia")}}{\percent} %$
-krótszym niż Python, o
-\SI{\Sexpr{percentFaster(results.intel$four1, "scilab", "julia")}}{\percent} %$
-krótszym niż Scilab i o
-\SI{\Sexpr{percentFaster(results.intel$four1, "octave", "julia")}}{\percent} %$
-krótszym niż GNU Octave (odpowiednio
-\SI{\Sexpr{percentFaster(results.amd$four1, "matlab", "julia")}}{\percent}, %$
-\SI{\Sexpr{percentFaster(results.amd$four1, "python", "julia")}}{\percent}, %$
-\SI{\Sexpr{percentFaster(results.amd$four1, "scilab", "julia")}}{\percent} i %$
-\SI{\Sexpr{percentFaster(results.amd$four1, "octave", "julia")}}{\percent} %$
+\SI{\Sexpr{percentFaster(results.amd$four1, "julia", "python")}}{\percent} %$
+krótszym niż Julia, o
+\SI{\Sexpr{percentFaster(results.intel$four1, "matlab", "python")}}{\percent} %$
+krótszym niż MALTAB (odpowiednio
+\SI{\Sexpr{percentFaster(results.amd$four1, "julia", "python")}}{\percent}, %$
+\SI{\Sexpr{percentFaster(results.amd$four1, "matlab", "python")}}{\percent}, %$
 dla AMD).
 To są niesamowicie duże różnice i ukazują potencjał
-jaki ma Julia jako narzędzie do szybkiego prototypowania.
+jaki mają Python i Julia jako narzędzia do szybkiego prototypowania.
+MATLAB jest trzeci pod względem szybkości i ma znaczną
+przewagę nad resztą pakietów obliczając FFT w czasie o
+\SI{\Sexpr{percentFaster(results.intel$four1, "scilab", "matlab")}}{\percent} %$
+krótszym niż Scilab i o
+\SI{\Sexpr{percentFaster(results.intel$four1, "octave", "matlab")}}{\percent} %$
+krótszym niż GNU Octave (odpowiednio
+\SI{\Sexpr{percentFaster(results.amd$four1, "scilab", "matlab")}}{\percent} i %$
+\SI{\Sexpr{percentFaster(results.amd$four1, "octave", "matlab")}}{\percent} %$
+dla AMD).
 
 <<four1.intel, fig.cap="Wyniki testu funkcji \\lstinline{four1()} (Laptop/Intel)">>=
 
@@ -1153,14 +1172,14 @@ którego zastosowanie w każdej sytuacji będzie pozwalało szybko
 wykonać potrzebne obliczenia jest więc dobrym wyborem na każdą
 okazję, lecz do każdego z zadań znajdzie się szybsza alternatywa,
 na przykład jeżeli celem jest napisanie algorytmu który będzie
-w dużym stopniu wykorzystywał pętle, lepiej skorzystać z Julii.
+w dużym stopniu wykorzystywał pętle, lepiej skorzystać z Pythona.
 
 Anaconda jest doskonałą alternatywą dla MATLABa, gdyż, pod względem
-prędkości ustępuje mu nieznacznie, albo w ogóle (w teście funkcji
-\lstinline{sin()}). Zastosowanie rozwiązań opisanych w 
+prędkości tylko w testach funkcji \lstinline{conv()} i \lstinline{fft()},
+nieznacznie mu ustępuje. Zastosowanie rozwiązań opisanych w 
 punktach \ref{sec:wynfft} i \ref{sec:wynsplot} może pozwolić
-dodatkowo zwiększyć szybkość wykonywania funkcji \lstinline{fft()}
-i \lstinline{conv()} pomniejszając różnice jeszcze bardziej.
+dodatkowo zwiększyć szybkość tych funkcji
+pomniejszając różnice jeszcze bardziej.
 
 Również dobrą alternatywą jest Julia, która w dwóch testach
 wykonała funkcje trochę szybciej
