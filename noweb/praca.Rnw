@@ -35,8 +35,10 @@
 
 \usepackage{placeins}
 
-\let\Oldchapter\chapter
-\renewcommand{\chapter}{\FloatBarrier\Oldchapter}
+\ifcsname{chapter}\endcsname%
+    \let\Oldchapter\chapter
+    \renewcommand{\chapter}{\FloatBarrier\Oldchapter}
+\fi
 
 \let\Oldsection\section
 \renewcommand{\section}{\FloatBarrier\Oldsection}
@@ -1185,7 +1187,7 @@ przetwarzających sygnały audio.
 
 Nie zauważono znacznych różnic pomiędzy wynikami z
 laptopa i PC, poza oczywistymi dłuższymi czasami
-na PC spowodowanymi wolniejszy procesorem. Jednym
+na PC spowodowanymi wolniejszym procesorem. Jednym
 wyjątkiem jest test funkcji \lstinline{conv()}
 w którym test w Pythonie wykonał się (proporcjonalnie
 do MATLABA) szybciej na komputerze stacjonarnym niż na
