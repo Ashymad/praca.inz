@@ -12,6 +12,5 @@ def prepare_input(input_size):
     S = 0.7*np.sin(2*m.pi*50*t) + np.sin(2*m.pi*120*t)
     return S + 2*np.random.randn(np.size(t))
 
-
 def test_function(input_data):
     return fftpack.fft(input_data)

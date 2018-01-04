@@ -30,10 +30,7 @@ rowCountNA  <- function(x) {
 }
 
 shaveoff  <- function(vec, max_ratio) {
-    while (max(vec)/median(vec) > max_ratio) {
-        vec  <- vec[which(vec != max(vec))]
-    }
-    vec
+    vec[-tail(order(vec),5)]
 }
 
 getResults <- function(f, test_name) {
@@ -78,14 +75,3 @@ file <- h5file("../tests/results.h5")
 results <- getResults(file, test_name)
 
 preparePlot(results)
-
-naperc  <- lapply(results, rowCountNA)
-#for (package in packages) {
-#    dev.new()
-#    par(mfrow=c(2,3),oma=c(0,0,2,0))
-#    for (i in 2:max_input_size) {
-#        plot(results[[package]][i,])
-#        title(10^{i})
-#    }
-#    title(package, outer=TRUE)
-#}
