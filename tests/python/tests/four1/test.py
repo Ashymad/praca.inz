@@ -1,6 +1,7 @@
 # four1 test
 import numpy as np
 import math as ma
+from numba import jit
 
 Fs = 1000            # Sampling frequency                    
 T = 1/Fs             # Sampling period       
@@ -11,7 +12,7 @@ def prepare_input(input_size):
     S[0:input_size] = 0.7*np.sin(2*ma.pi*50*t) + np.sin(2*ma.pi*120*t) + 2*np.random.randn(np.size(t))
     return S 
 
-
+@jit
 def test_function(input_data):
     isign = 1
     nn = len(input_data)
