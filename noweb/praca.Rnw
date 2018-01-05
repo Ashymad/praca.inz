@@ -459,6 +459,7 @@ knit_theme$set(knit_theme$get("default"))
 % https://docs.anaconda.com/
 % https://docs.julialang.org/
 % https://www.anaconda.com/enterprise/
+% https://matplotlib.org/citing.html
 
 
 \chapter{Badane pakiety obliczeniowe}
@@ -468,6 +469,7 @@ Zbadano pięć pakietów, które wybrano szczególnie ze względu na podobieńst
 
 \section{Anaconda/Python}
 \label{sec:anaconda}
+\lstset{language=Python}
 
 \emph{Anaconda Distribution}[odnośnik] to najpopularniejsza dystrybucja jeżyka
 programowania \emph{Python} do zastosowań techniczno-naukowych,
@@ -489,9 +491,9 @@ możliwość instalacji bibliotek z \emph{PyPI}, czyli ogólnego zbioru bibliote
 przy użyciu polecenia \lstinline{pip install <nazwa biblioteki>}. 
 
 Najważniejsze biblioteki związane z zastosowaniami techniczno-naukowymi to
-są zawarte w zbiorze bibliotek tworzących ekosystem \emph{SciPy}, którego
+są zawarte w zbiorze bibliotek tworzących ekosystem \emph{SciPy}[odnośnik], którego
 elementarne części to Python oraz biblioteki: \emph{NumPy}, \emph{SciPy}
-i \emph{Matplotlib}. Ponadto w testach wykorzystano, również zawarte w
+i \emph{matplotlib}. Ponadto w testach wykorzystano, również zawarte w
 \emph{Anaconda Distribution}, biblioteki \emph{Numba} i \emph{NumExpr}.
 
 \emph{NumPy}[odnośnik] jest to biblioteka, która dodaje wielowymiarowe typy wektorowe
@@ -500,22 +502,58 @@ narzędzie do integracji kodu napisanego w C/C++ oraz Fortranie jak
 również kolekcję funkcji matematycznych operujących na tych typach,
 związanych przede wszystkim z algebrą liniową oraz transformacją Fouriera.
 
-Biblioteka \emph{SciPy}
+Biblioteka \emph{SciPy} zawiera zbiór funkcji typowo stosowanych
+w pracy inżyniera i naukowca. Są one podzielone na moduły które
+kategoryzują te funkcje w grupy związane między innymi z:
+optymizacją, całkowaniem, interpolacją, funkcjami specjalnymi,
+przetwarzaniem sygnałów, przetwarzaniem obrazów, rozwiązywaniem
+równań różniczkowych. Zawiera ponadto alternatywne implementacje
+funkcji z biblioteki \emph{NumPy} do algebry liniowej i transformacji,
+które wykonują te operacje w krótszym czasie.
 
+Za tworzenie wykresów odpowiada biblioteka \emph{matplotlib}[odnośnik],
+która korzysta z typów dodanych przez \emph{NumPy}. Oferuje ona
+uproszczony interfejs (funkcję) \lstinline{pyplot()}, który pozwala
+rysowań zestawy danych w sposób bardzo podobny do MATLABA. Sam \emph{matplotlib}
+pozwala tylko na tworzenie wykresów dwuwymiarowych, jednak biblioteka
+\emph{mplot3d}[odnośnik] rozszerza funkcjonalność biblioteki o możliwość
+rysowania wykresów trójwymiarowych.
 
+Biblioteki \emph{NumExpr}[odnośnik] oraz \emph{NumBa}[odnośnik] obie służą do zwiększenia
+szybkości przeprowadzanych obliczeń, choć osiągają to w inny sposób.
+\emph{NumExpr} wykorzystuje wirtualną maszynę operującą na wektorach
+by przyspieszyć operacje które przetwarzają tablice po elementach.
+Architektura tej maszyny pozawala na wykorzystanie w pełni wielowątkowości
+współczesnych procesorów. Maszyna wspiera operatory logiczne i arytmetyczne,
+oraz część funkcji matematycznych, w tym funkcje trygonometryczne, hiperboliczne,
+logarytmiczne, eksponenty i pierwiastki. Wspiera również podstawowe operacje na
+liczbach zespolonych: moduł i sprzężenie. Biblioteka \emph{NumBa} natomiast
+pozwala na kompilację \emph{JIT} (\emph{just-in-time}) -- zamianę na kod maszynowy
+w momencie pierwszego uruchomienia tej funkcji, co w dużym stopniu przyspiesza
+wykonywanie kolejnych wywołań tej funkcji, gdyż niepotrzebne jest bieżące
+wykonywanie funkcji przez interpreter Pythona. Aby oznaczyć funkcję
+jako cel kompilacji \emph{JIT} wystarczy przed jej definicją umieścić marker
+\lstinline{@jit}.
 
+Praca w Anacondzie jest możliwa przy pomocy trzech interfejsów. Można pracować
+wyłącznie w wierszu poleceń, za pomocą aplikacji \emph{ipython}[odnośnik]
+(\emph{interactive python}).
 
 \section{GNU Octave}
 \label{sec:octave}
+\lstset{language=Octave}
 
 \section{JuliaPro/Julia}
 \label{sec:julia}
+\lstset{language=Julia}
 
 \section{MATLAB}
 \label{sec:matlab}
+\lstset{language=MATLAB}
 
 \section{Scilab}
 \label{sec:scilab}
+\lstset{language=Scilab}
 
 \chapter{Proces badawczy}
 \label{chap:probad}
