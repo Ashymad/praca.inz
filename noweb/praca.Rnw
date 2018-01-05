@@ -532,16 +532,80 @@ pozwala na kompilację \emph{JIT} (\emph{just-in-time}) -- zamianę na kod maszy
 w momencie pierwszego uruchomienia tej funkcji, co w dużym stopniu przyspiesza
 wykonywanie kolejnych wywołań tej funkcji, gdyż niepotrzebne jest bieżące
 wykonywanie funkcji przez interpreter Pythona. Aby oznaczyć funkcję
-jako cel kompilacji \emph{JIT} wystarczy przed jej definicją umieścić marker
+jako cel kompilacji \emph{JIT} wystarczy przed jej definicją umieścić dyrektywę
 \lstinline{@jit}.
 
-Praca w Anacondzie jest możliwa przy pomocy trzech interfejsów. Można pracować
-wyłącznie w wierszu poleceń, za pomocą aplikacji \emph{ipython}[odnośnik]
-(\emph{interactive python}).
+Praca w Anacondzie jest możliwa przy pomocy trzech interfejsów. Można korzystać z
+aplikacji wiersza poleceń \emph{IPython}[odnośnik] (\emph{interactive python}), 
+która zapewnia szybki dostęp do pomocy, kolorowanie składni kodu, automatyczne
+podpowiedzi, historię komend, zapamiętywanie sesji oraz możliwość inspekcji
+obiektów. Drugim interfejsem jest zintegrowane środowisko programistyczne \emph{Spyder}[odnośnik],
+przypominające wyglądem interfejs MATLABa. Integruje on w jednej aplikacji
+konsolę IPythona ze wsparciem dla wyświetlania wykresów, edytor plików źródłowych,
+przeglądarkę zmiennych, przeglądarkę plików oraz przeglądarkę dokumentacji.
+Ostatnim interfejsem jest \emph{Jupyter}[odnośnik] -- jest to specyficzne
+połączenie procesora tekstu z niewielkimi możliwościami formatowania i edytora
+kodu źródłowego. Dokumenty Jupytera są nazywane \emph{notatnikami} i składają się
+z komórek, które mogą zwierać zywyczajny tekst, tekst formatowany w formacie \emph{Markdown}
+lub kod. Każdą z tych komórek można oddzielnie uruchomić co formatuje tekst lub
+wykonuje zawarty w komórce kod i wyświetla wyniki, w tym wykresy jako, element
+notatnika. Pierwotnie Jupyter (wtedy jeszcze był częścią projektu \emph{IPython})
+wspierał wyłącznie Pythona, lecz jako Jupyter jest on złożony z dwóch niezależnych
+elementów: interfejsu webowego, który służy do edycji notatników, i jądra, które
+interpretuje kod, co pozwala na wsparcie wielu innych języków.
+
+Składnia Pythona różni się znacząco od składni języków pozostałych badanych
+pakietów. Najważniejszą różnicą jest brak słów kluczowych kończących
+struktury takie jak pętle, instrukcje warunkowe, czy też definicje funkcji.
+W Pythonie blok kodu oznacza się wyłącznie wcięciem przed instrukcjami.
+Definicję funkcji rozpoczyna słowo kluczowe \lstinline{def}
+po którym następuje nazwa funkcji, lista oddzielonych przecinkami argumentów
+które przyjmuje w nawiasach okrągłych i dwukropek który oznacza początek ciała
+funkcji. Wszystko co następuje po tym dwukropku i ma wcięcie jest traktowane
+jako ciało funkcji (Przykład takiej definicji obrazuje tablica \ref{tab:abs.py}).
+Drugą istotną różnicą jest indeksowanie elementów zbiorów, w Pythonie pierwszy
+element zbioru ma indeks zero, czyli aby uzyskać dostęp do pierwszego elementu
+listy \lstinline{tabl} należy wywołać \lstinline{tabl[0]}. Python wykorzystuje
+kwadratowe nawiasy do indeksowania zbiorów. Język posiada dwa rodzaje pętli:
+pętle \lstinline{while}, powtarzaną dopóki warunek jest spełniony oraz pętle
+\lstinline{for}, która iteruje po elementach listy
+(np. \lstinline{for x in range(0,10):}). Funkcje tworzące zbiory sekwencji liczb,
+takie jak \lstinline{range()} nie zamieszczają górnej granicy sekwencji
+w wynikowym zbiorze.
+
+\begin{table}[!htb]
+  \caption{Funkcja licząca moduł liczby rzeczywistej w języku Python}
+  \begin{lstlisting}
+def modul(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+  \end{lstlisting}
+  \label{tab:abs.py}
+\end{table}
+
+Aby móc wykorzystać zainstalowaną bibliotekę należy ja najpierw \emph{zaimportować},
+służy do tego słowo kluczowe \lstinline{import}, po którym należy umieścić nazwę
+biblioteki, po czym opcjonalnie można umieścić słowo kluczowe \lstinline{as} i
+nazwę pod którą chce się aby ta biblioteka była dostępna w programie. Jeżeli
+nie wykorzysta się \lstinline{as} biblioteka będzie dostępna pod swoją nazwą.
+Na przykład aby zaimportować \emph{math} (bibliotekę zawierającą między innymi
+stałe matematyczne) można wywołać \lstinline{import math as ma} co pozwoli
+wykorzystać ją dalszej części programu pod nazwą \lstinline{ma},
+na przykład wywołać \lstinline{ma.pi} w celu uzyskania liczby $\pi$.
+Niektóre biblioteki, takie jak \emph{SciPy} posiadają wiele modułów,
+wtedy okazuje się być koniecznym użycie słowa kluczowego \lstinline{from},
+które pozwala zaimportować tylko jakiś element biblioteki, na przykład
+by zaimportować tylko liczbę $\pi$ z biblioteki \emph{math} należy wywołać
+\lstinline{from math import pi}, dzięki czemu aby uzyskać tę liczbę wystarczy
+wywołać \lstinline{pi}.
 
 \section{GNU Octave}
 \label{sec:octave}
 \lstset{language=Octave}
+
+
 
 \section{JuliaPro/Julia}
 \label{sec:julia}
