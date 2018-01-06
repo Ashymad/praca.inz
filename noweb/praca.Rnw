@@ -513,6 +513,18 @@ szczegółowych wykresach trójwymiarowych). Interfejs FLTK jest
 upodobniony do interfejsu wykresów MATLABa, natomiast interfejs
 gnuplota i jego obsługa jest mniej intuicyjna dla użytkowników
 MATLABa.
+
+Octave posiada dwa interfejsy. Pierwszym jest interfejs wiersza poleceń,
+który można uruchomić wywołując komendą \lstinline{octave-cli}, posiada
+on możliwości zapewniane przez bibliotekę \emph{GNU Readline}[odnośnik],
+czyli edycję komend, przeszukiwanie historii komend, możliwość wklejania
+i kopiowania wielu linii kodu na raz oraz uzupełnianie komend po
+wciśnięciu klawisza \emph{tab}. Od wersji 3.8 istnieje również
+interfejs graficzny, natomiast od wersji 4.0 jest on w pełni funkcjonalny
+i uruchamia się domyślnie przy uruchomieniu aplikacji. Jest to zintegrowane
+środowisko programistyczne posiadające edytor kodu źródłowego, przeglądarkę
+plików, podgląd zmiennych oraz konsolę z wierszem poleceń. Istnieje również
+możliwość przeglądania dokumentacji i historii komend.
   
 \section{Scilab}
 \label{sec:scilab}
