@@ -488,7 +488,8 @@ nie jest aż tak zaawansowana. Aby zainstalować bibliotekę, należy ją pobra�
 ze strony \emph{Octave-Forge}, po czym wywołać komendę
 \lstinline{pkg install <nazwa pobranego archiwum>} lub bezpośrednio
 wywołać komendę \lstinline{pkg install -forge <nazwa biblioteki>}, która
-to zrobi automatycznie.
+to zrobi automatycznie. Aby bibliotekę wykorzystać potem w skrypcie lub
+linii poleceń należy ją wczytać poleceniem \lstinline{pkg load <nazwa bibiloteki>}.
 
 Octave posiada bogatą bibliotekę podstawową, która zawiera większość funkcji
 które są w bibliotece podstawowej MATLABa. Najważniejszą biblioteką która
@@ -500,16 +501,16 @@ analizy spektralnej, tworzenia okien czasowych, identyfikacji systemów i przepr
 
 Tworzenie wykresów w GNU Octave jest możliwe przy pomocy dwóch systemów
 rysujących. Domyślnie rysowanie odbywa się przy pomocy własnego systemu
-wykorzystującego \emph{FLTK} (\emph{Fast Light Toolkit}), lecz istnieje
+wykorzystującego \emph{OpenGL}, lecz istnieje
 możliwość zmiany na inny przy pomocy polecenia
 \lstinline{graphics_toolkit <nazwa systemu>}. Pozwala to wykorzystać
 drugi z dostępnych systemów: gnuplot -- ten system wykorzystuje
 oddzielną aplikację \emph{gnuplot}[odnośnik] do rysowania. Do jej
 zalet należą: szybsze rysowanie, znacznie pojemniejsza wewnętrzna
-reprezentacja liczbowa (maksymalna liczba w FLTK nie może przekroczyć
+reprezentacja liczbowa (maksymalna liczba w systemie własnym nie może przekroczyć
 $10^{38}$, natomiast gnuplot dopuszcza liczby aż do $10^{308}$) oraz
 mniejsze wymagania sprzętowe (co jest szczególnie zauważalne przy
-szczegółowych wykresach trójwymiarowych). Interfejs FLTK jest
+szczegółowych wykresach trójwymiarowych). Interfejs własny jest
 upodobniony do interfejsu wykresów MATLABa, natomiast interfejs
 gnuplota i jego obsługa jest mniej intuicyjna dla użytkowników
 MATLABa.
@@ -525,7 +526,64 @@ i uruchamia się domyślnie przy uruchomieniu aplikacji. Jest to zintegrowane
 środowisko programistyczne posiadające edytor kodu źródłowego, przeglądarkę
 plików, podgląd zmiennych oraz konsolę z wierszem poleceń. Istnieje również
 możliwość przeglądania dokumentacji i historii komend.
-  
+
+Składnia języka GNU Octave jest niemalże w pełni kompatybilna ze składnią
+MATLABa, choć istnieją pewne graniczne przypadki oraz różnice w działaniu
+funkcji bazowych. Zaliczają się do nich: niepełne wsparcie dla klas
+definiowanych przy użyciu słowa kluczowego \lstinline{classdef}, brak
+dostępu do zmiennych zadeklarowanych w funkcji macierzystej dla funkcji
+w niej zdefiniowanych. Poza tym operatory \lstinline{&} i \lstinline{|}
+(operacje AND i OR na bitach zmiennych numerycznych)
+w MATLABie, jeżeli są użyte w warunku zachowują się tak samo jak operatory
+\lstinline{&&} i \lstinline{||} (operacje AND i OR na zmiennych logicznych),
+natomiast w GNU Octave zachowują się zawsze tak samo.
+Octave ponadto rozszerza nieco składnię MATLABa w celu uproszczenia i
+zwiększenia czytelności i logiki języka. Komentarze można oznaczyć nie tylko
+znakiem procenta (\lstinline{%}), ale również kratką (\lstinline{#}).
+Cudzysłowy (\lstinline{"}) oznaczają tablice znaków tak samo jak i apostrofy
+(\lstinline{'}), lecz istnieje w nich możliwość stosowania specjalnych
+sekwencji takich jak \lstinline{"\n"}, czy \lstinline{"\t"} (znak nowej linii
+i znak tabulatora, odpowiednio). W MATLABie od 2016 r. cudzysłowy oznaczają
+\emph{string}, typ jeszcze niezaimplementowany w Octave. Poza trzema kropkami
+(\lstinline{...}), można, w celu kontynuacji instrukcji w następnej linijce,
+użyć wsteczny ukośnik (\lstinline{\}).%}
+By uczytelnić kod można, zamiast stosować \lstinline{end} jako zamknięcie
+każdej struktury, stosować odpowiednie słowa kluczowe do każdej struktury,
+czyli kończyć \lstinline{for} słowem kluczowym \lstinline{endfor} i podobnie
+z innymi strukturami. Nie ma wymogu, w Octave, przypisania macierzy do
+zmiennej by móc ją indeksować, można wywołać instrukcję
+\lstinline{[4 3 2 1](2)}, co zwróci drugi element wektora (\lstinline{4}).
+Ponadto zaczerpnięte są elementy składniowe z języka C, takie jak wykrzyknik
+(\lstinline{!})
+oznaczający operator logiczny NOT (gdzie w MATLABie służy on do uruchamiania
+poleceń powłoki systemowej), skrócone operatory inkrementacji (np.
+\lstinline{++x}, oznaczający \lstinline{x = x + 1}, lub \lstinline{x += 10},
+czyli \lstinline{x = x + 10}) i pętle \lstinline{do}-\lstinline{until}.
+
+Poza różną składnią inne znaczące różnice to: wbudowane funkcje do rozwiązywania
+układów równań różniczkowych, brak możliwości kompilacji skryptów do kodu
+maszynowego, brak kompilacji JIT (patrz punkt \ref{sec:anaconda}), możliwość
+definiowania funkcji w wierszu poleceń oraz możliwość umieszczania testów
+i demonstracji w funkcji (Tab. \ref{tab:absoct.m}), które można następnie
+uruchomić wykorzystując polecenie \lstinline{test} lub \lstinline{demo},
+odpowiednio.
+
+\begin{table}[!hbt]
+  \caption{Funkcja liczącej moduł liczby rzeczywistej w GNU Octave}
+  \begin{lstlisting}
+function y = modul(x)
+  if x < 0
+    y = -x;
+  else
+    y = x;
+  endif
+endfunction
+%!test
+%! assert(modul(-1),1)
+  \end{lstlisting}
+  \label{tab:absoct.m}
+\end{table}
+
 \section{Scilab}
 \label{sec:scilab}
 \lstset{language=Scilab}
@@ -552,6 +610,22 @@ Używając komendy \lstinline{conda install <nazwa biblioteki>} można zainstalo
 bibliotekę z repozytorium Anacondy -- \emph{Anaconda Cloud}. Istnieje również
 możliwość instalacji bibliotek z \emph{PyPI}, czyli ogólnego zbioru bibliotek do Pythona 
 przy użyciu polecenia \lstinline{pip install <nazwa biblioteki>}. 
+
+Aby móc wykorzystać zainstalowaną bibliotekę należy ja najpierw \emph{zaimportować},
+służy do tego słowo kluczowe \lstinline{import}, po którym należy umieścić nazwę
+biblioteki, po czym opcjonalnie można umieścić słowo kluczowe \lstinline{as} i
+nazwę pod którą chce się aby ta biblioteka była dostępna w programie. Jeżeli
+nie wykorzysta się \lstinline{as} biblioteka będzie dostępna pod swoją nazwą.
+Na przykład aby zaimportować \emph{math} (bibliotekę zawierającą między innymi
+stałe matematyczne) można wywołać \lstinline{import math as ma} co pozwoli
+wykorzystać ją dalszej części programu pod nazwą \lstinline{ma},
+na przykład wywołać \lstinline{ma.pi} w celu uzyskania liczby $\pi$.
+Niektóre biblioteki, takie jak \emph{SciPy} posiadają wiele modułów,
+wtedy okazuje się być koniecznym użycie słowa kluczowego \lstinline{from},
+które pozwala zaimportować tylko jakiś element biblioteki, na przykład
+by zaimportować tylko liczbę $\pi$ z biblioteki \emph{math} należy wywołać
+\lstinline{from math import pi}, dzięki czemu aby uzyskać tę liczbę wystarczy
+wywołać \lstinline{pi}.
 
 Najważniejsze biblioteki związane z zastosowaniami techniczno-naukowymi to
 są zawarte w zbiorze bibliotek tworzących ekosystem \emph{SciPy}[odnośnik], którego
@@ -647,22 +721,6 @@ def modul(x):
   \end{lstlisting}
   \label{tab:abs.py}
 \end{table}
-
-Aby móc wykorzystać zainstalowaną bibliotekę należy ja najpierw \emph{zaimportować},
-służy do tego słowo kluczowe \lstinline{import}, po którym należy umieścić nazwę
-biblioteki, po czym opcjonalnie można umieścić słowo kluczowe \lstinline{as} i
-nazwę pod którą chce się aby ta biblioteka była dostępna w programie. Jeżeli
-nie wykorzysta się \lstinline{as} biblioteka będzie dostępna pod swoją nazwą.
-Na przykład aby zaimportować \emph{math} (bibliotekę zawierającą między innymi
-stałe matematyczne) można wywołać \lstinline{import math as ma} co pozwoli
-wykorzystać ją dalszej części programu pod nazwą \lstinline{ma},
-na przykład wywołać \lstinline{ma.pi} w celu uzyskania liczby $\pi$.
-Niektóre biblioteki, takie jak \emph{SciPy} posiadają wiele modułów,
-wtedy okazuje się być koniecznym użycie słowa kluczowego \lstinline{from},
-które pozwala zaimportować tylko jakiś element biblioteki, na przykład
-by zaimportować tylko liczbę $\pi$ z biblioteki \emph{math} należy wywołać
-\lstinline{from math import pi}, dzięki czemu aby uzyskać tę liczbę wystarczy
-wywołać \lstinline{pi}.
 
 \section{JuliaPro/Julia}
 \label{sec:julia}
