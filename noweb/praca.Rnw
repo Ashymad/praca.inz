@@ -569,7 +569,7 @@ uruchomić wykorzystując polecenie \lstinline{test} lub \lstinline{demo},
 odpowiednio.
 
 \begin{table}[!hbt]
-  \caption{Funkcja liczącej moduł liczby rzeczywistej w GNU Octave}
+  \caption{Funkcja licząca moduł liczby rzeczywistej w GNU Octave}
   \begin{lstlisting}
 function y = modul(x)
   if x < 0
@@ -587,6 +587,109 @@ endfunction
 \section{Scilab}
 \label{sec:scilab}
 \lstset{language=Scilab}
+
+Scilab[odnośnik] jest darmowym, otwartoźródłowym (pod licencją GPL od wersji 6.0) pakietem
+obliczeniowym do zastosowań techniczno-naukowych tworzony przez \emph{Scilab Enterprises},
+które oferuje profesjonalne wsparcie dla klientów biznesowych. Jest rozwijany jako
+alternatywne rozwiązanie dla MALTABa wraz z oprogramowaniem \emph{Xcos} -- alternatywą
+dla Simulinka.
+
+Język programowania z którego korzysta Scilab jest najmniej popularnym językiem programowania
+wśród języków testowanych pakietów co utrudnia znalezienie gotowych rozwiązań problemów i
+przykładów, lecz język ten jest stosunkowo podobny do MATLABa, a Scilab zawiera narzędzie
+do automatycznego tłumaczenia z języka MATLABa. Scilab posiada dobrą dokumentację.
+
+Rozszerzenie możliwości Scilaba odbywa się poprzez biblioteki grupujące funkcjonalność
+analogicznie do \emph{toolboxów} w MATLABie. Znajdują się one w repozytorium
+\emph{ATOMS} (\emph{AuTomatic mOdules Management for Scilab}), skąd można je
+pobrać wykorzystując do tego graficznego klienta uruchamianego przez wpisanie komendy
+\lstinline{atomsGui} w wierszu poleceń Scilaba lub wykorzystując do tego funkcję
+\lstinline{atomsInstall("<nazwa pakietu>")}.
+
+Repozytorium ATOMS posiada w niedużą liczbę bibliotek, posiadając ich niewiele
+więcej niż GNU Octave, ponadto większość
+nie wspiera najnowszej wersji Scilaba (6.0 z lutego 2017 r.), lecz tylko
+starą wersję 5.5.2 ze stycznia 2015 r. W szczególności żadna z bibliotek
+związanych z przetwarzaniem sygnałów w repozytorium ATOMS nie wspiera
+najnowszej wersji Scilaba. Scilab swoją funkcjonalność zawdzięcza
+bogatej bibliotece podstawowej. W dziedzinie przetwarzania sygnałów pakiet
+poiada funkcje do filtrowania, projektowania filtrów FIR i IIR, identyfikacji
+systemów, analizy spektralnej i transformacji. Jego funkcjonalność nie jest
+tak obszerna jak biblioteki \emph{signal} do GNU Octave. Aby wykorzystać
+nową funkcjonalność po instalacji biblioteki nie ma konieczności ładowania
+jej ładowania, gdyż dzieje się to automatycznie przy starcie aplikacji.
+
+Scilab posiada swój własny silnik rysujący, który pozwala rysować wykresy
+szybko, posiadający interfejs podobny do tego który posiada MATLAB.
+Silnik ten pozwala na zapisywanie zaawansowanych formuł matematycznych
+na wykresie korzystając z notacji \emph{MathML} lub \LaTeX. Scilab
+wykorzystuje bibliotekę $\mathbb{J}$\LaTeX\emph{Math}, również rozwijaną
+przez \emph{Scilab Enterprises}, w celu wyświetlania formuła matematycznych
+w notacji \LaTeX -- aby tekst był zinterpretowany przez tę bibliotekę, należy
+formułę otoczyć znakami dolara. Wywołanie komendy
+\lstinline|title("$\sum_{i=1}^{10}\frac{1}{2^i}$")|
+pozwoli otrzymać formułę $\sum_{i=1}^{10}\frac{1}{2^i}$ w tytule.
+
+Użytkowanie Scilaba jest możliwe przy pomocy dwóch interfejsów. Jednym
+z nich jest interfejs wiersza poleceń który można uruchomić ze wsparciem
+dla elementów graficznych (np. rysowania wykresów) lub bez za pomocą
+komendy odpowiednio \lstinline|scilab-cli| lub \lstinline|scliab-adv-cli|.
+Jednak głównym interfejsem jest interfejs graficzny, wzorowany na interfejsie
+MATLABa. Jest to zintegrowane środowisko programistyczne posiadające edytor
+kodu źródłowego, przeglądarkę plików, inspektor zmiennych, historię komend
+oraz przeglądarkę pomocy. Ciekawą cechą tego interfejsu jest możliwość
+dowolnej modyfikacji ułożenia poszczególnych elementów poprzez ich
+przeciąganie.
+
+Składnia języka Scilaba jest podobna do MATLABA, lecz nie jest, tak jak
+GNU Octave, kompatybilna. Większość skryptów napisanych w MATLABie wymaga zmian.
+Funkcje z bazowej biblioteki w większości zachowują się podobnie jak
+w MATLABie, ponadto istnieje specjalna kategoria funkcji która ma za zadanie
+emulować odpowiednie funkcje w MATLABie. Wśród różnic w podstawowej składni
+można wymienić: zmienne wbudowane, takie jak liczba $\pi$ są poprzedzone
+znakiem procenta (\lstinline|%pi|) i nie można ich nadpisać, zapobiega
+to błędom w programie wynikającym z przypadkowego nadpisania stałych
+matematycznych (np. użycie \lstinline|i| jako iteratora w MATLABie).
+Komentarze oznacza się dwoma ukośnikami (\lstinline|//|) i nie istnieją
+komentarze blokowe. Podobnie jak w GNU Octave, można kończyć konstrukcję
+kontrolujące przepływ, takie jak \lstinline|for| pasującymi słowami
+kluczowymi (\lstinline|endfor| w tym przypadku). Tekst zawarty pomiędzy
+cudzysłowami (\lstinline|"|) i apostrofami tak samo (\lstinline|'|) konstruuje
+jednoelementową macierz z elementem typu \emph{string}. \lstinline|&| i \lstinline{|}
+oznaczają odpowiednio operacje AND i OR na zmiennych logicznych
+typu \emph{string}. Istnieje znacznie więcej drobnych różnic pomiędzy tymi
+językami, szczególnie w działaniu funkcji wbudowanych. Istotną natomiast
+różnicą jest inne zachowanie się plików. W Scilabie nie istnieje podział na
+pliki ze skryptami i pliki z funkcjami, podobnie jak w Julii i Pythonie i
+większości języków programowania ogólnego przeznaczenia. Wczytywanie skryptów
+odbywa się poprzez funkcję \lstinline|exec("<nazwa pliku>")|, co, podobnie
+jak w MATLABie wykonuje polecenia w tym pliku i udostępnia zmienne z tego
+pliku w pliku macierzystym, lecz nie wywołuje funkcji w tym pliku. Aby
+wywołać funkcję z innego pliku należy najpierw go wczytać i potem można
+ją wywołać w zwyczajny sposób (Tab. \ref{tab:abs.sci}). Pozwala to swobodnie mieszać definicje
+funkcji i instrukcje w skryptach Scilaba bez ograniczeń nałożonych
+w MATLABie z powodu tej mechaniki.
+
+\begin{table}[!hbt]
+  \caption{Funkcja licząca moduł liczby rzeczywistej w Scilabie}
+  \centering
+  \begin{lstlisting}
+// plik: modul.sci
+function y = modul(x)
+  if x < 0
+    y = -x;
+  else
+    y = x;
+  endif
+endfunction
+  \end{lstlisting}
+  \begin{lstlisting}
+//plik: skrypt.sci
+exec("modul.sci");
+modul(-1)
+  \end{lstlisting}
+  \label{tab:abs.sci}
+\end{table}
 
 \section{Anaconda/Python}
 \label{sec:anaconda}
