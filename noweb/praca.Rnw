@@ -490,8 +490,30 @@ ze strony \emph{Octave-Forge}, po czym wywołać komendę
 wywołać komendę \lstinline{pkg install -forge <nazwa biblioteki>}, która
 to zrobi automatycznie.
 
+Octave posiada bogatą bibliotekę podstawową, która zawiera większość funkcji
+które są w bibliotece podstawowej MATLABa. Najważniejszą biblioteką która
+poszerza jej funkcjonalność w dziedzinie przetwarzania sygnałów jest
+\emph{signal}, jest odpowiednikiem \emph{Singal Processing Toolbox} w
+MATLABie. Zawiera funkcje do: tworzenia i filtrowania sygnałów, tworzenia
+filtrów typu FIR i IIR, analizy i konwersji filtrów, filtrowania, transformacji,
+analizy spektralnej, tworzenia okien czasowych, identyfikacji systemów i przepróbkowywania. 
 
-
+Tworzenie wykresów w GNU Octave jest możliwe przy pomocy dwóch systemów
+rysujących. Domyślnie rysowanie odbywa się przy pomocy własnego systemu
+wykorzystującego \emph{FLTK} (\emph{Fast Light Toolkit}), lecz istnieje
+możliwość zmiany na inny przy pomocy polecenia
+\lstinline{graphics_toolkit <nazwa systemu>}. Pozwala to wykorzystać
+drugi z dostępnych systemów: gnuplot -- ten system wykorzystuje
+oddzielną aplikację \emph{gnuplot}[odnośnik] do rysowania. Do jej
+zalet należą: szybsze rysowanie, znacznie pojemniejsza wewnętrzna
+reprezentacja liczbowa (maksymalna liczba w FLTK nie może przekroczyć
+$10^{38}$, natomiast gnuplot dopuszcza liczby aż do $10^{308}$) oraz
+mniejsze wymagania sprzętowe (co jest szczególnie zauważalne przy
+szczegółowych wykresach trójwymiarowych). Interfejs FLTK jest
+upodobniony do interfejsu wykresów MATLABa, natomiast interfejs
+gnuplota i jego obsługa jest mniej intuicyjna dla użytkowników
+MATLABa.
+  
 \section{Scilab}
 \label{sec:scilab}
 \lstset{language=Scilab}
