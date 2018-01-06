@@ -460,12 +460,41 @@ knit_theme$set(knit_theme$get("default"))
 % https://docs.julialang.org/
 % https://www.anaconda.com/enterprise/
 % https://matplotlib.org/citing.html
+% citation() w GNU Octave
 
 
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
 Zbadano pięć pakietów, które wybrano szczególnie ze względu na podobieństwo do MATLABa[odnośnik do alternativeto], oraz popularność[TIOBE].  
+
+\section{MATLAB}
+\label{sec:matlab}
+\lstset{language=MATLAB}
+
+\section{GNU Octave}
+\label{sec:octave}
+\lstset{language=Octave}
+
+GNU Octave[odnośnik] to darmowy, otwartoźródłowy (pod licencją GPL) pakiet obliczeniowy do
+zastosowań techniczno-naukowych tworzony jako część systemu operacyjnego GNU. Jest
+tworzony przez wolontariuszy i sponsorowany przez FSF (\emph{Free Software Foundation}),
+jako alternatywa dla MATLABa.
+
+GNU Octave posiada wiele bibliotek, których większość znajduje się w repozytorium
+o nazwie \emph{Octave-Forge}. Biblioteki te grupują funkcje związane z dziedzinami
+nauki, podobnie jak \emph{toolboxy} w MATLABie, choć często ich funkcjonalność
+nie jest aż tak zaawansowana. Aby zainstalować bibliotekę, należy ją pobrać
+ze strony \emph{Octave-Forge}, po czym wywołać komendę
+\lstinline{pkg install <nazwa pobranego archiwum>} lub bezpośrednio
+wywołać komendę \lstinline{pkg install -forge <nazwa biblioteki>}, która
+to zrobi automatycznie.
+
+
+
+\section{Scilab}
+\label{sec:scilab}
+\lstset{language=Scilab}
 
 \section{Anaconda/Python}
 \label{sec:anaconda}
@@ -601,23 +630,9 @@ by zaimportować tylko liczbę $\pi$ z biblioteki \emph{math} należy wywołać
 \lstinline{from math import pi}, dzięki czemu aby uzyskać tę liczbę wystarczy
 wywołać \lstinline{pi}.
 
-\section{GNU Octave}
-\label{sec:octave}
-\lstset{language=Octave}
-
-
-
 \section{JuliaPro/Julia}
 \label{sec:julia}
 \lstset{language=Julia}
-
-\section{MATLAB}
-\label{sec:matlab}
-\lstset{language=MATLAB}
-
-\section{Scilab}
-\label{sec:scilab}
-\lstset{language=Scilab}
 
 \chapter{Proces badawczy}
 \label{chap:probad}
