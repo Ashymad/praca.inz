@@ -151,7 +151,7 @@ backend=biber
   {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
       end,export,false,for,function,immutable,import,importall,if,in,%
       macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
-      using,while,begin},%
+      using,while,begin,where},%
    sensitive=true,%
    alsoother={$},%$
    morecomment=[l]\#,%
@@ -572,11 +572,11 @@ odpowiednio.
   \caption{Funkcja licząca moduł liczby rzeczywistej w GNU Octave}
   \begin{lstlisting}
 function y = modul(x)
-  if x < 0
-    y = -x;
-  else
-    y = x;
-  endif
+    if x < 0
+        y = -x;
+    else
+        y = x;
+    endif
 endfunction
 %!test
 %! assert(modul(-1),1)
@@ -624,8 +624,8 @@ szybko, posiadający interfejs podobny do tego który posiada MATLAB.
 Silnik ten pozwala na zapisywanie zaawansowanych formuł matematycznych
 na wykresie korzystając z notacji \emph{MathML} lub \LaTeX. Scilab
 wykorzystuje bibliotekę $\mathbb{J}$\LaTeX\emph{Math}, również rozwijaną
-przez \emph{Scilab Enterprises}, w celu wyświetlania formuła matematycznych
-w notacji \LaTeX -- aby tekst był zinterpretowany przez tę bibliotekę, należy
+przez \emph{Scilab Enterprises}, w celu wyświetlania formuł matematycznych
+w notacji \LaTeX\ -- aby tekst był zinterpretowany przez tę bibliotekę, należy
 formułę otoczyć znakami dolara. Wywołanie komendy
 \lstinline|title("$\sum_{i=1}^{10}\frac{1}{2^i}$")|
 pozwoli otrzymać formułę $\sum_{i=1}^{10}\frac{1}{2^i}$ w tytule.
@@ -651,9 +651,10 @@ znakiem procenta (\lstinline|%pi|) i nie można ich nadpisać, zapobiega
 to błędom w programie wynikającym z przypadkowego nadpisania stałych
 matematycznych (np. użycie \lstinline|i| jako iteratora w MATLABie).
 Komentarze oznacza się dwoma ukośnikami (\lstinline|//|) i nie istnieją
-komentarze blokowe. Podobnie jak w GNU Octave, można kończyć konstrukcję
-kontrolujące przepływ, takie jak \lstinline|for| pasującymi słowami
-kluczowymi (\lstinline|endfor| w tym przypadku). Tekst zawarty pomiędzy
+komentarze blokowe. Podobnie jak w GNU Octave, można kończyć definicję
+funkcji słowem kluczowym \lstinline|endfunction|, lecz nie tyczy się to pozostałych
+konstrukcji kontroli przepływu, które kończy się, jak w MATLABie, słowem
+kluczowym \lstinline|end|. Tekst zawarty pomiędzy
 cudzysłowami (\lstinline|"|) i apostrofami tak samo (\lstinline|'|) konstruuje
 jednoelementową macierz z elementem typu \emph{string}. \lstinline|&| i \lstinline{|}
 oznaczają odpowiednio operacje AND i OR na zmiennych logicznych
@@ -676,18 +677,18 @@ w MATLABie z powodu tej mechaniki.
   \begin{lstlisting}
 // plik: modul.sci
 function y = modul(x)
-  if x < 0
-    y = -x;
-  else
-    y = x;
-  endif
+    if x < 0
+        y = -x;
+    else
+        y = x;
+    endif
 endfunction
   \end{lstlisting}
   \begin{lstlisting}
 //plik: skrypt.sci
 exec("modul.sci");
 modul(-1)
-  \end{lstlisting}
+  \end{lstlisting}%$
   \label{tab:abs.sci}
 \end{table}
 
@@ -814,7 +815,7 @@ takie jak \lstinline{range()} nie zamieszczają górnej granicy sekwencji
 w wynikowym zbiorze.
 
 \begin{table}[!htb]
-  \caption{Funkcja licząca moduł liczby rzeczywistej w języku Python}
+  \caption{Funkcja licząca moduł liczby rzeczywistej w Pythonie}
   \begin{lstlisting}
 def modul(x):
     if x < 0:
@@ -828,6 +829,120 @@ def modul(x):
 \section{JuliaPro/Julia}
 \label{sec:julia}
 \lstset{language=Julia}
+
+JuliaPro[odnośnik] jest to dystrybucja języka programowania \emph{Julia}[odnośnik]
+oferowana przez \emph{Julia Computing}, firmę zapewniającą finansowanie
+i wspierającą rozwój tego języka, zawierająca zbiór najczęściej używanych bibliotek.
+Julia rozwijana jest nie tylko przez pracowników tej firmy, ale również przez
+wolontariuszy będąc projektem otwartoźródłowym (pod licencją MIT). JuliaPro jest
+oferowana w wersji darmowej i w wersji dla klientów biznesowych z zapewnionym
+wsparciem. Julia została stworzona jako rozwiązanie problemu długiego czasu
+wykonywania się programów w jeżykach interpretowanych używanych do zastosowań
+techniczno-naukowych przez wykorzystanie kompilacji JIT (patrz punkt
+\ref{sec:anaconda}).
+
+Choć Julia jest najmłodszym z języków testowanych pakietów, pierwszy raz ukazawszy
+się w 2012 roku, jest w pierwszej pięćdziesiątce najpopularniejszych języków
+programowania i trzecim najpopularniejszym językiem wśród języków badanych pakietów.
+Łatwo dzięki temu znaleźć publikacje i pomoc związane z tym językiem, ponadto
+Julia posiada doskonałą dokumentację.
+Istnieje bardzo duża liczba bibliotek w czym Julia ustępuje tylko Pythonowi.
+Odnośniki do większości bibliotek znajdują się w repozytorium git \emph{METADATA.jl}
+na GitHubie[odnośnik]. Aby zainstalować bibliotekę należy wykorzystać funkcję
+\lstinline|Pkg.add("<nazwa pakietu>"|, co pobierze najnowszą wersję stabilną,
+istnieje też możliwość pobrania biblioteki bezpośrednio z jej repozytorium git
+w celu uzyskania biblioteki która nie jest zarejestrowana w 
+\emph{METADATA.jl}, przy pomocy funkcji \lstinline|Pkg.clone("<adres repozytorium>")|.
+
+Biblioteki w Julii, podobnie jak w Pythonie, są modułami, które przed użyciem
+trzeba załadować. Służą do tego słowa kluczowe: \lstinline|import| i \lstinline|using|.
+Polecenie \lstinline|import <nazwa modułu>| zachowuje się tak samo
+jak w Pythonie (patrz punkt \ref{sec:anaconda}), natomiast
+\lstinline|using <nazwa modułu>| pozwala załadować wszystkie elementy tego
+modułu, co jest odpowiednikiem instrukcji 
+\lstinline[language=Python]|from <nazwa modułu> import *| w Pythonie. Aby
+załadować jakąś cześć modułu należy po \lstinline|using <nazwa biblioteki>| umieścić dwukropek
+i wymienić elementy oddzielone przecinkiem (na przykład
+\lstinline|using DSP: conv, fft|).
+
+Julia posiada bardzo wiele bibliotek do rysowania wykresów korzystających
+z wielu zewnętrznych narzędzi, takich jak gnuplot (patrz punkt \ref{sec:octave})
+-- za pomocą \emph{Gaston.jl}, czy matplotlib (patrz punkt \ref{sec:anaconda}) --
+za pomocą \emph{PyPlot.jl}. W pakiecie JuliaPro znajdują się biblioteki
+\emph{PyPlot.jl} i \emph{Gadfly.jl}. Jako że \emph{PyPlot.jl} jest
+interfejsem do modułu \lstinline{matplotlib.pyplot}, wymaga on instalacji Pythona
+wraz z tą biblioteką by funkcjonować, co jest zapewniane przez bibliotekę
+\emph{Conda.jl} -- wykorzystuje ona aplikację \emph{conda}
+(patrz punkt \ref{sec:anaconda}) w celu instalacji potrzebnych bibliotek.
+\emph{PyPlot.jl} wykorzystuje bibliotekę \emph{PyCall.jl}, która pozwala
+rysować wykresy niemalże tak samo szybko jak w Pythonie, przekazując
+tablice danych bez kopiowania. W przeciwieństwie do funkcji \lstinline|plot()|
+z modułu \emph{PyPlot.jl}, której użytkowanie będzie intuicyjne dla użytkowników
+tej funkcji w pakiecie MATLAB, ta funkcja w bibliotece \emph{Gadfly.jl} posiada
+zupełnie inną składnie, która oparta jest na książce \emph{The Grammar of Graphics}[odnośnik].
+
+JuliaPro oferuje trzy interfejsy użytkownika. Pierwszym jest interfejs wiersza
+poleceń uruchamiany poleceniem \lstinline|julia|, który zapewnia możliwość
+podobne jak biblioteka GNU Readline (patrz punkt \ref{sec:octave}). Juno[odnośnik]
+to zintegrowane środowisko programistyczne, opierające się na edytorze \emph{Atom},
+zbudowane specjalnie do użytkowania z Julią. Posiada, podobnie jak i środowiska
+graficzne pozostałych pakietów, zintegrowany edytor kodu źródłowego, konsolę wiersza
+poleceń Julii, przeglądarkę plików, dokumentacji i zmiennych. Ponadto posiada
+dedykowany element interfejsu na wykresy. Istnieje również możliwość pisania
+w Julii przy pomocy notatnika w Jupyterze (patrz punkt \ref{sec:anaconda}),
+dzięki wykorzystaniu biblioteki \emph{IJulia.jl}.
+
+Składnia Julii bierze inspiracje ze składni MATLABa, lecz jest w większości
+przypadków znacznie bardzie restrykcyjna w celu zwiększenia logiki języka
+oraz poprawienia efektywności kompilacji oraz, poza prostymi, funkcje nie
+zachowują się kompatybilnie z odpowiednikami w MATLABie. Wśród różnic
+szególnie znaczących dla użytkowników MATLABa można wymienić: indeksowanie wektorów
+i macierzy odbywa się przy pomocy nawiasów kwadratowych; przypisanie
+wartości tablicy do zmiennej nie kopiuje tablicy, po wykonaniu instrukcji
+\lstinline|A = B| zmiana elementu tablicy \lstinline|A| zmieni również tablicę
+\lstinline|B|, tak samo przekazanie tablicy funkcji pozwala jej modyfikować
+jej elementy; dodanie nowych elementów do tablicy odbywa się przy użyciu
+specjalnych funkcji (np. \lstinline|A.push!(1)| zamiast
+\lstinline|A(end+1) = 1|); jednostka urojona oznaczana jest \lstinline|im|;
+\lstinline|[1, 2, 3]| tworzy wektor kolumnowy, gdyż przecinek służy w
+takim zapisie do tworzenia tablicy, której elementami mogą być inne
+tablice bez łączenia ich; instrukcja \lstinline|start:krok:koniec| tworzy
+specjalny obiekt (patrz punkt \ref{sec:wynsin}); funkcje zwracają ostatnią
+wartość lub wartość po słowie kluczowym \lstinline|return| (Tab. \ref{tab:abs.jl});
+operatory logiczne, podobnie jak arytmetyczne, wymagają kropki by działać
+po elemencie, a nie na całości (np. \lstinline|A .== B|). Julia posiada
+znacznie silniejszy system typów niż języki pozostałych badanych pakietów,
+na co szczególnie trzeba zwracać uwagę podczas wykonywania operacji matematycznych
+które wymagają innego typu w wyniku, gdy funkcja zwraca liczbę
+zespoloną trzeba jej podać liczbę zespoloną (np. \lstinline|log(-1+0im)| nie
+\lstinline|log(-1)|). Istnieje możliwość opcjonalnej adnotacji typów zmiennych i
+argumentów funkcji (Tab. \ref{tab:abs.jl}). Wiele elementów składni i operatorów pozwala na
+pisanie bardzo krótkiego kodu, przykładowo funkcję z tablicy \ref{tab:abs.jl}
+można zapisać w jednej linijce jako \lstinline|modul(x) = x < 0 ? -x : x|,
+za pomocą matematycznej notacji funkcji i krótkiego operatora
+warunkowego, w stylu języka C, postaci
+\lstinline|warunek ? jeżeli_prawda : jeżeli_fałsz|.
+
+\begin{table}[!htb]
+  \caption{Funkcja licząca moduł liczby rzeczywistej w Julii}
+  \begin{lstlisting}
+function modul(x::T) where T<:Real
+    if x < 0
+        return -x
+    else
+        return x
+    end
+end
+  \end{lstlisting}
+  \label{tab:abs.jl}
+\end{table}
+
+Należy mieć na uwadze, że składnia tego języka nie jest w pełni
+ukształtowana gdyż znajduje się on ciągle w fazie rozwojowej i ciągle
+ulega zmianom. Powoduje to, że niektóre biblioteki przestają działać
+z wersji na wersje jeżeli nikt się nimi nie zajmuje. Natomiast następna
+wersja Julii (0.7), po ukończeniu będzie wersją 1.0, od której można
+oczekiwać pewnej stabilności.
 
 \chapter{Proces badawczy}
 \label{chap:probad}
