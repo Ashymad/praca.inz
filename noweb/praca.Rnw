@@ -505,6 +505,18 @@ funkcje, takie jak: \lstinline|title()| -- pozwalającą
 ustalić tytuł wykresu, czy \lstinline|subplot()| -- pozwalającą
 na podział okna, by móc w nim umieścić kilka wykresów obok siebie.
 
+Praca w środowisku MATLAB odbywa się głównie przy pomocy graficznego
+zintegrowanego środowiska programistycznego, które jest domyślnym
+interfejsem pakietu. Posiada ono edytor kodu źródłowego, przeglądarkę
+plików, inspektor zmiennych, konsolę wiersza poleceń i przeglądarkę
+dokumentacji. Środowisko graficzne MATLABa jest bardzo rozbudowane
+i zawiera bardzo dużo narzędzi graficznych ułatwiających początkującym
+stosowanie zaawansowanej funkcjonalności, takiej jak projektowanie filtrów
+i aproksymacja funkcji. Istnieje też możliwość uruchomienia MATLABa
+bez środowiska graficznego, lecz z ograniczoną funkcjonalnością,
+gdyż nie ma on wtedy możliwości modyfikacji preferencji, rysowania
+wykresów ani tworzenia i korzystania z aplikacji graficznych.
+
 \section{GNU Octave}
 \label{sec:octave}
 \lstset{language=Octave}
@@ -527,7 +539,7 @@ linii poleceń należy ją wczytać poleceniem \lstinline{pkg load <nazwa bibilo
 Octave posiada bogatą bibliotekę podstawową, która zawiera większość funkcji
 które są w bibliotece podstawowej MATLABa. Najważniejszą biblioteką która
 poszerza jej funkcjonalność w dziedzinie przetwarzania sygnałów jest
-\emph{signal}, jest odpowiednikiem \emph{Singal Processing Toolbox} w
+\emph{signal}, jest odpowiednikiem \emph{Signal Processing Toolbox} w
 MATLABie. Zawiera funkcje do: tworzenia i filtrowania sygnałów, tworzenia
 filtrów typu FIR i IIR, analizy i konwersji filtrów, filtrowania, transformacji,
 analizy spektralnej, tworzenia okien czasowych, identyfikacji systemów i przepróbkowywania. 
