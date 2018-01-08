@@ -466,11 +466,34 @@ knit_theme$set(knit_theme$get("default"))
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
-Zbadano pięć pakietów, które wybrano szczególnie ze względu na podobieństwo do MATLABa[odnośnik do alternativeto], oraz popularność[TIOBE].  
+Zbadano pięć pakietów, które wybrano szczególnie ze względu na
+podobieństwo do MATLABa[odnośnik], oraz popularność[TIOBE].  
 
 \section{MATLAB}
 \label{sec:matlab}
 \lstset{language=MATLAB}
+
+MATLAB[odnośnik] to środowisko do obliczeń numerycznych w szczególności
+związanych z zagadnieniami naukowo-technicznymi tworzone przez firmę
+\emph{MathWorks}. Zarówno język jak i aplikacją są prawnie zastrzeżone
+i wymagają stosunkowo drogiej licencji do użytkowania[odnośnik].
+
+Język używany w środowisku MATLAB, jest trzecim najpopularniejszym
+językiem wśród języków testowanych pakietów oraz jest w pierwszej
+dwudziestce najpopularniejszych języków programowania. To oraz fakt
+bycia najstarszym językiem wśród testowanych powoduje łatwość znalezienia
+publikacji oraz pomocy na jego temat. Ponadto posiada on dokumentację
+na bardzo wysokim poziomie.
+
+Aby zwiększyć możliwości MATLABa jest możliwość dokupienia dodatkowych
+bibliotek grupujących zaawansowaną funkcjonalność z danej dziedziny
+nauki zwanych \emph{toolboxami}. Co więcej wykorzystując możliwość
+instalacji dodatków dostępną z interfejsu graficznego można zainstalować
+biblioteki poszerzające wsparcie sprzętowe oraz funkcje, skrypty i
+aplikacje stworzone przez użytkowników MATLABa znajdujące się
+na platformie \emph{File Exchange}.
+
+
 
 \section{GNU Octave}
 \label{sec:octave}
@@ -597,7 +620,7 @@ dla Simulinka.
 Język programowania z którego korzysta Scilab jest najmniej popularnym językiem programowania
 wśród języków testowanych pakietów co utrudnia znalezienie gotowych rozwiązań problemów i
 przykładów, lecz język ten jest stosunkowo podobny do MATLABa, a Scilab zawiera narzędzie
-do automatycznego tłumaczenia z języka MATLABa. Scilab posiada dobrą dokumentację.
+do automatycznego tłumaczenia z jego języka. Scilab posiada w miarę dobrą dokumentację.
 
 Rozszerzenie możliwości Scilaba odbywa się poprzez biblioteki grupujące funkcjonalność
 analogicznie do \emph{toolboxów} w MATLABie. Znajdują się one w repozytorium
