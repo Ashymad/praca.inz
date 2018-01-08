@@ -517,6 +517,100 @@ bez środowiska graficznego, lecz z ograniczoną funkcjonalnością,
 gdyż nie ma on wtedy możliwości modyfikacji preferencji, rysowania
 wykresów ani tworzenia i korzystania z aplikacji graficznych.
 
+Język programowania który jest głównym narzędziem pracy w pakiecie
+MATLAB został stworzony w celu uproszenia przeprowadzania programowych
+obliczeń numerycznych oferując składnie mocno zbliżoną
+do notacji matematycznej oraz dynamiczny system typów zmiennych.
+Pozwala to na szybkie pisanie kodu, który będzie czytelny i
+zrozumiały. W tym celu MATLAB posiada dużą ilość funkcji
+matematycznych (\lstinline|sin()|, \lstinline|log()|, \dots)
+oraz wbudowanych stałych matematycznych (\lstinline|pi|,
+\lstinline|e|, \dots).
+
+Poza zmiennymi numerycznymi, podstawowym typem zmiennej jest macierz,
+którą konstruuje się przy pomocy nawiasów kwadratowych w których
+umieszcza się elementy oddzielone przecinkami lub spacjami -- co łączy je w
+rzędy, albo średnikami -- co łączy je w kolumny. Przykładowo
+instrukcja \lstinline|A = [1, 2; 3, 4]| stworzy macierz:
+\[A = \begin{bmatrix}
+         1 & 2 \\
+         3 & 4
+       \end{bmatrix}\]%
+Kwadratowy służą również do łączenie macierzy, powyższemu zapisowi
+odpowiada \lstinline|A = [[1, 2]; [3, 4]]| -- dwa wektory są
+łączone w dwuwierszową macierz.
+Aby wydobyć element macierzy należy wykorzystać nawiasy okrągłe
+i podać w nich współrzędne położenie elementu, które są numerem
+rzędu i kolumny odpowiednio. Polecenie \lstinline|A(1,2)| zwróci
+wartość z pierwszego rzędu i drugiej kolumny macierzy 
+\lstinline|A|, czyli \lstinline|2|. Indeksowanie jest możliwe
+także operatorem \lstinline|:| (dwukropkiem), wtedy zwracane są
+elementy ze wszystkich kolumn lub wierszy (np. \lstinline|A(1,:)|
+zwróci macierz \lstinline|[[1, 2]|. Dwukropek może być
+też użyty do sekwencji liczb w postaci
+\lstinline|start:krok:koniec| (np. \lstinline|0:0.1:pi| stworzy
+sekwencję $0, 0,1, 0,2, \dots, \pi$), czego również można
+użyć do indeksowania macierzy (np. \lstinline|A(1, 1:2)| zwróci
+od pierwszego do drugiego elementu z pierwszego rzędu).
+Jeżeli krok nie zostanie podany, to przyjmuje wartość 1.
+Operatory arytmetyczne
+działają na macierzach zgodnie z zapisem algebraicznym
+(mnożenie jest mnożeniem macierzowym i podobnie), natomiast
+funkcje działające na pojedynczych liczbach przetwarzają macierze
+operując na każdym elemencie niezależnie. By wykonać operację
+arytmetyczną na każdym elemencie macierzy należy wykorzystać
+specjalne operatory z kropkami (\lstinline|.*|, \lstinline|.^|, \dots).
+
+Typem zmiennej zawierającej tekst są tablice znaków, tworzone
+przy użyciu apostrofów \lstinline|zwierze = 'kot'|, co oznacza
+to samo co \lstinline|zwierze = ['k', 'o', 't']| -- wektor znaków.
+Istnieje również typ zmiennej tekstowej \emph{string}, tworzony
+przy użyciu cudzysłowów (\lstinline|zwierze = "kot"|), który
+pozwala na traktowanie tekstu inaczej niż wektora znaków i
+posiada własny zestaw funkcji operujących na nim.
+
+Definicję funkcji rozpoczyna się słowem kluczowym \lstinline|function|
+po czym należy zapisać jej parametry wyjściowe i wejściowe w postaci
+\lstinline|y = funkcja(x)|, gdzie \lstinline|x| jest argumentem
+funkcji, a \lstinline|y| parametrem wyjściowym (Tab. \ref{tab:abs.m}).
+Funkcję można wywołać na dwa sposoby, albo w formie funkcji
+\lstinline|funkcja(x)|, albo, jeżeli funkcja nie zwraca żadnych wartości,
+a jej argumenty są tablicami znaków, w formie komendy \lstinline|funkcja x|,
+co jest odpowiednikiem \lstinline|funkcja('x')|. Funkcje mogą zwracać
+więcej niż jedną zmienną, oraz przyjmować wiele argumentów przy użyciu
+zapisu \lstinline|[y1, y2] = funkcja(x1, x2)| w definicji funkcji. Taki
+sam zapis należy stosować przy wywołaniu, w przeciwnym wypadku uzyska się
+wyłącznie pierwszą zmienną z wektora zwracanych. Istnieje możliwość
+zignorowania części zmiennych wyjściowych funkcji stosując operator
+\lstinline|~| (tyldę) zamiast zmiennych (np.
+\lstinline|[~, y2] = funkcja(x1, x2)|).
+
+\begin{table}[!hbt]
+  \caption{Funkcja licząca moduł liczby rzeczywistej w MATLABie}
+  \begin{lstlisting}
+function y = modul(x)
+    if x < 0
+        y = -x;
+    else
+        y = x;
+    end
+end
+  \end{lstlisting}
+  \label{tab:abs.m}
+\end{table}
+
+Do tworzenia instrukcji warunkowych służą słowa kluczowe \lstinline|if|,
+\lstinline|elseif|, \lstinline|else| i \lstinline|end|. Jeżeli warunek po słowie \lstinline|if|
+jest spełniony to kolejny blok kodu się wykonuje, w przeciwnym przypadku
+sprawdzany zostaje warunek po \lstinline|elseif|, jeżeli żaden nie jest spełniony
+wykonywane są instrukcje po \lstinline|else| (Tab. \ref{tab:abs.m}).
+
+W języku istnieją dwa rodzaje pętli. Pętla \emph{while} wykonuje blok kodu
+do słowa kluczowego \lstinline|end|, dopóki warunek po słowie kluczowym
+\lstinline|while| jest spełniony. Natomiast pętla \emph{for} wykonuje się
+dla każdego elementu wektora po prawej stronie znaku równości w konstrukcji
+\lstinline|it = start:krok:stop| po słowie kluczowym \lstinline|for|.
+
 \section{GNU Octave}
 \label{sec:octave}
 \lstset{language=Octave}
@@ -726,7 +820,7 @@ function y = modul(x)
         y = -x;
     else
         y = x;
-    endif
+    end
 endfunction
   \end{lstlisting}
   \begin{lstlisting}
