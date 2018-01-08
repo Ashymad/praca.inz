@@ -491,9 +491,19 @@ nauki zwanych \emph{toolboxami}. Co więcej wykorzystując możliwość
 instalacji dodatków dostępną z interfejsu graficznego można zainstalować
 biblioteki poszerzające wsparcie sprzętowe oraz funkcje, skrypty i
 aplikacje stworzone przez użytkowników MATLABa znajdujące się
-na platformie \emph{File Exchange}.
+na platformie \emph{File Exchange}.%
 
-
+MATLAB posiada własny silnik rysujący, który pozwala rysować wykresu dwu-
+i trójwymiarowe na podstawie danych numerycznych. Jest możliwe przy
+pomocy interfejsu graficznego, zaznaczając odpowiednie zmienne i przy
+pomocy funkcji \lstinline|plot()|, która w najprostszym przypadku
+przyjmuje dwa wektory, które zawierają odpowiednio współrzędne
+osi poziomej i współrzędne osi pionowej punktów pożądanego wykresu.
+Modyfikacja wyglądu wykresu oraz umieszczanie na nim tekstu odbywa się
+poprzez narzędzie graficzne \emph{Plot Tools} lub przez odpowiednie
+funkcje, takie jak: \lstinline|title()| -- pozwalającą
+ustalić tytuł wykresu, czy \lstinline|subplot()| -- pozwalającą
+na podział okna, by móc w nim umieścić kilka wykresów obok siebie.
 
 \section{GNU Octave}
 \label{sec:octave}
