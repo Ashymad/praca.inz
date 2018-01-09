@@ -1886,7 +1886,30 @@ summaryPlot(results.amd)
 \section{Wnioski końcowe}
 \label{sec:sumanaliza}
 
-
+Przeprowadzone badania jasno wykazały, że niektóre z badanych
+pakietów potrafią wykonać pewne zadania w czasie do kilku
+rzędów wielkości krótszym, co może spowodować masywną różnice
+w czasie obliczeń skomplikowanych algorytmów korzystających
+z pewnej funkcjonalności pakietu. Olbrzymie różnice w czasie
+wykonywania są poważnym powodem do zastanowieniem się nad
+użyciem innego pakietu. Dominująca pozycja MATLABa w środowisku
+naukowym jest mocno zagrożona przez pakiet Anaconda, którego
+prędkość stała niemalże na tym samym poziomie jeśli nie wyższym,
+a funkcjonalność
+na bardzo wysokim z powodu ogromnej ilości bibliotek. Natomiast
+dla osób zaznajomionych z MATLABem, Python może być zbytnio
+oddalony do łatwej zamiany. Julia posiada składnię znacznie
+bliższą MATLABowi, zapewniając podobną prędkość obliczeń i
+dużą ilość bibliotek,
+choć problematycznie długi czas wczytywania plików audio
+i niewielką zgodność w użytkowaniu funkcji. Niemalże pełną
+zgodność zapewnia GNU Octave, choć wykonywane obliczenia
+w niektórych testach zajęły znacznie więcej czasu, a ilość
+bibliotek jest stosunkowo niewielka. Scilab
+natomiast nie posiada, zdaje się, żadnej przewagi nad
+którymkolwiek z pozostałych pakietów będąc jednym z ostatnich
+w każdym teście, posiadając mało bibliotek i nie będąc zgodnym
+językowo z językiem MATLABa.
 
 \section{Dalsze kierunki badań}
 \label{sec:kier}
