@@ -453,20 +453,104 @@ knit_theme$set(knit_theme$get("default"))
 \chapter{Wprowadzenie i cel pracy}
 \label{cha:wstep}
 
-% Odnośniki do umieszczenia w bibl:
-% https://docs.anaconda.com/
-% https://docs.julialang.org/
-% https://www.anaconda.com/enterprise/
-% https://matplotlib.org/citing.html
-% citation() w GNU Octave
+Przeprowadzanie obliczeń numerycznych jest istotnym elementem
+pracy z sygnałami. W szczególności w akustyce analiza sygnałów
+dźwiękowych wymaga przetworzenia ich, stosując układy i algorytmy
+pozwalające wydobyć z nich odpowiednie informacje. Choć jest to
+możliwe za pomocą dedykowanych urządzeń analogowych lub cyfrowych,
+wykorzystanie pakietu obliczeniowego pozwala na większe możliwości
+modyfikacji działania systemu przetwarzającego oraz zaprojektowanie
+systemu, którego działanie nie jest dostępne w innej postaci.
+Możliwości szybkiego prototypowania dostarczane przez te narzędzia
+są szczególnie przydatne w fazie poszukiwań nowych sposobów na
+ekstrakcję informacji z analizowanych sygnałów. Narzędzia te umożliwiają
+także obrazowanie sygnałów poprzez funkcjonalność rysującą,
+czy to wykresy parametrów lub funkcji, czy bardziej zaawansowanych
+wizualizacji, takich jak spektrogram.
 
-%Przeprowadzanie obliczeń numerycznych jest istotne 
+Przetwarzanie sygnałów, nie jest, jednak, jedyną dziedziną akustyki
+w której pakiety obliczeniowe znajdują zastosowanie. W istocie, w
+dziedzinie akustyki teoretycznej, pozwalają one przeprowadzać
+symulacje fizyczne skomplikowanych układów akustycznych oraz
+wizualizację rozkładu parametrów akustycznych w takim układzie.
+Znajdują także w dziedzinie symulacji i rozwiązywania układów
+mechanicznych takich jak układy tłumiące wibracje.
 
-\Sexpr{library("rmsfact"); rmsfact()}\cite{Lam92}
+Jednym z pierwszych narzędzi tego typu, które nie wymagało
+wykorzystywania języka FORTRAN, w którym pisanie programów
+było stosunkowo czasochłonne i wymagało wzięcia pod uwagę
+struktury języka w dużym stopniu, był MATLAB
+(patrz punkt \ref{sec:matlab}). Od kiedy powstał stał się
+on jednym z najczęściej wykorzystywanych pakietów w
+środowisku naukowym, jak również powstało wiele innych
+rozwiązań konkurujących z nim pod względem funkcjonalności
+jak i prędkości wykonywanych obliczeń. W tej pracy podjęto
+się krótkiego porównania działania MATLABa oraz jego
+najpoważniejszych konkurentów, których funkcjonalność
+pozwala na użytkowanie w celach związanych z szeroko
+pojęta akustyką.
+
+Celem pracy jest wprowadzenie w działanie i funkcjonalność
+wybranych pakietów obliczeniowych oraz przeprowadzenie
+rygorystycznych testów porównujących szybkość wykonywania
+wybranych podstawowych funkcji związanych z akustyką i
+przetwarzaniem sygnałów, poprzez skonstruowanie i
+utylizację automatycznego systemu testującego, którego
+działanie pozwoli niewielkim nakładem pracy rozszerzyć
+ilość testów i testowanych pakietów, w nadziei, że
+ta analiza pozwoli dokonać wyboru pakietu do danego
+zadania lub znaleźć alternatywę dla obecnie używanego.
+Za wymóg wiarygodności testów uznano
+maksymalną powtarzalność i możliwie jak najniższy 
+wpływ czynników zewnętrznych na wyniki.
+
+Podobne badania były przeprowadzane tak w poszczególnych
+dziedzinach[odnośnik] jak i bez skupiania się na jednej
+dziedzinie, a w postaci ogólnej[odnośnik]. Badani dotyczące
+pakietów obliczeniowych były także przeprowadzane przed
+powstaniem MATLABa ani innych mu podobnych[odnośnik].
+
+W rozdziale nr \ref{cha:pakiety} znajdują się opisy badanych
+pakietów. W każdym opisie znajduje się krótkie wprowadzenie
+w jego funkcjonalność oraz najważniejsze różnice w działaniu
+i korzystaniu między tym pakietem a pozostałymi. Znajdują się
+tam: opis możliwości rozszerzenia funkcjonalności pakietów,
+działanie i możliwości systemu do tworzenia wykresów,
+sposoby interakcji i korzystania z pakietu,
+opis korzystania z języka w którym się w danym pakiecie pracuje
+wraz z przykładowym kodem oraz inne istotne uwagi.
+
+Rozdział nr \ref{chap:probad} opisuje środowisko badawcze
+w którym zostały przeprowadzone badania w tym wykorzystane
+platformy sprzętowe, system operacyjny i jego modyfikacje, 
+wersje badanych pakietów oraz narzędzie wykorzystane do
+ich analizy. Następnie opisany jest system użyty do
+przeprowadzenia testów, wraz z opisem: skryptów na który
+się składa, wymaganej struktury folderów, mechanizmu
+pozwalającego mierzyć czas w każdym z pakietów oraz
+rodzaju i struktury pliku do którego zapisywane są wyniki.
+Finalnie zamieszczony jest opis wszystkich przeprowadzonych
+testów wraz z uzasadnieniem wyboru, opisem działania kodu i
+ewentualnymi uwagami dotyczącymi zastosowanych lub niezastosowanych 
+elementów danego języka.
+
+Wewnątrz rozdziału nr \ref{chap:wyniki} można znaleźć
+wyniki uzyskane podczas testów w formie wykresów oraz
+analizę wyników wraz z ewentualnymi uwagami dotyczącymi
+możliwych do podjęcia kroków w celu możliwego poprawienia
+uzyskanych wyników. Ostatni punkt w tym rozdziale zawiera
+wykresy podsumowujące całościowo wyniki, jak również
+sumaryczną analizę porównawczą całości badań.
+
+Ostatni rozdział (\ref{chap:podsumowanie}) składa się
+z uwag końcowych podsumowujących wyniki i wiedzę uzyskaną
+na temat pakietów oraz z zestawienia możliwych do
+podjęcia badań eksplorujących badane zagadnienie bardziej.
 
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
+\Sexpr{library("rmsfact"); rmsfact()}\cite{Lam92}
 Zbadano pięć pakietów, które wybrano szczególnie ze względu na
 podobieństwo do MATLABa[odnośnik], oraz popularność[TIOBE].  
 
@@ -517,6 +601,11 @@ i aproksymacja funkcji. Istnieje też możliwość uruchomienia MATLABa
 bez środowiska graficznego, lecz z ograniczoną funkcjonalnością,
 gdyż nie ma on wtedy możliwości modyfikacji preferencji, rysowania
 wykresów ani tworzenia i korzystania z aplikacji graficznych.
+
+%Aby się nie rozwodzić za długo nad pięknem MATLABa, wstrzymano
+%się od opisu jego smukłych tabelek i zgrabnych krągłości wykresów,
+%gdyż taka introspekcja mogła by odkryć niespodziewaną głębie
+%sensualności pakietu i zawstydzić Szanownych Czytelników.
 
 Język programowania który jest głównym narzędziem pracy w pakiecie
 MATLAB został stworzony w celu uproszenia przeprowadzania programowych
@@ -1765,7 +1854,7 @@ minimalnie lepiej niż MATLAB, lecz w testach \lstinline{conv()}
 i \lstinline{four1()} wykazuje niezwykle długi czas
 obliczeń w porównaniu z pozostałymi pakietami.
 W teście \lstinline{sin()} jest na ostatnim miejscu
-ex æquo z Scilabem. Jedno z rozwiązań na wolne wykonywanie
+\emph{ex æquo} z Scilabem. Jedno z rozwiązań na wolne wykonywanie
 się splotu zostało opisane w punkcie \ref{sec:wynsplot},
 lecz tak zły wynik w teście \lstinline{four1()} jest
 poważną przeszkodą do wykorzystania tego pakietu jako
@@ -1794,8 +1883,9 @@ summaryPlot(results.amd)
 \chapter{Podsumowanie}
 \label{chap:podsumowanie}
 
-\section{Sumaryczna analiza wyników}
+\section{Wnioski końcowe}
 \label{sec:sumanaliza}
+
 
 
 \section{Dalsze kierunki badań}
@@ -1823,6 +1913,14 @@ optymalizacji obliczeń przez nie stosowanych.
 
 
 % Bibliografia
+
+% Odnośniki do umieszczenia w bibl:
+% https://docs.anaconda.com/
+% https://docs.julialang.org/
+% https://www.anaconda.com/enterprise/
+% https://matplotlib.org/citing.html
+% citation() w GNU Octave
+
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{Bibliografia}
