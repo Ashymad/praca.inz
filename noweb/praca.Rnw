@@ -453,8 +453,6 @@ knit_theme$set(knit_theme$get("default"))
 \chapter{Wprowadzenie i cel pracy}
 \label{cha:wstep}
 
-\Sexpr{library("rmsfact"); rmsfact()}\cite{Lam92}
-
 % Odnośniki do umieszczenia w bibl:
 % https://docs.anaconda.com/
 % https://docs.julialang.org/
@@ -462,6 +460,9 @@ knit_theme$set(knit_theme$get("default"))
 % https://matplotlib.org/citing.html
 % citation() w GNU Octave
 
+%Przeprowadzanie obliczeń numerycznych jest istotne 
+
+\Sexpr{library("rmsfact"); rmsfact()}\cite{Lam92}
 
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
@@ -546,7 +547,7 @@ wartość z pierwszego rzędu i drugiej kolumny macierzy
 \lstinline|A|, czyli \lstinline|2|. Indeksowanie jest możliwe
 także operatorem \lstinline|:| (dwukropkiem), wtedy zwracane są
 elementy ze wszystkich kolumn lub wierszy (np. \lstinline|A(1,:)|
-zwróci macierz \lstinline|[[1, 2]|. Dwukropek może być
+zwróci macierz \lstinline|[1, 2]|. Dwukropek może być
 też użyty do sekwencji liczb w postaci
 \lstinline|start:krok:koniec| (np. \lstinline|0:0.1:pi| stworzy
 sekwencję $0, 0,1, 0,2, \dots, \pi$), czego również można
@@ -1727,13 +1728,14 @@ pakiety wykonały testowaną funkcję najszybciej, a inne najwolniej.
 
 Jednym wyjątkiem jest Scilab który wykonał każdy z testów
 w najdłuższym (w dwóch przypadkach) lub drugim od końca (w
-trzech przypadkach) czasie. To, oraz problemy z instalacją
-tego pakietu (patrz punkt \ref{sec:srodowisko}), to duże
-powody by przemyśleć wykorzystanie alternatywnego rozwiązania.
+trzech przypadkach) czasie. Choć nie było przypadku w którym
+ten był najdłuższy i jednocześnie znacznie oddalony od reszty
+wyników, nie stawia go to na dobrej pozycji.
 
 MATLAB jest na bardzo silnej pozycji będąc drugim najszybszym
-pakietem w każdym z testów. Choć w żadnym przypadku nie jest
-najszybszy, w każdym jest szybki. Z pewnością jest to narzędzie,
+pakietem w czterech i posiadając środkowy wynik w jednym. Choć
+żadnym przypadku nie jest
+najszybszy, w każdym różnica pomiędzy . Z pewnością jest to narzędzie,
 którego zastosowanie w każdej sytuacji będzie pozwalało szybko
 wykonać potrzebne obliczenia jest więc dobrym wyborem na każdą
 okazję, lecz do każdego z zadań znajdzie się szybsza alternatywa,
@@ -1754,7 +1756,7 @@ trochę wolniej (\lstinline{sin()} i \lstinline{fft()}), co
 stawiałoby ją na dobrej pozycji gdyby nie niesamowicie wolne
 wykonanie testu wczytywania plików \emph{wav}. Co może nie być
 problemem jeżeli się z tej funkcjonalności nie korzysta, ponadto
-w punkcie \ref{sec:wynwavread} opisano rozwiązanie które
+w punkcie \ref{sec:wynwavread} opisano podejście które
 częściowo rozwiązuje ten problem.
 
 GNU Octave jest o tyle ciekawym przypadkiem, że w testach
@@ -1763,7 +1765,7 @@ minimalnie lepiej niż MATLAB, lecz w testach \lstinline{conv()}
 i \lstinline{four1()} wykazuje niezwykle długi czas
 obliczeń w porównaniu z pozostałymi pakietami.
 W teście \lstinline{sin()} jest na ostatnim miejscu
-ex aequo z Scilabem. Jedno z rozwiązań na wolne wykonywanie
+ex æquo z Scilabem. Jedno z rozwiązań na wolne wykonywanie
 się splotu zostało opisane w punkcie \ref{sec:wynsplot},
 lecz tak zły wynik w teście \lstinline{four1()} jest
 poważną przeszkodą do wykorzystania tego pakietu jako
@@ -1776,9 +1778,9 @@ na PC spowodowanymi wolniejszym procesorem. Jednym
 wyjątkiem jest test funkcji \lstinline{conv()}
 w którym test w Pythonie wykonał się (proporcjonalnie
 do MATLABA) szybciej na komputerze stacjonarnym niż na
-laptopie. Mimo tego można uznać, że wyniki są niewiele
+laptopie. Mimo tego można uznać, że wyniki są w niewielkim
 zależne od rodzaju procesora, w istocie ich duże podobieństwo
-sugeruje dużą powtarzalność.
+sugeruje powtarzalność.
 
 <<summary.intel, fig.cap="Średnia ważona wyników testów (Laptop)">>=
 summaryPlot(results.intel)
@@ -1795,9 +1797,29 @@ summaryPlot(results.amd)
 \section{Sumaryczna analiza wyników}
 \label{sec:sumanaliza}
 
+
 \section{Dalsze kierunki badań}
 \label{sec:kier}
 
+W tej pracy zbadano zaledwie kilka podstawowych funkcji, które,
+choć podstawowe, nie pokazują pełnego obrazu, także w dalszych
+badaniach można powiększyć zakres badanych funkcji. Szczególnie
+można zbadać najczęściej używane funkcje z
+\emph{Singal Processing Toolbox} i ich odpowiedniki w pozostałych
+pakietach, jak również można podjąć badania innych pakietów.
+Skonstruowany na potrzeby tej pracy system testujący pozwala na
+zrobienie tych badań ze stosunkową łatwością. Ponadto można w
+dalszych badaniach podjąć się porównania
+prędkości badanych pakietów do języków C i Fortran, które nie są
+interpretowane i których czas wykonywania powinien być zbliżony do
+aktualnie możliwie najkrótszego na danym sprzęcie. W badaniach podjęto
+się testów wyłącznie przy użyciu systemu GNU/Linux oraz zbadano
+wyłącznie komputery z procesorami o architekturze \emph{x86}.
+W dalszych badaniach można się podjąć badań na innych architekturach
+(ARM, RISC-V, \dots) oraz innych systemach operacyjnych
+(Microsoft Windows, BSD, \dots). Pozwoli to uzyskać znacznie szerszy
+obraz działania pakietów obliczeniowych i efektywności technik
+optymalizacji obliczeń przez nie stosowanych.
 
 
 % Bibliografia
