@@ -395,7 +395,7 @@ knit_theme$set(knit_theme$get("default"))
   \degreeprogrammePL{Inżynieria Akustyczna}
   \degreeprogrammeEN{Acoustic Engineering}
 
-  \specialisationPL{{[}Nazwa specjalności]}
+  \specialisationPL{{[}Drgania i hałas w technice i środowisku]}
   \specialisationEN{{[}Specialisation]}
 
   \graduationyear{2017}
@@ -550,7 +550,6 @@ podjęcia badań eksplorujących badane zagadnienie bardziej.
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
-\Sexpr{library("rmsfact"); rmsfact()}\cite{Lam92}
 Zbadano pięć pakietów, które wybrano szczególnie ze względu na
 podobieństwo do MATLABa[odnośnik], oraz popularność[TIOBE].  
 
@@ -705,7 +704,7 @@ dla każdego elementu wektora po prawej stronie znaku równości w konstrukcji
 \label{sec:octave}
 \lstset{language=Octave}
 
-GNU Octave[odnośnik] to darmowy, otwartoźródłowy (pod licencją GPL) pakiet obliczeniowy do
+GNU Octave\cite{OctMan} to darmowy, otwartoźródłowy (pod licencją GPL) pakiet obliczeniowy do
 zastosowań techniczno-naukowych tworzony jako część systemu operacyjnego GNU. Jest
 tworzony przez wolontariuszy i sponsorowany przez FSF (\emph{Free Software Foundation}),
 jako alternatywa dla MATLABa.
@@ -925,8 +924,8 @@ modul(-1)
 \label{sec:anaconda}
 \lstset{language=Python}
 
-\emph{Anaconda Distribution}[odnośnik] to najpopularniejsza dystrybucja jeżyka
-programowania \emph{Python} do zastosowań techniczno-naukowych,
+\emph{Anaconda Distribution}[odnośnik] to najpopularniejsza dystrybucja języka
+programowania \emph{Python}\cite{PyRos} do zastosowań techniczno-naukowych,
 zawiera bardzo dużą liczbę pakietów do tych celów, jest dostarczana przez
 firmę Anaconda, jest otwartoźródłowa oraz darmowa. \emph{Anaconda Enterprise} jest to
 wersja dystrybucji dla klientów biznesowych posiadająca pełne wsparcie
@@ -1059,7 +1058,7 @@ def modul(x):
 \label{sec:julia}
 \lstset{language=Julia}
 
-JuliaPro[odnośnik] jest to dystrybucja języka programowania \emph{Julia}[odnośnik]
+JuliaPro[odnośnik] jest to dystrybucja języka programowania \emph{Julia}\cite{JulKarp}
 oferowana przez \emph{Julia Computing}, firmę zapewniającą finansowanie
 i wspierającą rozwój tego języka, zawierająca zbiór najczęściej używanych bibliotek.
 Julia rozwijana jest nie tylko przez pracowników tej firmy, ale również przez
