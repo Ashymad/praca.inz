@@ -395,7 +395,7 @@ knit_theme$set(knit_theme$get("default"))
   \degreeprogrammePL{Inżynieria Akustyczna}
   \degreeprogrammeEN{Acoustic Engineering}
 
-  \specialisationPL{{[}Drgania i hałas w technice i środowisku]}
+  \specialisationPL{Drgania i hałas w technice i środowisku}
   \specialisationEN{{[}Specialisation]}
 
   \graduationyear{2017}
