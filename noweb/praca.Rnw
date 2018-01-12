@@ -159,6 +159,11 @@ backend=biber
    morestring=[s]{"}{"},%
    morestring=[m]{'}{'},%
 }[keywords,comments,strings]%
+% ------------------------
+
+\floatstyle{plaintop}
+\newfloat{program}{!tbh}{lop}[chapter]
+\floatname{program}{Kod źr.}
 
 % ------------------------
 
@@ -550,7 +555,7 @@ podjęcia badań eksplorujących badane zagadnienie bardziej.
 \label{cha:pakiety}
 
 Zbadano pięć pakietów, które wybrano szczególnie ze względu na
-podobieństwo do MATLABa, oraz popularność\cite{TIOBE}\cite{PyPl}.  
+podobieństwo do MATLABa, oraz popularność\cite{TIOBE,PyPl}.  
 
 \section{MATLAB}
 \label{sec:matlab}
@@ -673,7 +678,7 @@ zignorowania części zmiennych wyjściowych funkcji stosując operator
 \lstinline|~| (tyldę) zamiast zmiennych (np.
 \lstinline|[~, y2] = funkcja(x1, x2)|).
 
-\begin{table}[!hbt]
+\begin{program}
   \caption{Funkcja licząca moduł liczby rzeczywistej w MATLABie}
   \begin{lstlisting}
 function y = modul(x)
@@ -685,7 +690,7 @@ function y = modul(x)
 end
   \end{lstlisting}
   \label{tab:abs.m}
-\end{table}
+\end{program}
 
 Do tworzenia instrukcji warunkowych służą słowa kluczowe \lstinline|if|,
 \lstinline|elseif|, \lstinline|else| i \lstinline|end|. Jeżeli warunek po słowie \lstinline|if|
@@ -796,7 +801,7 @@ i demonstracji w funkcji (Tab. \ref{tab:absoct.m}), które można następnie
 uruchomić wykorzystując polecenie \lstinline{test} lub \lstinline{demo},
 odpowiednio.
 
-\begin{table}[!hbt]
+\begin{program}
   \caption{Funkcja licząca moduł liczby rzeczywistej w GNU Octave}
   \begin{lstlisting}
 function y = modul(x)
@@ -810,7 +815,7 @@ endfunction
 %! assert(modul(-1),1)
   \end{lstlisting}
   \label{tab:absoct.m}
-\end{table}
+\end{program}
 
 \section{Scilab}
 \label{sec:scilab}
@@ -899,7 +904,7 @@ ją wywołać w zwyczajny sposób (Tab. \ref{tab:abs.sci}). Pozwala to swobodnie
 funkcji i instrukcje w skryptach Scilaba bez ograniczeń nałożonych
 w MATLABie z powodu tej mechaniki.
 
-\begin{table}[!hbt]
+\begin{program}
   \caption{Funkcja licząca moduł liczby rzeczywistej w Scilabie}
   \centering
   \begin{lstlisting}
@@ -918,7 +923,7 @@ exec("modul.sci");
 modul(-1)
   \end{lstlisting}%$
   \label{tab:abs.sci}
-\end{table}
+\end{program}
 
 \section{Anaconda/Python}
 \label{sec:anaconda}
@@ -1042,7 +1047,7 @@ pętle \lstinline{while}, powtarzaną dopóki warunek jest spełniony oraz pętl
 takie jak \lstinline{range()} nie zamieszczają górnej granicy sekwencji
 w wynikowym zbiorze.
 
-\begin{table}[!htb]
+\begin{program}
   \caption{Funkcja licząca moduł liczby rzeczywistej w Pythonie}
   \begin{lstlisting}
 def modul(x):
@@ -1052,7 +1057,7 @@ def modul(x):
         return x
   \end{lstlisting}
   \label{tab:abs.py}
-\end{table}
+\end{program}
 
 \section{JuliaPro/Julia}
 \label{sec:julia}
@@ -1151,7 +1156,7 @@ za pomocą matematycznej notacji funkcji i krótkiego operatora
 warunkowego, w stylu języka C, postaci
 \lstinline|warunek ? jeżeli_prawda : jeżeli_fałsz|.
 
-\begin{table}[!htb]
+\begin{program}
   \caption{Funkcja licząca moduł liczby rzeczywistej w Julii}
   \begin{lstlisting}
 function modul(x::T) where T<:Real
@@ -1163,7 +1168,7 @@ function modul(x::T) where T<:Real
 end
   \end{lstlisting}
   \label{tab:abs.jl}
-\end{table}
+\end{program}
 
 Należy mieć na uwadze, że składnia tego języka nie jest w pełni
 ukształtowana gdyż znajduje się on ciągle w fazie rozwojowej i ciągle
@@ -1232,11 +1237,11 @@ który zajmuje się uruchamianiem pakietów, interpretuje
 przyjmowane argumenty i przekazuje opcje do pakietów, oraz
 ze skryptów w każdym z testowanych języków, które uruchamiają
 testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
-\begin{table}[h]%
-\caption{Kod funkcji \emph{testdir}}%
+\begin{program}%
+\caption{Funkcja \lstinline|testdir()|}%
 \lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
 \label{tab:testdir}%
-\end{table}%
+\end{program}%
 Najważniejszą częścią skryptu testującego jest funkcja \lstinline{testdir()}
 (Tablica \ref{tab:testdir}),
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
@@ -1268,11 +1273,11 @@ folderów.
   \caption{Struktura folderów systemu testującego}%
   \label{fig:dirstruc}%
 \end{figure}%
-\begin{table}[h]%
-  \caption{Fragment kodu pliku testującego (Julia)}%
+\begin{program}%
+  \caption{Fragment pliku testującego (Julia)}%
   \lstinputlisting[language=Julia, firstline=8, lastline=17]{../tests/julia/tester.jl}%
   \label{tab:tester}%
-\end{table}%
+\end{program}%
 Funkcja \lstinline{testdir()} uruchamiana jest dla każdego z pakietów
 z odpowiednimi argumentami, ponadto w pliku \emph{test.sh},
 znajduje się tablica z globalnymi ustawieniami, które zostaną
@@ -1365,11 +1370,11 @@ funkcję \lstinline{sin()} na tych danych (Tab. \ref{tab:sintest}).
 W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
 \emph{numexpr} (Patrz punkt \ref{sec:anaconda}).
 
-\begin{table}[h]%
-  \caption{Kod testu \emph{sin} (Python)}%
+\begin{program}%
+  \caption{Test funkcji \lstinline|sin()| (Python)}%
   \lstinputlisting[language=Python, firstline=3]{../tests/python/tests/sin/test.py}%
   \label{tab:sintest}%
-\end{table}%
+\end{program}%
 
 \subsection{FFT}
 \label{sec:fft}
@@ -1394,11 +1399,11 @@ Natomiast w Julii zastosowano dyrektywę
 wykorzystać wszystkie dostępne wątki procesora do obliczeń,
 znacznie przyspieszając obliczenia.
 
-\begin{table}[h]%
-  \caption{Kod testu \emph{fft} (Python)}%
+\begin{program}%
+  \caption{Test funkcji \lstinline|fft()| (Python)}%
   \lstinputlisting[language=Python, firstline=2]{../tests/python/tests/fft/test.py}%
   \label{tab:ffttest}%
-\end{table}%
+\end{program}%
 
 \subsubsection{Algorytm własny}
 \label{sec:fftwla}
@@ -1458,11 +1463,11 @@ ich odpowiedzi impulsowych z sygnałem. Funkcja testowana
 wywołuje splot na dwóch tablicach z wartościami losowymi
 (Tab. \ref{tab:convtest}).
 
-\begin{table}[h]%
-  \caption{Kod testu \emph{conv} (MATLAB/GNU Octave)}%
+\begin{program}%
+  \caption{Test funkcji \lstinline|conv()| (MATLAB/GNU Octave)}%
   \lstinputlisting[language=MATLAB, firstline=6]{../tests/matlab/tests/conv/test.m}%
   \label{tab:convtest}%
-\end{table}%
+\end{program}%
 
 \subsection{Wczytywanie pliku audio}
 \label{sec:wavread}
@@ -1475,11 +1480,11 @@ częstotliwością próbkowania \SI{48}{\kilo\hertz} i
 rozdzielczością bitową \SI{16}{\bit}, o odpowiedniej liczbie
 próbek, natomiast funkcja testowana wczytuje go do pamięci
 (Tab. \ref{tab:wavreadtest}).
-\begin{table}[h]%
-  \caption{Kod testu \emph{wavread} (Scilab)}%
+\begin{program}%
+  \caption{Test funkcji \lstinline|wavread()| (Scilab)}%
   \lstinputlisting[language=Scilab, firstline=3]{../tests/scilab/tests/wavread/test.sci}%
   \label{tab:wavreadtest}%
-\end{table}%
+\end{program}%
 
 \chapter{Wyniki testów}
 \label{chap:wyniki}
@@ -1615,7 +1620,7 @@ preparePlot(results.amd$fft)
 \label{sec:wynfftwla}
 
 Jak widać na wykresach (Rys. \ref{fig:four1.intel} i \ref{fig:four1.amd}),
-funkcja \lstinline{four()} nie chociaż ani trochę tak
+funkcja \lstinline{four1()} nie chociaż ani trochę tak
 wydajna jak algorytmy biblioteczne, lecz nie to było jej
 celem. Dzięki porównaniu szybkości tej funkcji można zobaczyć jak
 dobrze sobie radzi każdy z pakietów z optymalizacją
@@ -1706,7 +1711,7 @@ preparePlot(results.intel$conv)
 
 @ 
 
-\begin{table}[!hbt]
+\begin{program}
 \caption{Implementacja splotu FFT w MATLABie/GNU Octave}
 \begin{lstlisting}[language=MATLAB]
 function Y = fftconv(X1, X2)
@@ -1716,7 +1721,7 @@ function Y = fftconv(X1, X2)
 end
 \end{lstlisting}
 \label{tab:fftconv}
-\end{table}
+\end{program}
 
 Algorytm stosowany przez badane pakiety, za wyjątkiem
 Julii, opiera się najprawdopodobniej na definicji
@@ -1955,7 +1960,7 @@ optymalizacji obliczeń przez nie stosowanych.
   \addtocontents{toc}{\let\protect\l@chapter\protect\l@section}
   \makeatother%
 
-  \chapter{Kod testu \emph{four1} (Julia)}
+  \chapter{Kod funkcji \lstinline|four1()| (Julia)}
   \label{chap:zalfour1}
   {\singlespacing\lstinputlisting[language=Julia, firstline=13]{../tests/julia/tests/four1/test.jl}}
 \end{appendices}
