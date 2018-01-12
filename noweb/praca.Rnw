@@ -455,7 +455,7 @@ knit_theme$set(knit_theme$get("default"))
 {\singlespacing\tableofcontents}
 \clearpage
 
-\chapter{Wprowadzenie i cel pracy}
+\chapter{Wprowadzenie}
 \label{cha:wstep}
 
 Przeprowadzanie obliczeń numerycznych jest istotnym elementem
@@ -481,23 +481,31 @@ wizualizację rozkładu parametrów akustycznych w takim układzie.
 Znajdują także w dziedzinie symulacji i rozwiązywania układów
 mechanicznych takich jak układy tłumiące wibracje.
 
-Jednym z pierwszych narzędzi tego typu, które nie wymagało
-wykorzystywania języka FORTRAN, w którym pisanie programów
-było stosunkowo czasochłonne i wymagało wzięcia pod uwagę
-struktury języka w dużym stopniu, był MATLAB
-(patrz punkt \ref{sec:matlab}). Od kiedy powstał stał się
-on jednym z najczęściej wykorzystywanych pakietów w
-środowisku naukowym, jak również powstało wiele innych
-rozwiązań konkurujących z nim pod względem funkcjonalności
+Jednym z pierwszych pakietów obliczeniowych, które
+oferowały bogatą bibliotekę funkcji podstawowych i
+łatwy do przyswojenia język programowania był MATLAB
+(patrz punkt \ref{sec:matlab}). Jego wygoda użytkowania
+w stosunku do uprzednio używanych rozwiązań spowodowała,
+że stał się on jednym z najczęściej wykorzystywanych pakietów w
+środowisku naukowym. Od tego czasu, jednak, powstało wiele innych
+pakietów konkurujących z nim pod względem funkcjonalności
 jak i prędkości wykonywanych obliczeń. W tej pracy podjęto
 się krótkiego porównania działania MATLABa oraz jego
 najpoważniejszych konkurentów, których funkcjonalność
 pozwala na użytkowanie w celach związanych z szeroko
 pojęta akustyką.
 
+Podobne badania były przeprowadzane między innymi w dziedzinach
+inżynierii chemicznej\cite{ComparisonSix} oraz przetwarzania
+obrazów\cite{ComparativeStudy}, jak i bez skupiania się na jednej
+dziedzinie, a w postaci ogólnej\cite{ComparativeEvaluation,StudyFree}.
+
+\section{Cel pracy}
+\label{sec:cel}
+
 Celem pracy jest wprowadzenie w działanie i funkcjonalność
 wybranych pakietów obliczeniowych oraz przeprowadzenie
-rygorystycznych testów porównujących szybkość wykonywania
+testów porównujących szybkość wykonywania
 wybranych podstawowych funkcji związanych z akustyką i
 przetwarzaniem sygnałów, poprzez skonstruowanie i
 utylizację automatycznego systemu testującego, którego
@@ -509,10 +517,8 @@ Za wymóg wiarygodności testów uznano
 maksymalną powtarzalność i możliwie jak najniższy 
 wpływ czynników zewnętrznych na wyniki.
 
-Podobne badania były przeprowadzane między innymi w dziedzinach
-inżynierii chemicznej\cite{ComparisonSix} oraz przetwarzania
-obrazów\cite{ComparativeStudy}, jak i bez skupiania się na jednej
-dziedzinie, a w postaci ogólnej\cite{ComparativeEvaluation,StudyFree}.
+\section{Zawartość pracy}
+\label{sec:zawartosc}
 
 W rozdziale nr \ref{cha:pakiety} znajdują się opisy badanych
 pakietów. W każdym opisie znajduje się krótkie wprowadzenie
@@ -538,7 +544,7 @@ testów wraz z uzasadnieniem wyboru, opisem działania kodu i
 ewentualnymi uwagami dotyczącymi zastosowanych lub niezastosowanych 
 elementów danego języka.
 
-Wewnątrz rozdziału nr \ref{chap:wyniki} można znaleźć
+Rozdział nr \ref{chap:wyniki} zawiera
 wyniki uzyskane podczas testów w formie wykresów oraz
 analizę wyników wraz z ewentualnymi uwagami dotyczącymi
 możliwych do podjęcia kroków w celu możliwego poprawienia
@@ -546,9 +552,9 @@ uzyskanych wyników. Ostatni punkt w tym rozdziale zawiera
 wykresy podsumowujące całościowo wyniki, jak również
 sumaryczną analizę porównawczą całości badań.
 
-Ostatni rozdział (\ref{chap:podsumowanie}) składa się
-z uwag końcowych podsumowujących wyniki i wiedzę uzyskaną
-na temat pakietów oraz z zestawienia możliwych do
+Rozdział nr \ref{chap:podsumowanie} stanowi podsumowanie
+wyników i informacji na temat możliwości pakietów
+oraz zestawienie możliwych do
 podjęcia badań eksplorujących badane zagadnienie bardziej.
 
 \chapter{Badane pakiety obliczeniowe}
@@ -1081,7 +1087,7 @@ programowania i trzecim najpopularniejszym językiem wśród języków badanych 
 Julia posiada doskonałą dokumentację.
 Istnieje bardzo duża liczba bibliotek w czym Julia ustępuje tylko Pythonowi.
 Odnośniki do większości bibliotek znajdują się w repozytorium git \emph{METADATA.jl}
-na GitHubie\cite{METADATA}. Aby zainstalować bibliotekę należy wykorzystać funkcję
+na platformie GitHub. Aby zainstalować bibliotekę należy wykorzystać funkcję
 \lstinline|Pkg.add("<nazwa pakietu>"|, co pobierze najnowszą wersję stabilną,
 istnieje też możliwość pobrania biblioteki bezpośrednio z jej repozytorium git
 w celu uzyskania biblioteki która nie jest zarejestrowana w 
@@ -1890,7 +1896,7 @@ summaryPlot(results.amd)
 \section{Wnioski końcowe}
 \label{sec:sumanaliza}
 
-Przeprowadzone badania jasno wykazały, że niektóre z badanych
+Przeprowadzone badania wykazały, że niektóre z badanych
 pakietów potrafią wykonać pewne zadania w czasie do kilku
 rzędów wielkości krótszym, co może spowodować masywną różnice
 w czasie obliczeń skomplikowanych algorytmów korzystających
