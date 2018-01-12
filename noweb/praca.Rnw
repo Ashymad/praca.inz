@@ -560,8 +560,14 @@ podjęcia badań eksplorujących badane zagadnienie bardziej.
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
 
-Zbadano pięć pakietów, które wybrano szczególnie ze względu na
-podobieństwo do MATLABa, oraz popularność\cite{TIOBE,PyPl}.  
+Badaniami objęto pięć pakietów. Głównym kryterium, którym się kierowano
+przy wyborze była popularność języka programowania używanego w
+danym pakiecie\cite{TIOBE,PyPl}, co przekłada się na łatwość
+znalezienia publikacji i pomocy dotyczących tego języka oraz ilość bibliotek
+poszerzających funkcjonalność. Ponadto ograniczono się tylko do pakietów
+które, podobnie jak MATLAB, są ogólnego, choć związanego z nauką,
+przeznaczenia  i które posiadają podobną funkcjonalność w dziedzinie
+przetwarzania sygnałów.
 
 \section{MATLAB}
 \label{sec:matlab}
@@ -880,6 +886,27 @@ oraz przeglądarkę pomocy. Ciekawą cechą tego interfejsu jest możliwość
 dowolnej modyfikacji ułożenia poszczególnych elementów poprzez ich
 przeciąganie.
 
+\begin{program}
+  \caption{Funkcja licząca moduł liczby rzeczywistej w Scilabie}
+  \centering
+  \begin{lstlisting}
+// plik: modul.sci
+function y = modul(x)
+    if x < 0
+        y = -x;
+    else
+        y = x;
+    end
+endfunction
+  \end{lstlisting}
+  \begin{lstlisting}
+//plik: skrypt.sci
+exec("modul.sci");
+modul(-1)
+  \end{lstlisting}%$
+  \label{tab:abs.sci}
+\end{program}
+
 Składnia języka Scilaba jest podobna do MATLABA, lecz nie jest, tak jak
 GNU Octave, kompatybilna. Większość skryptów napisanych w MATLABie wymaga zmian.
 Funkcje z bazowej biblioteki w większości zachowują się podobnie jak
@@ -909,27 +936,6 @@ wywołać funkcję z innego pliku należy najpierw go wczytać i potem można
 ją wywołać w zwyczajny sposób (Kod żr. \ref{tab:abs.sci}). Pozwala to swobodnie mieszać definicje
 funkcji i instrukcje w skryptach Scilaba bez ograniczeń nałożonych
 w MATLABie z powodu tej mechaniki.
-
-\begin{program}
-  \caption{Funkcja licząca moduł liczby rzeczywistej w Scilabie}
-  \centering
-  \begin{lstlisting}
-// plik: modul.sci
-function y = modul(x)
-    if x < 0
-        y = -x;
-    else
-        y = x;
-    end
-endfunction
-  \end{lstlisting}
-  \begin{lstlisting}
-//plik: skrypt.sci
-exec("modul.sci");
-modul(-1)
-  \end{lstlisting}%$
-  \label{tab:abs.sci}
-\end{program}
 
 \section{Anaconda/Python}
 \label{sec:anaconda}
