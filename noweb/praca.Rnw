@@ -665,7 +665,7 @@ posiada własny zestaw funkcji operujących na nim.
 Definicję funkcji rozpoczyna się słowem kluczowym \lstinline|function|
 po czym należy zapisać jej parametry wyjściowe i wejściowe w postaci
 \lstinline|y = funkcja(x)|, gdzie \lstinline|x| jest argumentem
-funkcji, a \lstinline|y| parametrem wyjściowym (Tab. \ref{tab:abs.m}).
+funkcji, a \lstinline|y| parametrem wyjściowym (Kod żr. \ref{tab:abs.m}).
 Funkcję można wywołać na dwa sposoby, albo w formie funkcji
 \lstinline|funkcja(x)|, albo, jeżeli funkcja nie zwraca żadnych wartości,
 a jej argumenty są tablicami znaków, w formie komendy \lstinline|funkcja x|,
@@ -696,7 +696,7 @@ Do tworzenia instrukcji warunkowych służą słowa kluczowe \lstinline|if|,
 \lstinline|elseif|, \lstinline|else| i \lstinline|end|. Jeżeli warunek po słowie \lstinline|if|
 jest spełniony to kolejny blok kodu się wykonuje, w przeciwnym przypadku
 sprawdzany zostaje warunek po \lstinline|elseif|, jeżeli żaden nie jest spełniony
-wykonywane są instrukcje po \lstinline|else| (Tab. \ref{tab:abs.m}).
+wykonywane są instrukcje po \lstinline|else| (Kod żr. \ref{tab:abs.m}).
 
 W języku istnieją dwa rodzaje pętli. Pętla \emph{while} wykonuje blok kodu
 do słowa kluczowego \lstinline|end|, dopóki warunek po słowie kluczowym
@@ -797,7 +797,7 @@ Poza różną składnią inne znaczące różnice to: wbudowane funkcje do rozwi
 układów równań różniczkowych, brak możliwości kompilacji skryptów do kodu
 maszynowego, brak kompilacji JIT (patrz punkt \ref{sec:anaconda}), możliwość
 definiowania funkcji w wierszu poleceń oraz możliwość umieszczania testów
-i demonstracji w funkcji (Tab. \ref{tab:absoct.m}), które można następnie
+i demonstracji w funkcji (Kod żr. \ref{tab:absoct.m}), które można następnie
 uruchomić wykorzystując polecenie \lstinline{test} lub \lstinline{demo},
 odpowiednio.
 
@@ -900,7 +900,7 @@ odbywa się poprzez funkcję \lstinline|exec("<nazwa pliku>")|, co, podobnie
 jak w MATLABie wykonuje polecenia w tym pliku i udostępnia zmienne z tego
 pliku w pliku macierzystym, lecz nie wywołuje funkcji w tym pliku. Aby
 wywołać funkcję z innego pliku należy najpierw go wczytać i potem można
-ją wywołać w zwyczajny sposób (Tab. \ref{tab:abs.sci}). Pozwala to swobodnie mieszać definicje
+ją wywołać w zwyczajny sposób (Kod żr. \ref{tab:abs.sci}). Pozwala to swobodnie mieszać definicje
 funkcji i instrukcje w skryptach Scilaba bez ograniczeń nałożonych
 w MATLABie z powodu tej mechaniki.
 
@@ -1141,7 +1141,7 @@ specjalnych funkcji (np. \lstinline|A.push!(1)| zamiast
 takim zapisie do tworzenia tablicy, której elementami mogą być inne
 tablice bez łączenia ich; instrukcja \lstinline|start:krok:koniec| tworzy
 specjalny obiekt (patrz punkt \ref{sec:wynsin}); funkcje zwracają ostatnią
-wartość lub wartość po słowie kluczowym \lstinline|return| (Tab. \ref{tab:abs.jl});
+wartość lub wartość po słowie kluczowym \lstinline|return| (Kod żr. \ref{tab:abs.jl});
 operatory logiczne, podobnie jak arytmetyczne, wymagają kropki by działać
 po elemencie, a nie na całości (np. \lstinline|A .== B|). Julia posiada
 znacznie silniejszy system typów niż języki pozostałych badanych pakietów,
@@ -1149,7 +1149,7 @@ na co szczególnie trzeba zwracać uwagę podczas wykonywania operacji matematyc
 które wymagają innego typu w wyniku, gdy funkcja zwraca liczbę
 zespoloną trzeba jej podać liczbę zespoloną (np. \lstinline|log(-1+0im)| nie
 \lstinline|log(-1)|). Istnieje możliwość opcjonalnej adnotacji typów zmiennych i
-argumentów funkcji (Tab. \ref{tab:abs.jl}). Wiele elementów składni i operatorów pozwala na
+argumentów funkcji (Kod żr. \ref{tab:abs.jl}). Wiele elementów składni i operatorów pozwala na
 pisanie bardzo krótkiego kodu, przykładowo funkcję z tablicy \ref{tab:abs.jl}
 można zapisać w jednej linijce jako \lstinline|modul(x) = x < 0 ? -x : x|,
 za pomocą matematycznej notacji funkcji i krótkiego operatora
@@ -1243,7 +1243,7 @@ testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
 \label{tab:testdir}%
 \end{program}%
 Najważniejszą częścią skryptu testującego jest funkcja \lstinline{testdir()}
-(Tablica \ref{tab:testdir}),
+(Kod żr. \ref{tab:testdir}),
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
 testowanego, \emph{\$2} -- rozszerzenie plików pakietu oraz \emph{\$3} --
 nazwa folderu w którym znajdują się testy. Testy muszą znajdywać
@@ -1283,7 +1283,7 @@ z odpowiednimi argumentami, ponadto w pliku \emph{test.sh},
 znajduje się tablica z globalnymi ustawieniami, które zostaną
 zapisane w pliku \emph{options.\$2} i następnie wczytane przez
 kod testujący w testowanym języku w pliku \emph{tester.\$2}
-(Tab. \ref{tab:tester}). Skrypt \emph{test.sh} można uruchomić
+(Kod źr. \ref{tab:tester}). Skrypt \emph{test.sh} można uruchomić
 z trzema argumentami, kolejno: nazwa folderu z testami
 (nazwa pakietu), nazwa testu (folderu z plikiem \emph{test.\$2})
 i maksymalny rząd wielkości ilości elementów wektora wejściowego.
@@ -1366,7 +1366,7 @@ funkcji matematycznych, jaką jest sinus. Jest to najprostszy
 test, funkcja przygotowująca dane
 tworzy tablicę punktów rozmieszczonych w równych odległościach
 pomiędzy $0$, a $2\pi$, natomiast funkcja testowana wywołuje
-funkcję \lstinline{sin()} na tych danych (Tab. \ref{tab:sintest}).
+funkcję \lstinline{sin()} na tych danych (Kod źr. \ref{tab:sintest}).
 W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
 \emph{numexpr} (Patrz punkt \ref{sec:anaconda}).
 
@@ -1390,7 +1390,7 @@ Danymi wejściowymi jest sygnał audio, będący sumą dwóch
 sinusów o częstotliwościach \SI{50}{\hertz} i \SI{120}{\hertz}
 oraz szumu białego, o częstotliwości próbkowania \SI{1}{\kilo\hertz}.
 Funkcja testowana wywołuje na tym sygnale funkcję \lstinline{fft()}
-(Tab. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
+(Kod źr. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
 funkcji \lstinline{fft()} dla pakietu MATLAB. W pakiecie \emph{Anaconda} jest
 dostępnych kilka implementacji FFT, wykorzystano tę której wyniki
 były najlepsze -- \lstinline{fftpack.fft()} z biblioteki \emph{SciPy}. 
@@ -1461,7 +1461,7 @@ gdyż pozwala on stosować filtry (FIR, IIR), oraz symulować
 wpływ środowisk akustycznych na sygnał poprzez splecenie
 ich odpowiedzi impulsowych z sygnałem. Funkcja testowana
 wywołuje splot na dwóch tablicach z wartościami losowymi
-(Tab. \ref{tab:convtest}).
+(Kod źr. \ref{tab:convtest}).
 
 \begin{program}%
   \caption{Test funkcji \lstinline|conv()| (MATLAB/GNU Octave)}%
@@ -1479,7 +1479,7 @@ funkcja przygotowująca tworzy plik w formacie WAV, z
 częstotliwością próbkowania \SI{48}{\kilo\hertz} i
 rozdzielczością bitową \SI{16}{\bit}, o odpowiedniej liczbie
 próbek, natomiast funkcja testowana wczytuje go do pamięci
-(Tab. \ref{tab:wavreadtest}).
+(Kod źr. \ref{tab:wavreadtest}).
 \begin{program}%
   \caption{Test funkcji \lstinline|wavread()| (Scilab)}%
   \lstinputlisting[language=Scilab, firstline=3]{../tests/scilab/tests/wavread/test.sci}%
@@ -1733,7 +1733,7 @@ zer, tak by oba miały długość równą sumie długości
 wektorów wejściowych mniej jeden. Następnym krokiem
 jest zamiana obu wektorów na dziedzinę częstotliwości,
 poprzez FFT, wymnożenie transformat z obu sygnałów i
-wykonanie odwrotnego FFT na sygnale wynikowym (Tab.
+wykonanie odwrotnego FFT na sygnale wynikowym (Kod źr.
 \ref{tab:fftconv} przedstawia przykładową implementację).
 Ten algorytm korzysta z faktu, że splot w dziedzinie
 czasu równy jest mnożeniu w dziedzinie częstotliwości.
