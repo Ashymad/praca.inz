@@ -29,7 +29,7 @@
 \usepackage{float}% do umieszczenia floatów [h]
 \usepackage{enumitem}
 \setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
-\usepackage[bookmarks]{hyperref}
+\usepackage[bookmarks,hidelinks]{hyperref}
 
 % floaty w sekcji w które są stworzone
 
