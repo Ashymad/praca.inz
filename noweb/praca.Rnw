@@ -841,35 +841,38 @@ endfunction
 \label{sec:scilab}
 \lstset{language=Scilab}
 
-Scilab\cite{Scilab} jest darmowym, otwartoźródłowym (pod licencją GPL od wersji 6.0) pakietem
-obliczeniowym do zastosowań techniczno-naukowych tworzony przez \emph{Scilab Enterprises},
-które oferuje profesjonalne wsparcie dla klientów biznesowych. Jest rozwijany jako
-alternatywne rozwiązanie dla MALTABa wraz z oprogramowaniem \emph{Xcos} -- alternatywą
-dla Simulinka.
+Scilab\cite{Scilab} jest darmowym, otwartoźródłowym (pod licencją GPL od
+wersji 6.0) pakietem obliczeniowym i skryptowym językiem programowania
+do zastosowań techniczno-naukowych tworzonym przez \emph{Scilab Enterprises},
+które oferuje profesjonalne wsparcie dla klientów biznesowych. Jest rozwijany
+jako alternatywne rozwiązanie dla MALTABa wraz z oprogramowaniem
+\emph{Xcos} -- alternatywą dla Simulinka.
 
-Język programowania z którego korzysta Scilab jest najmniej popularnym językiem programowania
-wśród języków testowanych pakietów co utrudnia znalezienie gotowych rozwiązań problemów i
-przykładów, lecz język ten jest stosunkowo podobny do MATLABa, a Scilab zawiera narzędzie
-do automatycznego tłumaczenia z jego języka. Scilab posiada w miarę dobrą dokumentację.
+Język programowania Scilab jest najmniej popularnym
+językiem programowania wśród języków testowanych pakietów co utrudnia
+znalezienie gotowych rozwiązań problemów i przykładów, lecz język ten
+jest stosunkowo podobny do MATLABa, a Scilab zawiera narzędzie
+do automatycznego tłumaczenia z jego języka. Scilab posiada w miarę
+dobrą dokumentację.
 
-Rozszerzenie możliwości Scilaba odbywa się poprzez biblioteki grupujące funkcjonalność
-analogicznie do \emph{toolboxów} w MATLABie. Znajdują się one w repozytorium
-\emph{ATOMS} (\emph{AuTomatic mOdules Management for Scilab}), skąd można je
-pobrać wykorzystując do tego graficznego klienta uruchamianego przez wpisanie komendy
-\lstinline{atomsGui} w wierszu poleceń Scilaba lub wykorzystując do tego funkcję
-\lstinline{atomsInstall("<nazwa pakietu>")}.
+Rozszerzenie możliwości Scilaba odbywa się poprzez biblioteki grupujące
+funkcjonalność analogicznie do \emph{toolboxów} w MATLABie. Znajdują się
+one w repozytorium \emph{ATOMS} (\emph{AuTomatic mOdules Management for Scilab}),
+skąd można je pobrać wykorzystując do tego graficznego klienta uruchamianego
+przez wpisanie komendy \lstinline{atomsGui} w wierszu poleceń Scilaba lub
+wykorzystując do tego funkcję \lstinline{atomsInstall("<nazwa pakietu>")}.
 
-Repozytorium ATOMS posiada w niedużą liczbę bibliotek, posiadając ich niewiele
-więcej niż GNU Octave, ponadto większość
+Repozytorium ATOMS posiada niedużą liczbę bibliotek, niewiele
+większą niż \emph{Octave-Forge}, ponadto większość
 nie wspiera najnowszej wersji Scilaba (6.0 z lutego 2017 r.), lecz tylko
 starą wersję 5.5.2 ze stycznia 2015 r. W szczególności żadna z bibliotek
 związanych z przetwarzaniem sygnałów w repozytorium ATOMS nie wspiera
 najnowszej wersji Scilaba. Scilab swoją funkcjonalność zawdzięcza
 bogatej bibliotece podstawowej. W dziedzinie przetwarzania sygnałów pakiet
-poiada funkcje do filtrowania, projektowania filtrów FIR i IIR, identyfikacji
+posiada funkcje do filtrowania, projektowania filtrów FIR i IIR, identyfikacji
 systemów, analizy spektralnej i transformacji. Jego funkcjonalność nie jest
 tak obszerna jak biblioteki \emph{signal} do GNU Octave. Aby wykorzystać
-nową funkcjonalność po instalacji biblioteki nie ma konieczności ładowania
+nową funkcjonalność po instalacji biblioteki nie ma konieczności
 jej ładowania, gdyż dzieje się to automatycznie przy starcie aplikacji.
 
 Scilab posiada swój własny silnik rysujący, który pozwala rysować wykresy
@@ -915,7 +918,7 @@ modul(-1)
   \label{tab:abs.sci}
 \end{program}
 
-Składnia języka Scilaba jest podobna do MATLABA, lecz nie jest, tak jak
+Składnia Scilaba jest podobna do MATLABA, lecz nie jest, tak jak
 GNU Octave, kompatybilna. Większość skryptów napisanych w MATLABie wymaga zmian.
 Funkcje z bazowej biblioteki w większości zachowują się podobnie jak
 w MATLABie, ponadto istnieje specjalna kategoria funkcji która ma za zadanie
@@ -930,12 +933,13 @@ funkcji słowem kluczowym \lstinline|endfunction|, lecz nie tyczy się to pozost
 konstrukcji kontroli przepływu, które kończy się, jak w MATLABie, słowem
 kluczowym \lstinline|end|. Tekst zawarty pomiędzy
 cudzysłowami (\lstinline|"|) i apostrofami tak samo (\lstinline|'|) konstruuje
-jednoelementową macierz z elementem typu \emph{string}. \lstinline|&| i \lstinline{|}
+jednoelementową macierz z elementem typu \emph{string}. Operatory \lstinline|&|
+i \lstinline{|}
 oznaczają odpowiednio operacje AND i OR na zmiennych logicznych
-typu \emph{string}. Istnieje znacznie więcej drobnych różnic pomiędzy tymi
+Istnieje znacznie więcej drobnych różnic pomiędzy tymi
 językami, szczególnie w działaniu funkcji wbudowanych. Istotną natomiast
 różnicą jest inne zachowanie się plików. W Scilabie nie istnieje podział na
-pliki ze skryptami i pliki z funkcjami, podobnie jak w Julii i Pythonie i
+pliki ze skryptami i pliki z funkcjami, podobnie jak w Julii, Pythonie i
 większości języków programowania ogólnego przeznaczenia. Wczytywanie skryptów
 odbywa się poprzez funkcję \lstinline|exec("<nazwa pliku>")|, co, podobnie
 jak w MATLABie wykonuje polecenia w tym pliku i udostępnia zmienne z tego
