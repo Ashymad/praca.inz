@@ -1220,8 +1220,8 @@ oczekiwać pewnej stabilności.
 \section{Środowisko badawcze}
 \label{sec:srodowisko}
 
-W celu eliminacji wszelkich czynników, który występowanie mogłoby
-wpłynąć na wiarygodność wyników przygotowano minimalne środowisko
+W celu eliminacji wszelkich czynników, których występowanie mogłoby
+wpłynąć na wiarygodność wyników, przygotowano minimalne środowisko
 badawcze na bazie Linuxa z patchem (łatką) CONFIG\_PREEMPT\_RT
 (RTLinux), gdzie RT oznacza RealTime (czasu rzeczywistego).
 Pozwala on, procesowi o wysokim priorytecie, otrzymać zasoby
@@ -1232,10 +1232,10 @@ priorytecie\cite{RTLinux}. Dzięki temu
 można mieć pewność, że żaden proces uruchomiony w tle nie spowoduje
 zaniżonych wyników badań. Testy przeprowadzono na dwóch komputerach:
 laptopie z ośmiowątkowym procesorem Intel\textregistered\
-Core\texttrademark\ piątej generacji oraz komputerze
-stacjonarnym z czterowątkowym procesorem AMD z serii 
-Phenom\texttrademark\ II w celu porównania wyników na różnych
-platformach.
+Core\texttrademark\ piątej generacji i dyskiem półprzewodnikowym (SSD)
+oraz komputerze stacjonarnym z czterowątkowym procesorem AMD z serii 
+Phenom\texttrademark\ II i dyskiem twardym (HDD) w celu porównania
+wyników na różnych platformach.
 
 Wykorzystano dystrybucję \emph{Arch Linux}, gdyż posiada ona
 RTLinux w repozytoriach użytkowników. Wykorzystana wersja
@@ -1317,7 +1317,7 @@ folderów.
 \end{program}%
 Funkcja \lstinline{testdir()} uruchamiana jest dla każdego z pakietów
 z odpowiednimi argumentami, ponadto w pliku \emph{test.sh},
-znajduje się tablica z globalnymi ustawieniami, które zostaną
+znajduje się tablica z globalnymi ustawieniami, które zostają
 zapisane w pliku \emph{options.\$2} i następnie wczytane przez
 kod testujący w testowanym języku w pliku \emph{tester.\$2}
 (Kod źr. \ref{tab:tester}). Skrypt \emph{test.sh} można uruchomić
@@ -1326,7 +1326,7 @@ z trzema argumentami, kolejno: nazwa folderu z testami
 i maksymalny rząd wielkości ilości elementów wektora wejściowego.
 Argumenty pierwszy i drugi przekazywane są do funkcji \lstinline{testdir()} jako
 odpowiednio \lstinline{$3} i \lstinline{$TESTARG}, natomiast zmienna
-\lstinline{$INPUT_SIZES}%$
+\lstinline{$INPUT_SIZES} %$
 zawiera szereg kolejnych potęg liczby dziesięć,
 aż do maksymalnego rzędu wielkości ilości elementów wektora wejściowego.
 Skrypt uruchamia każdy z pakietów za pomocą komendy \lstinline{chrt},
@@ -1337,7 +1337,7 @@ Plik testujący \emph{tester.\$2} pomija wynik pierwszego
 testu by uwzględnić \emph{prekompilację} -- w celu przyspieszenia
 wykonywania instrukcji część pakietów kompiluje napisany skrypt do
 postaci kodu maszynowego, co może powodować nadmiarowo długi czas
-wykonywania się skryptu za pierwszym razem. Każde uruchomienie
+wykonywania się funkcji za pierwszym razem. Każde uruchomienie
 funkcji testowanej zawarte jest pomiędzy wywołaniami funkcji
 mierzących czas systemowy: są to \lstinline{tic()} i \lstinline{toc()}
 w MATLABie, GNU Octave i Scilabie, \lstinline{tic()} i
@@ -1382,7 +1382,7 @@ w grupie \emph{/<test>/<pakiet>/} (Rys. \ref{fig:h5struc}).
 
 Zbadano pięć funkcji, cztery biblioteczne i jedną własną.
 Starano się wybrać funkcję które są koniecznym elementem 
-budulcowym w aplikacjach przetwarzających sygnały audio.
+budulcowym w aplikacjach przetwarzających sygnały dźwiękowe.
 Każdy test znajduje się w jednym pliku w którym muszą
 znajdywać się funkcje: \lstinline{prepare_input()} -- 
 przygotowuje dane wejściowe dla testowanej funkcji, jako
@@ -1392,7 +1392,7 @@ dane przygotowane przez funkcję \lstinline{prepare_input()},
 przetwarza je i zwraca wynik. W kolejnych punktach zostaną
 opisane pokrótce te testy wraz z przykładowym kodem
 w jednym z testowanych języków. Jeśli nie jest napisane
-inaczej, to w testach w pythonie korzystano z funkcji
+inaczej, to w testach w Pythonie korzystano z funkcji
 z biblioteki \emph{NumPy}.
 
 \subsection{Sinus}
@@ -1434,7 +1434,8 @@ były najlepsze -- \lstinline{fftpack.fft()} z biblioteki \emph{SciPy}.
 Natomiast w Julii zastosowano dyrektywę
 \lstinline{FFTW.set_num_threads(Sys.CPU_CORES)}, która pozwala
 wykorzystać wszystkie dostępne wątki procesora do obliczeń,
-znacznie przyspieszając obliczenia.
+znacznie przyspieszając obliczenia, zgodnie z zaleceniami
+z dokumentacji.
 
 \begin{program}%
   \caption{Test funkcji \lstinline|fft()| (Python)}%
@@ -1459,8 +1460,8 @@ korzystania z natywnych typów liczb zespolonych, które
 występują we wszystkich badanych pakietach. Dane wejściowe
 są identyczne jak w punkcie \ref{sec:fftbib}, lecz, jako że
 ta procedura operuje tylko na tablicach, których rozmiar
-jest potęgą liczby dwa, są one wydłużane przez dodanie
-odpowiedniej ilości zer.
+jest potęgą liczby dwa, są one wydłużane do odpowiedniego
+rozmiaru, jako nowe elementy wstawiając zera.
 
 Procedura \lstinline{four1()} (Zał. \ref{chap:zalfour1}) implementuje algorytm
 Cooleya-Tukeya i składa się z dwóch sekcji. Pierwsza sekcja
@@ -1469,12 +1470,12 @@ wejściowego w taki sposób, że gdyby ponumerować wszystkie
 elementy wektora wejściowego od zera rosnąco w systemie dwójkowym, to po
 zamianach ta numeracja była by malejąca, w tym celu zamieniane
 są elementy wektora wejściowego które są swoim odbiciem lustrzanym
-(np. 001 i 100). Druga sekcja zawiera pętle, która
+(np. 001 i 100). Druga sekcja jest pętlą, która
 wykonuje się $log_2N$ razy (gdzie $N$ to długość wektora
-wejściowego). Dwie wewnętrzne pętle
+wejściowego) w której dwie wewnętrzne pętle
 wymnażają odpowiednio elementy poprzednich transformat
 obliczając nową, o dwa razy większym rozmiarze. 
-Każdy z elementów wektora jest jednopunktową
+Zgodnie z definicja, każdy z elementów wektora jest jednopunktową
 transformatą Fouriera, które następnie łączy się w transformaty
 o długościach $2, 4, 8, \dots, N$, stosując lemat
 Danielsona-Lanczosa (\ref{eq:lanczos}). 
@@ -1550,7 +1551,10 @@ razy co
 pozwoliło zminimalizować wpływ losowych czynników
 niepożądanych na wyniki. Kolejne punkty zawierają
 wykresy z wynikami oraz ich interpretację. W punkcie
-\ref{sec:sum} znajduje się podsumowanie wyników.
+\ref{sec:sum} znajduje się podsumowanie wyników w postaci
+średniej ważonej wyników dla każdego rozmiaru wektora
+wejściowego, gdzie wagą jest ten rozmiar.
+
 
 \section{Sinus}
 \label{sec:wynsin}
@@ -1657,12 +1661,12 @@ preparePlot(results.amd$fft)
 \label{sec:wynfftwla}
 
 Jak widać na wykresach (Rys. \ref{fig:four1.intel} i \ref{fig:four1.amd}),
-funkcja \lstinline{four1()} nie chociaż ani trochę tak
+funkcja \lstinline{four1()} nie jest ani trochę tak
 wydajna jak algorytmy biblioteczne, lecz nie to było jej
 celem. Dzięki porównaniu szybkości tej funkcji można zobaczyć jak
 dobrze sobie radzi każdy z pakietów z optymalizacją
 kodu napisanego przez użytkownika. Algorytm funkcji testowanej
-(Opis w punkcie \ref{sec:fftwla})
+(opis w punkcie \ref{sec:fftwla})
 zawiera dużo pętli i nie stosuje \emph{wektoryzacji} kodu --
 czyli używania funkcji operujących na wektorach zamiast
 korzystania z pętli. Praktyka \emph{wektoryzacji} jest
@@ -1715,8 +1719,9 @@ preparePlot(results.amd$four1)
 \label{sec:wynsplot}
 
 Wyniki testów funkcji \lstinline{conv()}, są niezwykle
-ineteresujące (Rys. \ref{fig:conv.intel} i \ref{fig:conv.amd}),
-gdyż występują tu olbrzymie różnice pomiędzy pakietami.
+interesujące (Rys. \ref{fig:conv.intel} i \ref{fig:conv.amd}),
+gdyż występują tu różnice pomiędzy pakietami, sięgające nawet czterech
+rzędów wielkości.
 Szczególnie wyróżnia się Julia wykonując splot w czasie o
 \SI{\Sexpr{percentFaster(results.intel$conv, "matlab", "julia")}}{\percent} %$
 krótszym niż MATLAB (%
@@ -1728,9 +1733,9 @@ MATLAB za to splata w czasie o
 \SI{\Sexpr{percentFaster(results.intel$conv, "python", "matlab")}}{\percent} %$
 krótszym niż Python na laptopie, natomiast w czasie tylko o
 \SI{\Sexpr{percentFaster(results.amd$conv, "python", "matlab")}}{\percent} %$
-krótszym na komputerze stacjonarnym, gdyz tam
-kod w Pythonie wykonuje się szybciej. Może to wskazywać
-na nie wykorzystanie przez algorytm wielowątkowości
+krótszym na komputerze stacjonarnym, gdyż tam
+kod w Pythonie wykonuje się szybciej niż na laptopie. Może to wskazywać
+na niewykorzystanie przez algorytm wielowątkowości
 procesora, co spowodowało lepszy wynik na wyżej taktowanym
 procesorze AMD.
 Od Scilaba MATLAB wykonuje splot o
@@ -1798,9 +1803,7 @@ w istocie GNU Octave wczytuje pliki w czasie o
 \SI{\Sexpr{percentFaster(results.intel$wavread, "julia", "octave")}}{\percent} %$
 krótszym niż Julia (%
 \SI{\Sexpr{percentFaster(results.amd$wavread, "julia", "octave")}}{\percent} %$
-na HDD). Tak długie czasy wczytywania
-plików audio mogą nakłonić użytkowników do rozglądania
-się za alternatywnymi rozwiązaniami. Scilab również
+na HDD). Scilab również
 odbiega od reszty pakietów, GNU Octave wczytuje w czasie o
 \SI{\Sexpr{percentFaster(results.intel$wavread, "scilab", "octave")}}{\percent} %$
 krótszym od niego (%
@@ -1811,7 +1814,7 @@ bo wczytuje tylko w odpowiednio o
 \SI{\Sexpr{percentFaster(results.intel$wavread, "matlab", "octave")}}{\percent} %$
 i o
 \SI{\Sexpr{percentFaster(results.intel$wavread, "python", "octave")}}{\percent} %$
-krótszym niż te pakiety (%
+krótszym czasie niż te pakiety (%
 \SI{\Sexpr{percentFaster(results.amd$wavread, "matlab", "octave")}}{\percent} %$
 i
 \SI{\Sexpr{percentFaster(results.amd$wavread, "python", "octave")}}{\percent} %$
@@ -1859,14 +1862,14 @@ pakiety wykonały testowaną funkcję najszybciej, a inne najwolniej.
 Jednym wyjątkiem jest Scilab który wykonał każdy z testów
 w najdłuższym (w dwóch przypadkach) lub drugim od końca (w
 trzech przypadkach) czasie. Choć nie było przypadku w którym
-ten był najdłuższy i jednocześnie znacznie oddalony od reszty
-wyników, nie stawia go to na dobrej pozycji.
+czas ten był najdłuższy i jednocześnie oddalony o kilka rzędów
+wielkości od większości wyników, nie stawia go to na dobrej
+pozycji.
 
 MATLAB jest na bardzo silnej pozycji będąc drugim najszybszym
-pakietem w czterech i posiadając środkowy wynik w jednym. Choć
-żadnym przypadku nie jest
-najszybszy, w każdym różnica pomiędzy . Z pewnością jest to narzędzie,
-którego zastosowanie w każdej sytuacji będzie pozwalało szybko
+pakietem, w czterech, i posiadając środkowy wynik, w jednym, teście.
+Jest to narzędzie, którego zastosowanie w każdej sytuacji będzie
+pozwalało stosunkowo szybko
 wykonać potrzebne obliczenia jest więc dobrym wyborem na każdą
 okazję, lecz do każdego z zadań znajdzie się szybsza alternatywa,
 na przykład jeżeli celem jest napisanie algorytmu który będzie
@@ -1874,26 +1877,29 @@ w dużym stopniu wykorzystywał pętle, lepiej skorzystać z Pythona.
 
 Anaconda jest doskonałą alternatywą dla MATLABa, gdyż, pod względem
 prędkości tylko w testach funkcji \lstinline{conv()} i \lstinline{fft()},
-nieznacznie mu ustępuje. Zastosowanie rozwiązań opisanych w 
+nieznacznie mu ustępuje.
+Zastosowanie rozwiązań opisanych w 
 punktach \ref{sec:wynfft} i \ref{sec:wynsplot} może pozwolić
 dodatkowo zwiększyć szybkość tych funkcji
 pomniejszając różnice jeszcze bardziej.
 
 Również dobrą alternatywą jest Julia, która w dwóch testach
-wykonała funkcje trochę szybciej
-(\lstinline{conv()} i \lstinline{four1()}), a w dwóch
-trochę wolniej (\lstinline{sin()} i \lstinline{fft()}), co
-stawiałoby ją na dobrej pozycji gdyby nie niesamowicie wolne
-wykonanie testu wczytywania plików \emph{wav}. Co może nie być
-problemem jeżeli się z tej funkcjonalności nie korzysta, ponadto
-w punkcie \ref{sec:wynwavread} opisano podejście które
+wykonała funkcje szybciej
+(\lstinline{conv()} i \lstinline{four1()}), szczególnie,
+wykonując splot w czasie dwa rzędy wielkości krótszym niż MATLAB. W dwóch,
+natomiast, wolniej (\lstinline{sin()} i \lstinline{fft()}),
+co stawiałoby ją na dobrej pozycji gdyby nie bardzo wolne
+wykonanie testu wczytywania plików \emph{wav}, w czasie dłuższym o prawie
+dwa rzędy wielkości. W punkcie \ref{sec:wynwavread} opisano podejście które
 częściowo rozwiązuje ten problem.
 
 GNU Octave jest o tyle ciekawym przypadkiem, że w testach
 funkcji \lstinline{fft()} i \lstinline{wavread()} wypada
-minimalnie lepiej niż MATLAB, lecz w testach \lstinline{conv()}
+lepiej niż MATLAB, choć różnice są zaledwie na poziomie
+około \SI{20}{\percent} lecz w testach \lstinline{conv()}
 i \lstinline{four1()} wykazuje niezwykle długi czas
-obliczeń w porównaniu z pozostałymi pakietami.
+obliczeń, w porównaniu z najszybszym pakietem, o około
+trzy rzędy wielkości dłuższy.
 W teście \lstinline{sin()} jest na ostatnim miejscu
 \emph{ex æquo} z Scilabem. Jedno z rozwiązań na wolne wykonywanie
 się splotu zostało opisane w punkcie \ref{sec:wynsplot},
@@ -1906,10 +1912,10 @@ Nie zauważono znacznych różnic pomiędzy wynikami z
 laptopa i PC, poza oczywistymi dłuższymi czasami
 na PC spowodowanymi wolniejszym procesorem. Jednym
 wyjątkiem jest test funkcji \lstinline{conv()}
-w którym test w Pythonie wykonał się (proporcjonalnie
-do MATLABA) szybciej na komputerze stacjonarnym niż na
+w którym test w Pythonie wykonał się
+szybciej na komputerze stacjonarnym niż na
 laptopie. Mimo tego można uznać, że wyniki są w niewielkim
-zależne od rodzaju procesora, w istocie ich duże podobieństwo
+zależne od rodzaju procesora, a ich duże podobieństwo
 sugeruje powtarzalność.
 
 <<summary.intel, fig.cap="Średnia ważona wyników testów (Laptop)">>=
