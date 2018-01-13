@@ -1935,35 +1935,37 @@ summaryPlot(results.amd)
 
 Przeprowadzone badania wykazały, że niektóre z badanych
 pakietów potrafią wykonać pewne zadania w czasie do kilku
-rzędów wielkości krótszym, co może spowodować masywną różnice
+rzędów wielkości krótszym, co może spowodować porównywalną różnice
 w czasie obliczeń skomplikowanych algorytmów korzystających
-z pewnej funkcjonalności pakietu. Olbrzymie różnice w czasie
+z tej funkcjonalności pakietu. Takie różnice w czasie
 wykonywania są poważnym powodem do zastanowieniem się nad
 użyciem innego pakietu. Dominująca pozycja MATLABa w środowisku
 naukowym jest mocno zagrożona przez pakiet Anaconda, którego
 prędkość stała niemalże na tym samym poziomie jeśli nie wyższym,
 a funkcjonalność
-na bardzo wysokim z powodu ogromnej ilości bibliotek. Natomiast
-dla osób zaznajomionych z MATLABem, Python może być zbytnio
-oddalony do łatwej zamiany. Julia posiada składnię znacznie
+na bardzo wysokim z powodu dużej ilości bibliotek. Natomiast
+dla osób zaznajomionych z MATLABem, składnia Pythona
+może być zbyt obca, by szybko uzyskać wprawę w tym języku.
+Julia posiada składnię znacznie
 bliższą MATLABowi, zapewniając podobną prędkość obliczeń i
 dużą ilość bibliotek,
 choć problematycznie długi czas wczytywania plików audio
 i niewielką zgodność w użytkowaniu funkcji. Niemalże pełną
-zgodność zapewnia GNU Octave, choć wykonywane obliczenia
-w niektórych testach zajęły znacznie więcej czasu, a ilość
+zgodność zapewnia GNU Octave, choć dwa testy
+wykonało w czasie o trzy rzędy wielkości dłuższym, a ilość
 bibliotek jest stosunkowo niewielka. Scilab
 natomiast nie posiada, zdaje się, żadnej przewagi nad
 którymkolwiek z pozostałych pakietów będąc jednym z ostatnich
 w każdym teście, posiadając mało bibliotek i nie będąc zgodnym
-językowo z językiem MATLABa.
+językowo z MATLABem.
 
 \section{Dalsze kierunki badań}
 \label{sec:kier}
 
-W tej pracy zbadano zaledwie kilka podstawowych funkcji, które,
-choć podstawowe, nie pokazują pełnego obrazu, także w dalszych
-badaniach można powiększyć zakres badanych funkcji. Szczególnie
+W tej pracy zbadano zaledwie kilka funkcji, które,
+choć podstawowe, nie pokazują pełnego obrazu wydajności pakietów,
+także w dalszych
+badaniach można powiększyć zakres badanych funkcji. W szczególności
 można zbadać najczęściej używane funkcje z
 \emph{Singal Processing Toolbox} i ich odpowiedniki w pozostałych
 pakietach, jak również można podjąć badania innych pakietów.
@@ -1972,7 +1974,7 @@ zrobienie tych badań ze stosunkową łatwością. Ponadto można w
 dalszych badaniach podjąć się porównania
 prędkości badanych pakietów do języków C i Fortran, które nie są
 interpretowane i których czas wykonywania powinien być zbliżony do
-aktualnie możliwie najkrótszego na danym sprzęcie. W badaniach podjęto
+możliwie najkrótszego na danym sprzęcie. W badaniach podjęto
 się testów wyłącznie przy użyciu systemu GNU/Linux oraz zbadano
 wyłącznie komputery z procesorami o architekturze \emph{x86}.
 W dalszych badaniach można się podjąć badań na innych architekturach
