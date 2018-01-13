@@ -964,12 +964,16 @@ będzie nazywana po prostu Anaconda.
 Python jest najpopularniejszym językiem programowania wśród języków badanych pakietów,
 i znajduje się w pierwszej piątce najpopularniejszych języków na świecie.
 Z tego powodu ilość wysokiej jakości bibliotek do tego języka jest niezwykle duża,
-także niemalże każda pożądana funkcjonalność może być dodana. Instalacja
+także niemalże każda pożądana funkcjonalność może być dodana, choć należy brać
+pod uwagę, że Python w przeciwieństwie do pozostałych opisywanych języków, jest
+przede wszystkim językiem ogólnego zastosowania, toteż większość dokumentacji i
+bibliotek jest niezwiązana z nauką. Instalacja
 bibliotek w Anacondzie odbywa się przy użyciu graficznej aplikacji
 \emph{Anaconda Navigator} lub aplikacji wiersza poleceń \emph{conda}.
 Używając komendy \lstinline{conda install <nazwa biblioteki>} można zainstalować
-bibliotekę z repozytorium Anacondy -- \emph{Anaconda Cloud}. Istnieje również
-możliwość instalacji bibliotek z \emph{PyPI}, czyli ogólnego zbioru bibliotek do Pythona 
+bibliotekę z repozytorium Anacondy -- \emph{Anaconda Cloud}. Jest również
+możliwość instalacji bibliotek z \emph{PyPI}, czyli ogólnego zbioru bibliotek 
+Pythona 
 przy użyciu polecenia \lstinline{pip install <nazwa biblioteki>}. 
 
 Aby móc wykorzystać zainstalowaną bibliotekę należy ja najpierw \emph{zaimportować},
@@ -994,31 +998,32 @@ elementarne części to Python oraz biblioteki: \emph{NumPy}, \emph{SciPy}
 i \emph{matplotlib}. Ponadto w testach wykorzystano, również zawarte w
 \emph{Anaconda Distribution}, biblioteki \emph{Numba} i \emph{NumExpr}.
 
-\emph{NumPy}\cite{NumPy} jest to biblioteka, która dodaje wielowymiarowe typy wektorowe
-i macierzowe, zaawansowane funkcje modyfikujące obiekty tych typów,
-narzędzie do integracji kodu napisanego w C/C++ oraz Fortranie jak
-również kolekcję funkcji matematycznych operujących na tych typach,
-związanych przede wszystkim z algebrą liniową oraz transformacją Fouriera.
+\emph{NumPy}\cite{NumPy} jest to biblioteka, która dodaje wielowymiarowe
+typy wektorowe i macierzowe, zaawansowane funkcje modyfikujące obiekty
+tych typów, kolekcję funkcji matematycznych operujących na tych typach,
+związanych przede wszystkim z algebrą liniową oraz transformacją Fouriera,
+jak również narzędzia do integracji kodu napisanego w C/C++ oraz Fortranie.
 
 Biblioteka \emph{SciPy}\cite{SciPy} zawiera zbiór funkcji typowo stosowanych
 w pracy inżyniera i naukowca. Są one podzielone na moduły które
 kategoryzują te funkcje w grupy związane między innymi z:
-optymizacją, całkowaniem, interpolacją, funkcjami specjalnymi,
-przetwarzaniem sygnałów, przetwarzaniem obrazów, rozwiązywaniem
+optymalizacją, całkowaniem, interpolacją, funkcjami specjalnymi,
+przetwarzaniem sygnałów, przetwarzaniem obrazów i rozwiązywaniem
 równań różniczkowych. Zawiera ponadto alternatywne implementacje
 funkcji z biblioteki \emph{NumPy} do algebry liniowej i transformacji,
 które wykonują te operacje w krótszym czasie.
 
 Za tworzenie wykresów odpowiada biblioteka \emph{matplotlib}\cite{matplotlib},
-która korzysta z typów dodanych przez \emph{NumPy}. Oferuje ona
+która wykorzystuje typy z biblioteki \emph{NumPy}. Oferuje ona
 uproszczony interfejs (funkcję) \lstinline{pyplot()}, który pozwala
 rysowań zestawy danych w sposób bardzo podobny do MATLABA. Sam \emph{matplotlib}
 pozwala tylko na tworzenie wykresów dwuwymiarowych, jednak biblioteka
-\emph{mplot3d} rozszerza funkcjonalność biblioteki o możliwość
+\emph{mplot3d} rozszerza jego funkcjonalność o możliwość
 rysowania wykresów trójwymiarowych.
 
-Biblioteki \emph{NumExpr}\cite{NumExpr} oraz \emph{NumBa}\cite{NumBa} obie służą do zwiększenia
-szybkości przeprowadzanych obliczeń, choć osiągają to w inny sposób.
+Biblioteki \emph{NumExpr}\cite{NumExpr} oraz \emph{NumBa}\cite{NumBa} 
+służą do zwiększenia
+szybkości przeprowadzanych obliczeń, choć każda osiąga to w inny sposób.
 \emph{NumExpr} wykorzystuje wirtualną maszynę operującą na wektorach
 by przyspieszyć operacje które przetwarzają tablice po elementach.
 Architektura tej maszyny pozawala na wykorzystanie w pełni wielowątkowości
@@ -1037,18 +1042,20 @@ Praca w Anacondzie jest możliwa przy pomocy trzech interfejsów. Można korzyst
 aplikacji wiersza poleceń \emph{IPython}\cite{IPython} (\emph{interactive python}), 
 która zapewnia szybki dostęp do pomocy, kolorowanie składni kodu, automatyczne
 podpowiedzi, historię komend, zapamiętywanie sesji oraz możliwość inspekcji
-obiektów. Drugim interfejsem jest zintegrowane środowisko programistyczne \emph{Spyder}\cite{Spyder},
+obiektów. Drugim interfejsem jest zintegrowane środowisko programistyczne
+\emph{Spyder}\cite{Spyder},
 przypominające wyglądem interfejs MATLABa. Integruje on w jednej aplikacji
-konsolę IPythona ze wsparciem dla wyświetlania wykresów, edytor plików źródłowych,
+konsolę IPythona ze wsparciem dla wyświetlania w niej wykresów, edytor
+plików źródłowych,
 przeglądarkę zmiennych, przeglądarkę plików oraz przeglądarkę dokumentacji.
 Ostatnim interfejsem jest \emph{Jupyter}\cite{Jupyter} -- jest to specyficzne
 połączenie procesora tekstu z niewielkimi możliwościami formatowania i edytora
 kodu źródłowego. Dokumenty Jupytera są nazywane \emph{notatnikami} i składają się
-z komórek, które mogą zwierać zywyczajny tekst, tekst formatowany w formacie \emph{Markdown}
+z komórek, które mogą zwierać zwyczajny tekst, tekst formatowany w formacie \emph{Markdown}
 lub kod. Każdą z tych komórek można oddzielnie uruchomić co formatuje tekst lub
 wykonuje zawarty w komórce kod i wyświetla wyniki, w tym wykresy jako, element
 notatnika. Pierwotnie Jupyter (wtedy jeszcze był częścią projektu \emph{IPython})
-wspierał wyłącznie Pythona, lecz jako Jupyter jest on złożony z dwóch niezależnych
+wspierał wyłącznie Pythona, lecz teraz jest on złożony z dwóch niezależnych
 elementów: interfejsu webowego, który służy do edycji notatników, i jądra, które
 interpretuje kod, co pozwala na wsparcie wielu innych języków.
 
@@ -1060,16 +1067,18 @@ Definicję funkcji rozpoczyna słowo kluczowe \lstinline{def}
 po którym następuje nazwa funkcji, lista oddzielonych przecinkami argumentów
 które przyjmuje w nawiasach okrągłych i dwukropek który oznacza początek ciała
 funkcji. Wszystko co następuje po tym dwukropku i ma wcięcie jest traktowane
-jako ciało funkcji (Przykład takiej definicji obrazuje tablica \ref{tab:abs.py}).
-Drugą istotną różnicą jest indeksowanie elementów zbiorów, w Pythonie pierwszy
+jako ciało funkcji (przykład takiej definicji obrazuje kod źródłowy \ref{tab:abs.py}).
+Drugą istotną różnicą jest indeksowanie elementów zbiorów; w Pythonie pierwszy
 element zbioru ma indeks zero, czyli aby uzyskać dostęp do pierwszego elementu
-listy \lstinline{tabl} należy wywołać \lstinline{tabl[0]}. Python wykorzystuje
+listy \lstinline{lista} należy wywołać \lstinline{lista[0]}. Python wykorzystuje
 kwadratowe nawiasy do indeksowania zbiorów. Język posiada dwa rodzaje pętli:
 pętle \lstinline{while}, powtarzaną dopóki warunek jest spełniony oraz pętle
 \lstinline{for}, która iteruje po elementach listy
 (np. \lstinline{for x in range(0,10):}). Funkcje tworzące zbiory sekwencji liczb,
 takie jak \lstinline{range()} nie zamieszczają górnej granicy sekwencji
-w wynikowym zbiorze.
+w wynikowym zbiorze. Te różnice, choć znaczące, są jedynie drobnym kawałkiem
+wszystkich, gdyż Python jest jedynym językiem wśród badanych który nie jest
+inspirowany MATLABem.
 
 \begin{program}
   \caption{Funkcja licząca moduł liczby rzeczywistej w Pythonie}
