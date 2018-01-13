@@ -478,8 +478,8 @@ w której pakiety obliczeniowe znajdują zastosowanie. W istocie, w
 dziedzinie akustyki teoretycznej, pozwalają one przeprowadzać
 symulacje fizyczne skomplikowanych układów akustycznych oraz
 wizualizację rozkładu parametrów akustycznych w takim układzie.
-Znajdują także w dziedzinie symulacji i rozwiązywania układów
-mechanicznych takich jak układy tłumiące wibracje.
+Znajdują także zastosowanie w dziedzinie symulacji i rozwiązywania
+układów mechanicznych takich jak układy tłumiące wibracje.
 
 Jednym z pierwszych pakietów obliczeniowych, które
 oferowały bogatą bibliotekę funkcji podstawowych i
@@ -514,8 +514,8 @@ ilość testów i testowanych pakietów, w nadziei, że
 ta analiza pozwoli dokonać wyboru pakietu do danego
 zadania lub znaleźć alternatywę dla obecnie używanego.
 Za wymóg wiarygodności testów uznano
-maksymalną powtarzalność i możliwie jak najniższy 
-wpływ czynników zewnętrznych na wyniki.
+powtarzalność wyników i możliwie jak najniższy 
+wpływ czynników zewnętrznych na nie.
 
 \section{Zawartość pracy}
 \label{sec:zawartosc}
@@ -527,11 +527,11 @@ i korzystaniu między tym pakietem a pozostałymi. Znajdują się
 tam: opis możliwości rozszerzenia funkcjonalności pakietów,
 działanie i możliwości systemu do tworzenia wykresów,
 sposoby interakcji i korzystania z pakietu,
-opis korzystania z języka w którym się w danym pakiecie pracuje
-wraz z przykładowym kodem oraz inne istotne uwagi.
+opis korzystania z języka programowania w pakiecie
+wraz z przykładowym kodem oraz inne uwagi, które uznano za istotne.
 
 Rozdział nr \ref{chap:probad} opisuje środowisko badawcze
-w którym zostały przeprowadzone badania w tym wykorzystane
+w którym zostały przeprowadzone badania, w tym: wykorzystane
 platformy sprzętowe, system operacyjny i jego modyfikacje, 
 wersje badanych pakietów oraz narzędzie wykorzystane do
 ich analizy. Następnie opisany jest system użyty do
@@ -555,7 +555,8 @@ sumaryczną analizę porównawczą całości badań.
 Rozdział nr \ref{chap:podsumowanie} stanowi podsumowanie
 wyników i informacji na temat możliwości pakietów
 oraz zestawienie możliwych do
-podjęcia badań eksplorujących badane zagadnienie bardziej.
+podjęcia badań eksplorujących badane zagadnienie w
+większym stopniu.
 
 \chapter{Badane pakiety obliczeniowe}
 \label{cha:pakiety}
@@ -573,32 +574,34 @@ przetwarzania sygnałów.
 \label{sec:matlab}
 \lstset{language=MATLAB}
 
-MATLAB\cite{MATLAB} to środowisko do obliczeń numerycznych w szczególności
+MATLAB\cite{MATLAB} to skryptowy język programowania i środowisko do
+obliczeń numerycznych w szczególności
 związanych z zagadnieniami naukowo-technicznymi tworzone przez firmę
 \emph{MathWorks}. Zarówno język jak i aplikacją są prawnie zastrzeżone
 i wymagają stosunkowo drogiej licencji do użytkowania.
 
-Język używany w środowisku MATLAB, jest trzecim najpopularniejszym
+MATLAB, jest trzecim najpopularniejszym
 językiem wśród języków testowanych pakietów oraz jest w pierwszej
 dwudziestce najpopularniejszych języków programowania. To oraz fakt
 bycia najstarszym językiem wśród testowanych powoduje łatwość znalezienia
 publikacji oraz pomocy na jego temat. Ponadto posiada on dokumentację
 na bardzo wysokim poziomie.
 
-Aby zwiększyć możliwości MATLABa jest możliwość dokupienia dodatkowych
+Zwiększenie możliwości MATLABa odbywa się poprzez dokupienie dodatkowych
 bibliotek grupujących zaawansowaną funkcjonalność z danej dziedziny
 nauki zwanych \emph{toolboxami}. Co więcej wykorzystując możliwość
 instalacji dodatków dostępną z interfejsu graficznego można zainstalować
 biblioteki poszerzające wsparcie sprzętowe oraz funkcje, skrypty i
 aplikacje stworzone przez użytkowników MATLABa znajdujące się
-na platformie \emph{File Exchange}.%
+na platformie \emph{File Exchange}.
 
 MATLAB posiada własny silnik rysujący, który pozwala rysować wykresu dwu-
-i trójwymiarowe na podstawie danych numerycznych. Jest możliwe przy
-pomocy interfejsu graficznego, zaznaczając odpowiednie zmienne i przy
+i trójwymiarowe na podstawie danych numerycznych. Jest to możliwe zarówno
+przy
+pomocy interfejsu graficznego, zaznaczając odpowiednie zmienne, jak i przy
 pomocy funkcji \lstinline|plot()|, która w najprostszym przypadku
-przyjmuje dwa wektory, które zawierają odpowiednio współrzędne
-osi poziomej i współrzędne osi pionowej punktów pożądanego wykresu.
+przyjmuje dwa wektory, zawierające odpowiednio współrzędne
+osi poziomej i pionowej punktów pożądanego wykresu.
 Modyfikacja wyglądu wykresu oraz umieszczanie na nim tekstu odbywa się
 poprzez narzędzie graficzne \emph{Plot Tools} lub przez odpowiednie
 funkcje, takie jak: \lstinline|title()| -- pozwalającą
@@ -610,7 +613,7 @@ zintegrowanego środowiska programistycznego, które jest domyślnym
 interfejsem pakietu. Posiada ono edytor kodu źródłowego, przeglądarkę
 plików, inspektor zmiennych, konsolę wiersza poleceń i przeglądarkę
 dokumentacji. Środowisko graficzne MATLABa jest bardzo rozbudowane
-i zawiera bardzo dużo narzędzi graficznych ułatwiających początkującym
+i zawiera wiele narzędzi graficznych ułatwiających początkującym
 stosowanie zaawansowanej funkcjonalności, takiej jak projektowanie filtrów
 i aproksymacja funkcji. Istnieje też możliwość uruchomienia MATLABa
 bez środowiska graficznego, lecz z ograniczoną funkcjonalnością,
@@ -622,8 +625,8 @@ wykresów ani tworzenia i korzystania z aplikacji graficznych.
 %gdyż taka introspekcja mogła by odkryć niespodziewaną głębie
 %sensualności pakietu i zawstydzić Szanownych Czytelników.
 
-Język programowania który jest głównym narzędziem pracy w pakiecie
-MATLAB został stworzony w celu uproszenia przeprowadzania programowych
+Język programowania, który jest głównym narzędziem pracy w pakiecie
+MATLAB, został stworzony w celu uproszenia przeprowadzania programowych
 obliczeń numerycznych oferując składnie mocno zbliżoną
 do notacji matematycznej oraz dynamiczny system typów zmiennych.
 Pozwala to na szybkie pisanie kodu, który będzie czytelny i
@@ -633,7 +636,7 @@ oraz wbudowanych stałych matematycznych (\lstinline|pi|,
 \lstinline|e|, \dots).
 
 Poza zmiennymi numerycznymi, podstawowym typem zmiennej jest macierz,
-którą konstruuje się przy pomocy nawiasów kwadratowych w których
+konstruowana przy pomocy nawiasów kwadratowych w których
 umieszcza się elementy oddzielone przecinkami lub spacjami -- co łączy je w
 rzędy, albo średnikami -- co łączy je w kolumny. Przykładowo
 instrukcja \lstinline|A = [1, 2; 3, 4]| stworzy macierz:
@@ -641,33 +644,34 @@ instrukcja \lstinline|A = [1, 2; 3, 4]| stworzy macierz:
          1 & 2 \\
          3 & 4
        \end{bmatrix}\]%
-Kwadratowy służą również do łączenie macierzy, powyższemu zapisowi
+Nawiasy kwadratowe służą również do łączenie macierzy; powyższemu zapisowi
 odpowiada \lstinline|A = [[1, 2]; [3, 4]]| -- dwa wektory są
 łączone w dwuwierszową macierz.
 Aby wydobyć element macierzy należy wykorzystać nawiasy okrągłe
-i podać w nich współrzędne położenie elementu, które są numerem
-rzędu i kolumny odpowiednio. Polecenie \lstinline|A(1,2)| zwróci
+i podać w nich współrzędne położenia elementu, które są odpowiednio
+numerem rzędu i kolumny. Polecenie \lstinline|A(1,2)| zwróci
 wartość z pierwszego rzędu i drugiej kolumny macierzy 
-\lstinline|A|, czyli \lstinline|2|. Indeksowanie jest możliwe
+\lstinline|A|, czyli, w tym przypadku, \lstinline|2|. Indeksowanie
+jest możliwe
 także operatorem \lstinline|:| (dwukropkiem), wtedy zwracane są
 elementy ze wszystkich kolumn lub wierszy (np. \lstinline|A(1,:)|
 zwróci macierz \lstinline|[1, 2]|. Dwukropek może być
-też użyty do sekwencji liczb w postaci
-\lstinline|start:krok:koniec| (np. \lstinline|0:0.1:pi| stworzy
-sekwencję $0, 0,1, 0,2, \dots, \pi$), czego również można
+też użyty do tworzenia sekwencji liczb w postaci
+\lstinline|start:krok:koniec|, gdzie, jeżeli krok nie zostanie podany,
+to przyjmuje wartość 1 (np. \lstinline|0:0.1:pi| stworzy
+sekwencję $0, \num{0.1}, \num{0.2}, \dots, \pi$), czego również można
 użyć do indeksowania macierzy (np. \lstinline|A(1, 1:2)| zwróci
 od pierwszego do drugiego elementu z pierwszego rzędu).
-Jeżeli krok nie zostanie podany, to przyjmuje wartość 1.
 Operatory arytmetyczne
 działają na macierzach zgodnie z zapisem algebraicznym
-(mnożenie jest mnożeniem macierzowym i podobnie), natomiast
-funkcje działające na pojedynczych liczbach przetwarzają macierze
-operując na każdym elemencie niezależnie. By wykonać operację
-arytmetyczną na każdym elemencie macierzy należy wykorzystać
+(mnożenie jest mnożeniem macierzowym i podobnie), by wykonać operację
+arytmetyczną na każdym elemencie macierzy z osobna należy wykorzystać
 specjalne operatory z kropkami (\lstinline|.*|, \lstinline|.^|, \dots).
+Funkcje działające na pojedynczych liczbach przetwarzają macierze
+operując na każdym elemencie niezależnie. 
 
 Typem zmiennej zawierającej tekst są tablice znaków, tworzone
-przy użyciu apostrofów \lstinline|zwierze = 'kot'|, co oznacza
+przy użyciu apostrofów, na przykład \lstinline|zwierze = 'kot'|, co oznacza
 to samo co \lstinline|zwierze = ['k', 'o', 't']| -- wektor znaków.
 Istnieje również typ zmiennej tekstowej \emph{string}, tworzony
 przy użyciu cudzysłowów (\lstinline|zwierze = "kot"|), który
@@ -678,9 +682,9 @@ Definicję funkcji rozpoczyna się słowem kluczowym \lstinline|function|
 po czym należy zapisać jej parametry wyjściowe i wejściowe w postaci
 \lstinline|y = funkcja(x)|, gdzie \lstinline|x| jest argumentem
 funkcji, a \lstinline|y| parametrem wyjściowym (Kod żr. \ref{tab:abs.m}).
-Funkcję można wywołać na dwa sposoby, albo w formie funkcji
+Funkcję można wywołać na dwa sposoby, albo w formie funkcji --
 \lstinline|funkcja(x)|, albo, jeżeli funkcja nie zwraca żadnych wartości,
-a jej argumenty są tablicami znaków, w formie komendy \lstinline|funkcja x|,
+a jej argumenty są tablicami znaków, w formie komendy -- \lstinline|funkcja x|,
 co jest odpowiednikiem \lstinline|funkcja('x')|. Funkcje mogą zwracać
 więcej niż jedną zmienną, oraz przyjmować wiele argumentów przy użyciu
 zapisu \lstinline|[y1, y2] = funkcja(x1, x2)| w definicji funkcji. Taki
@@ -691,7 +695,7 @@ zignorowania części zmiennych wyjściowych funkcji stosując operator
 \lstinline|[~, y2] = funkcja(x1, x2)|).
 
 \begin{program}
-  \caption{Funkcja licząca moduł liczby rzeczywistej w MATLABie}
+  \caption{Funkcja licząca moduł liczby rzeczywistej (MATLAB)}
   \begin{lstlisting}
 function y = modul(x)
     if x < 0
@@ -708,7 +712,9 @@ Do tworzenia instrukcji warunkowych służą słowa kluczowe \lstinline|if|,
 \lstinline|elseif|, \lstinline|else| i \lstinline|end|. Jeżeli warunek po słowie \lstinline|if|
 jest spełniony to kolejny blok kodu się wykonuje, w przeciwnym przypadku
 sprawdzany zostaje warunek po \lstinline|elseif|, jeżeli żaden nie jest spełniony
-wykonywane są instrukcje po \lstinline|else| (Kod żr. \ref{tab:abs.m}).
+wykonywane są instrukcje po \lstinline|else| zakończone słowem kluczowym
+\lstinline|end| (Kod żr. \ref{tab:abs.m}). Aby konstrukcja była poprawna nie
+jest wymagane wykorzystanie elementów \lstinline|else| i \lstinline|elseif|.
 
 W języku istnieją dwa rodzaje pętli. Pętla \emph{while} wykonuje blok kodu
 do słowa kluczowego \lstinline|end|, dopóki warunek po słowie kluczowym
@@ -720,11 +726,11 @@ dla każdego elementu wektora po prawej stronie znaku równości w konstrukcji
 \label{sec:octave}
 \lstset{language=Octave}
 
-GNU Octave\cite{Octave} to darmowy, otwartoźródłowy (pod licencją GPL)
-pakiet obliczeniowy do
-zastosowań techniczno-naukowych tworzony jako część systemu operacyjnego GNU. Jest
-tworzony przez wolontariuszy i sponsorowany przez FSF (\emph{Free Software Foundation}),
-jako alternatywa dla MATLABa.
+GNU Octave\cite{Octave} to darmowy i otwartoźródłowy (pod licencją GPL)
+skryptowy język programowania do
+zastosowań techniczno-naukowych tworzony jako część systemu operacyjnego
+GNU. Jest tworzony przez wolontariuszy i sponsorowany przez FSF
+(\emph{Free Software Foundation}), jako alternatywa dla MATLABa.
 
 GNU Octave posiada wiele bibliotek, których większość znajduje się w repozytorium
 o nazwie \emph{Octave-Forge}. Biblioteki te grupują funkcje związane z dziedzinami
@@ -737,16 +743,16 @@ to zrobi automatycznie. Aby bibliotekę wykorzystać potem w skrypcie lub
 linii poleceń należy ją wczytać poleceniem \lstinline{pkg load <nazwa bibiloteki>}.
 
 Octave posiada bogatą bibliotekę podstawową, która zawiera większość funkcji
-które są w bibliotece podstawowej MATLABa. Najważniejszą biblioteką która
+będących także w bibliotece podstawowej MATLABa. Najważniejszą biblioteką która
 poszerza jej funkcjonalność w dziedzinie przetwarzania sygnałów jest
-\emph{signal}, jest odpowiednikiem \emph{Signal Processing Toolbox} w
+\emph{signal} -- odpowiednik \emph{Signal Processing Toolbox} w
 MATLABie. Zawiera funkcje do: tworzenia i filtrowania sygnałów, tworzenia
 filtrów typu FIR i IIR, analizy i konwersji filtrów, filtrowania, transformacji,
 analizy spektralnej, tworzenia okien czasowych, identyfikacji systemów i przepróbkowywania. 
 
 Tworzenie wykresów w GNU Octave jest możliwe przy pomocy dwóch systemów
 rysujących. Domyślnie rysowanie odbywa się przy pomocy własnego systemu
-wykorzystującego \emph{OpenGL}, lecz istnieje
+wykorzystującego biblioteki graficzne \emph{QT} lub \emph{FLTK}, lecz istnieje
 możliwość zmiany na inny przy pomocy polecenia
 \lstinline{graphics_toolkit <nazwa systemu>}. Pozwala to wykorzystać
 drugi z dostępnych systemów: gnuplot -- ten system wykorzystuje
@@ -775,7 +781,7 @@ możliwość przeglądania dokumentacji i historii komend.
 Składnia języka GNU Octave jest niemalże w pełni kompatybilna ze składnią
 MATLABa, choć istnieją pewne graniczne przypadki oraz różnice w działaniu
 funkcji bazowych. Zaliczają się do nich: niepełne wsparcie dla klas
-definiowanych przy użyciu słowa kluczowego \lstinline{classdef}, brak
+definiowanych przy użyciu słowa kluczowego \lstinline{classdef} oraz brak
 dostępu do zmiennych zadeklarowanych w funkcji macierzystej dla funkcji
 w niej zdefiniowanych. Poza tym operatory \lstinline{&} i \lstinline{|}
 (operacje AND i OR na bitach zmiennych numerycznych)
@@ -787,20 +793,22 @@ zwiększenia czytelności i logiki języka. Komentarze można oznaczyć nie tylk
 znakiem procenta (\lstinline{%}), ale również kratką (\lstinline{#}).
 Cudzysłowy (\lstinline{"}) oznaczają tablice znaków tak samo jak i apostrofy
 (\lstinline{'}), lecz istnieje w nich możliwość stosowania specjalnych
-sekwencji takich jak \lstinline{"\n"}, czy \lstinline{"\t"} (znak nowej linii
-i znak tabulatora, odpowiednio). W MATLABie od 2016 r. cudzysłowy oznaczają
+sekwencji takich jak \lstinline{"\n"}, czy \lstinline{"\t"}, podobnie jak w
+języku C (znak nowej linii
+i znak tabulatora, odpowiednio). W MATLABie cudzysłowy oznaczają
 \emph{string}, typ jeszcze niezaimplementowany w Octave. Poza trzema kropkami
 (\lstinline{...}), można, w celu kontynuacji instrukcji w następnej linijce,
-użyć wsteczny ukośnik (\lstinline{\}).%}
+użyć wsteczny ukośnik (\lstinline{\}). %}
 By uczytelnić kod można, zamiast stosować \lstinline{end} jako zamknięcie
 każdej struktury, stosować odpowiednie słowa kluczowe do każdej struktury,
 czyli kończyć \lstinline{for} słowem kluczowym \lstinline{endfor} i podobnie
 z innymi strukturami. Nie ma wymogu, w Octave, przypisania macierzy do
-zmiennej by móc ją indeksować, można wywołać instrukcję
-\lstinline{[4 3 2 1](2)}, co zwróci drugi element wektora (\lstinline{4}).
-Ponadto zaczerpnięte są elementy składniowe z języka C, takie jak wykrzyknik
+zmiennej by móc ją indeksować, można, przykładowo,  wywołać instrukcję
+\lstinline{[4 3 2 1](2)}, co zwróci drugi element wektora (\lstinline{4} w
+tym przypadku).
+Pewne elementy składniowe zaczerpnięte są z języka C: wykrzyknik
 (\lstinline{!})
-oznaczający operator logiczny NOT (gdzie w MATLABie służy on do uruchamiania
+oznaczający operator logiczny NOT (w MATLABie służy on do uruchamiania
 poleceń powłoki systemowej), skrócone operatory inkrementacji (np.
 \lstinline{++x}, oznaczający \lstinline{x = x + 1}, lub \lstinline{x += 10},
 czyli \lstinline{x = x + 10}) i pętle \lstinline{do}-\lstinline{until}.
