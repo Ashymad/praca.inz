@@ -396,7 +396,7 @@ knit_theme$set(knit_theme$get("default"))
   \thesistypePL{inżyniersk}
   \thesistypeEN{engineer}
 
-  \supervisor{Dr inż. Bartłomiej Borkowski}
+  \supervisor{dr inż. Bartłomiej Borkowski}
 
   \reviewer{prof. dr hab. inż. Jerzy Wiciak}
 
@@ -404,7 +404,7 @@ knit_theme$set(knit_theme$get("default"))
   \degreeprogrammeEN{Acoustic Engineering}
 
   \specialisationPL{Drgania i hałas w technice i środowisku}
-  \specialisationEN{{[}Specialisation]}
+  \specialisationEN{Vibrations and noise in engineering and the environment}
 
   \graduationyear{2017}
   \years{2017/2018}
@@ -525,7 +525,7 @@ wpływ czynników zewnętrznych na nie.
 
 W rozdziale nr \ref{cha:pakiety} znajdują się opisy badanych
 pakietów. W każdym opisie znajduje się krótkie wprowadzenie
-w jego funkcjonalność oraz najważniejsze różnice w działaniu
+w funkcjonalność oraz najważniejsze różnice w działaniu
 i~korzystaniu między tym pakietem a pozostałymi. Znajdują się
 tam: opis możliwości rozszerzenia funkcjonalności pakietów,
 działanie i możliwości systemu do tworzenia wykresów,
@@ -536,7 +536,7 @@ wraz z przykładowym kodem oraz inne uwagi, które uznano za istotne.
 Rozdział nr \ref{chap:probad} opisuje środowisko badawcze
 w którym zostały przeprowadzone badania, w tym: wykorzystane
 platformy sprzętowe, system operacyjny i jego modyfikacje, 
-wersje badanych pakietów oraz narzędzie wykorzystane do
+wersje badanych pakietów oraz narzędzia wykorzystane do
 ich analizy. Następnie opisany jest system użyty do
 przeprowadzenia testów, wraz z opisem: skryptów na który
 się składa, wymaganej struktury folderów, mechanizmu
@@ -548,9 +548,9 @@ ewentualnymi uwagami dotyczącymi zastosowanych lub niezastosowanych
 elementów danego języka.
 
 Rozdział nr \ref{chap:wyniki} zawiera
-wyniki uzyskane podczas testów w formie wykresów oraz
+wyniki uzyskane podczas testów, w formie wykresów, oraz
 analizę wyników wraz z ewentualnymi uwagami dotyczącymi
-możliwych do podjęcia kroków w celu możliwego poprawienia
+możliwych do podjęcia kroków w celu poprawienia
 uzyskanych wyników. Ostatni punkt w tym rozdziale zawiera
 wykresy podsumowujące całościowo wyniki, jak również
 sumaryczną analizę porównawczą całości badań.
@@ -1421,7 +1421,7 @@ W teście dla pakietu \emph{Anaconda} wykorzystano bibliotekę
 \label{sec:fft}
 
 FFT (Fast Fourier Transform) jest niezwykle istotnym algorytmem w analizie
-sygnałów audio, pozwala wykonać dyskretną transformatę
+sygnałów audio, pozwalającym na wykonanie dyskretnej transformaty
 Fouriera w znacznie krótszym czasie niż algorytm naiwny.
 
 \subsubsection{Funkcja biblioteczna}
@@ -1501,7 +1501,7 @@ gdzie%
 Splot jest istotną operacją dla przetwarzania sygnałów,
 gdyż pozwala on stosować filtry (FIR, IIR), oraz symulować
 wpływ środowisk akustycznych na sygnał poprzez splecenie
-ich odpowiedzi impulsowych z sygnałem. Funkcja testowana
+z nim ich odpowiedzi impulsowych. Funkcja testowana
 wywołuje splot na dwóch tablicach z wartościami losowymi
 (Kod źr. \ref{tab:convtest}).
 
