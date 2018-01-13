@@ -31,6 +31,16 @@
 \setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
 \usepackage[bookmarks,hidelinks]{hyperref}
 
+% float do kodu
+
+\floatstyle{plaintop}
+\ifcsname{chapter}\endcsname%
+    \newfloat{program}{!tbh}{lop}[chapter]
+\else%
+    \newfloat{program}{!tbh}{lop}
+\fi
+\floatname{program}{Kod źr.}
+
 % floaty w sekcji w które są stworzone
 
 \usepackage{placeins}
@@ -88,7 +98,6 @@ backend=biber
 
 % Nie wyświetlaj wybranych pól.
 % \AtEveryBibitem{\clearfield{note}}
-
 
 % ------------------------
 % --- < listingi > ---
@@ -159,12 +168,6 @@ backend=biber
    morestring=[s]{"}{"},%
    morestring=[m]{'}{'},%
 }[keywords,comments,strings]%
-% ------------------------
-
-\floatstyle{plaintop}
-\newfloat{program}{!tbh}{lop}[chapter]
-\floatname{program}{Kod źr.}
-
 % ------------------------
 
 \AtBeginDocument{
@@ -383,7 +386,7 @@ knit_theme$set(knit_theme$get("default"))
   \shortauthor{\Sexpr{shortAuthor}}
   \albumnum{279253}
 
-  \titlePL{Analiza porównawcza wybranych cech pakietów obliczeniowych w~perspektywie ogólnoakustycznej}
+  \titlePL{Analiza porównawcza wybranych cech pakietów obliczeniowych w perspektywie ogólnoakustycznej}
   \titleEN{Comparative analysis of choosen properties of numerical computing environments in the acoustic perspective}
 
   \shorttitlePL{Porównanie pakietów obliczeniowych w akustyce} % skrócona wersja tytułu jeśli jest bardzo długi
@@ -488,7 +491,7 @@ oferowały bogatą bibliotekę funkcji podstawowych i
 w stosunku do uprzednio używanych rozwiązań spowodowała,
 że stał się on jednym z najczęściej wykorzystywanych pakietów w
 środowisku naukowym. Od tego czasu, jednak, powstało wiele innych
-pakietów konkurujących z nim pod względem funkcjonalności
+pakietów konkurujących z~nim pod względem funkcjonalności
 jak i prędkości wykonywanych obliczeń. W tej pracy podjęto
 się krótkiego porównania działania MATLABa oraz jego
 najpoważniejszych konkurentów, których funkcjonalność
@@ -510,7 +513,7 @@ wybranych podstawowych funkcji związanych z akustyką i
 przetwarzaniem sygnałów, poprzez skonstruowanie i
 utylizację automatycznego systemu testującego, którego
 działanie pozwoli niewielkim nakładem pracy rozszerzyć
-ilość testów i testowanych pakietów, w nadziei, że
+ilość testów i testowanych pakietów, w~nadziei, że
 ta analiza pozwoli dokonać wyboru pakietu do danego
 zadania lub znaleźć alternatywę dla obecnie używanego.
 Za wymóg wiarygodności testów uznano
@@ -523,11 +526,11 @@ wpływ czynników zewnętrznych na nie.
 W rozdziale nr \ref{cha:pakiety} znajdują się opisy badanych
 pakietów. W każdym opisie znajduje się krótkie wprowadzenie
 w jego funkcjonalność oraz najważniejsze różnice w działaniu
-i korzystaniu między tym pakietem a pozostałymi. Znajdują się
+i~korzystaniu między tym pakietem a pozostałymi. Znajdują się
 tam: opis możliwości rozszerzenia funkcjonalności pakietów,
 działanie i możliwości systemu do tworzenia wykresów,
 sposoby interakcji i korzystania z pakietu,
-opis korzystania z języka programowania w pakiecie
+opis korzystania z języka programowania w~pakiecie
 wraz z przykładowym kodem oraz inne uwagi, które uznano za istotne.
 
 Rozdział nr \ref{chap:probad} opisuje środowisko badawcze
@@ -537,7 +540,7 @@ wersje badanych pakietów oraz narzędzie wykorzystane do
 ich analizy. Następnie opisany jest system użyty do
 przeprowadzenia testów, wraz z opisem: skryptów na który
 się składa, wymaganej struktury folderów, mechanizmu
-pozwalającego mierzyć czas w każdym z pakietów oraz
+pozwalającego mierzyć czas w~każdym z pakietów oraz
 rodzaju i struktury pliku do którego zapisywane są wyniki.
 Finalnie zamieszczony jest opis wszystkich przeprowadzonych
 testów wraz z uzasadnieniem wyboru, opisem działania kodu i
@@ -567,7 +570,7 @@ danym pakiecie\cite{TIOBE,PyPl}, co przekłada się na łatwość
 znalezienia publikacji i pomocy dotyczących tego języka oraz ilość bibliotek
 poszerzających funkcjonalność. Ponadto ograniczono się tylko do pakietów
 które, podobnie jak MATLAB, są ogólnego, choć związanego z nauką,
-przeznaczenia  i które posiadają podobną funkcjonalność w dziedzinie
+przeznaczenia i~które posiadają podobną funkcjonalność w dziedzinie
 przetwarzania sygnałów.
 
 \section{MATLAB}
@@ -596,7 +599,7 @@ aplikacje stworzone przez użytkowników MATLABa znajdujące się
 na platformie \emph{File Exchange}.
 
 MATLAB posiada własny silnik rysujący, który pozwala rysować wykresu dwu-
-i trójwymiarowe na podstawie danych numerycznych. Jest to możliwe zarówno
+i~trójwymiarowe na podstawie danych numerycznych. Jest to możliwe zarówno
 przy
 pomocy interfejsu graficznego, zaznaczając odpowiednie zmienne, jak i przy
 pomocy funkcji \lstinline|plot()|, która w najprostszym przypadku
@@ -637,13 +640,13 @@ oraz wbudowanych stałych matematycznych (\lstinline|pi|,
 
 Poza zmiennymi numerycznymi, podstawowym typem zmiennej jest macierz,
 konstruowana przy pomocy nawiasów kwadratowych w których
-umieszcza się elementy oddzielone przecinkami lub spacjami -- co łączy je w
-rzędy, albo średnikami -- co łączy je w kolumny. Przykładowo
+umieszcza się elementy oddzielone przecinkami lub spacjami -- co łączy
+je w~rzędy, albo średnikami -- co łączy je w~kolumny. Przykładowo
 instrukcja \lstinline|A = [1, 2; 3, 4]| stworzy macierz:
-\[A = \begin{bmatrix}
+$$A = \begin{bmatrix}
          1 & 2 \\
          3 & 4
-       \end{bmatrix}\]%
+       \end{bmatrix}$$%
 Nawiasy kwadratowe służą również do łączenie macierzy; powyższemu zapisowi
 odpowiada \lstinline|A = [[1, 2]; [3, 4]]| -- dwa wektory są
 łączone w dwuwierszową macierz.
@@ -687,7 +690,7 @@ Funkcję można wywołać na dwa sposoby, albo w formie funkcji --
 a jej argumenty są tablicami znaków, w formie komendy -- \lstinline|funkcja x|,
 co jest odpowiednikiem \lstinline|funkcja('x')|. Funkcje mogą zwracać
 więcej niż jedną zmienną, oraz przyjmować wiele argumentów przy użyciu
-zapisu \lstinline|[y1, y2] = funkcja(x1, x2)| w definicji funkcji. Taki
+zapisu \lstinline|[y1, y2] = funkcja(x1, x2)| w~definicji funkcji. Taki
 sam zapis należy stosować przy wywołaniu, w przeciwnym wypadku uzyska się
 wyłącznie pierwszą zmienną z wektora zwracanych. Istnieje możliwość
 zignorowania części zmiennych wyjściowych funkcji stosując operator
@@ -748,7 +751,7 @@ poszerza jej funkcjonalność w dziedzinie przetwarzania sygnałów jest
 \emph{signal} -- odpowiednik \emph{Signal Processing Toolbox} w
 MATLABie. Zawiera funkcje do: tworzenia i filtrowania sygnałów, tworzenia
 filtrów typu FIR i IIR, analizy i konwersji filtrów, filtrowania, transformacji,
-analizy spektralnej, tworzenia okien czasowych, identyfikacji systemów i przepróbkowywania. 
+analizy spektralnej, tworzenia okien czasowych, identyfikacji systemów i~przepróbkowywania. 
 
 Tworzenie wykresów w GNU Octave jest możliwe przy pomocy dwóch systemów
 rysujących. Domyślnie rysowanie odbywa się przy pomocy własnego systemu
@@ -1005,7 +1008,7 @@ związanych przede wszystkim z algebrą liniową oraz transformacją Fouriera,
 jak również narzędzia do integracji kodu napisanego w C/C++ oraz Fortranie.
 
 Biblioteka \emph{SciPy}\cite{SciPy} zawiera zbiór funkcji typowo stosowanych
-w pracy inżyniera i naukowca. Są one podzielone na moduły które
+w pracy inżyniera i~naukowca. Są one podzielone na moduły które
 kategoryzują te funkcje w grupy związane między innymi z:
 optymalizacją, całkowaniem, interpolacją, funkcjami specjalnymi,
 przetwarzaniem sygnałów, przetwarzaniem obrazów i rozwiązywaniem
@@ -1233,8 +1236,8 @@ można mieć pewność, że żaden proces uruchomiony w tle nie spowoduje
 zaniżonych wyników badań. Testy przeprowadzono na dwóch komputerach:
 laptopie z ośmiowątkowym procesorem Intel\textregistered\
 Core\texttrademark\ piątej generacji i dyskiem półprzewodnikowym (SSD)
-oraz komputerze stacjonarnym z czterowątkowym procesorem AMD z serii 
-Phenom\texttrademark\ II i dyskiem twardym (HDD) w celu porównania
+oraz komputerze stacjonarnym z~czterowątkowym procesorem AMD z serii 
+Phenom\texttrademark\ II i dyskiem twardym (HDD) w~celu porównania
 wyników na różnych platformach.
 
 Wykorzystano dystrybucję \emph{Arch Linux}, gdyż posiada ona
@@ -1284,7 +1287,7 @@ Najważniejszą częścią skryptu testującego jest funkcja \lstinline{testdir(
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
 testowanego, \emph{\$2} -- rozszerzenie plików pakietu oraz \emph{\$3} --
 nazwa folderu w którym znajdują się testy. Testy muszą znajdywać
-się w podfolderach i zawierać się w pliku \emph{test.\$2}. Struktura tego
+się w~podfolderach i zawierać się w pliku \emph{test.\$2}. Struktura tego
 pliku jest omówiona w punkcie \ref{sec:algo}, natomiast rysunek
 \ref{fig:dirstruc} pokazuje jak powinna wyglądać struktura
 folderów.
@@ -1377,6 +1380,7 @@ w grupie \emph{/<test>/<pakiet>/} (Rys. \ref{fig:h5struc}).
   \label{fig:h5struc}%
 \end{figure}%
 
+
 \section{Badane funkcje i algorytmy}
 \label{sec:algo}
 
@@ -1391,7 +1395,7 @@ argument przyjmuje ilość elementów wektora danych,
 dane przygotowane przez funkcję \lstinline{prepare_input()},
 przetwarza je i zwraca wynik. W kolejnych punktach zostaną
 opisane pokrótce te testy wraz z przykładowym kodem
-w jednym z testowanych języków. Jeśli nie jest napisane
+w~jednym z testowanych języków. Jeśli nie jest napisane
 inaczej, to w testach w Pythonie korzystano z funkcji
 z biblioteki \emph{NumPy}.
 
@@ -1424,7 +1428,7 @@ Fouriera w znacznie krótszym czasie niż algorytm naiwny.
 \label{sec:fftbib}
 
 Danymi wejściowymi jest sygnał audio, będący sumą dwóch
-sinusów o częstotliwościach \SI{50}{\hertz} i \SI{120}{\hertz}
+sinusów o~częstotliwościach \SI{50}{\hertz} i \SI{120}{\hertz}
 oraz szumu białego, o częstotliwości próbkowania \SI{1}{\kilo\hertz}.
 Funkcja testowana wywołuje na tym sygnale funkcję \lstinline{fft()}
 (Kod źr. \ref{tab:ffttest}). Kod testu oparty jest na dokumentacji
@@ -1435,7 +1439,7 @@ Natomiast w Julii zastosowano dyrektywę
 \lstinline{FFTW.set_num_threads(Sys.CPU_CORES)}, która pozwala
 wykorzystać wszystkie dostępne wątki procesora do obliczeń,
 znacznie przyspieszając obliczenia, zgodnie z zaleceniami
-z dokumentacji.
+z~dokumentacji.
 
 \begin{program}%
   \caption{Test funkcji \lstinline|fft()| (Python)}%
@@ -1464,7 +1468,7 @@ jest potęgą liczby dwa, są one wydłużane do odpowiedniego
 rozmiaru, jako nowe elementy wstawiając zera.
 
 Procedura \lstinline{four1()} (Zał. \ref{chap:zalfour1}) implementuje algorytm
-Cooleya-Tukeya i składa się z dwóch sekcji. Pierwsza sekcja
+Cooleya-Tukeya i składa się z~dwóch sekcji. Pierwsza sekcja
 to pętla która zamienia miejscami elementy wektora
 wejściowego w taki sposób, że gdyby ponumerować wszystkie
 elementy wektora wejściowego od zera rosnąco w systemie dwójkowym, to po
@@ -1562,10 +1566,10 @@ wejściowego, gdzie wagą jest ten rozmiar.
 Jak można zauważyć (Rys. \ref{fig:sin.intel} i \ref{fig:sin.amd}),
 zastosowanie biblioteki \emph{NumExpr} w Pythonie,
 pozwala obliczyć sinus dla dużych w wektorów wejściowych,
-znacznie szybciej w Anacondzie, w czasie średnio o
+znacznie szybciej w~Anacondzie, w czasie średnio o
 \SI{\Sexpr{percentFaster(results.intel$sin, "matlab", "python")}}{\percent} %$
 krótszym niż MATLAB.
-Różnica jest mniejsza w przypadku komputera stacjonarnego,
+Różnica jest mniejsza w~przypadku komputera stacjonarnego,
 prawdopodobnie z powodu mniejszej ilości wątków procesora
 (\SI{\Sexpr{percentFaster(results.amd$sin, "matlab", "python")}}{\percent}). %$
 MATLAB jest drugi pod względem czasu wykonywania procedury
@@ -1584,7 +1588,7 @@ tablic, ale specjalne obiekty których elementy są wyliczane
 dopiero, gdy jest wymagany do nich dostęp,
 pozwala to przyspieszyć operacje, które nie wykorzystują
 wszystkich wartości z wektora, natomiast w przypadku tego testu
-działa to na niekorzyść, gdyż z każdym wywołaniem funkcji
+działa to na niekorzyść, gdyż z~każdym wywołaniem funkcji
 \lstinline{sin.()} muszą być wyliczone wszystkie elementy
 wektora wejściowego. Używając funkcji \lstinline{collect()}
 można zamienić te obiekty na wektory. Z przeprowadzonych
@@ -1632,7 +1636,7 @@ istnieją (Rys. \ref{fig:fft.intel} i \ref{fig:fft.amd}.
 
 Najkrócej oblicza GNU Octave w czasie średnio o
 \SI{\Sexpr{percentFaster(results.intel$fft, "matlab", "octave")}}{\percent} %$
-krótszym niż MATLAB, o
+krótszym niż MATLAB, o~%
 \SI{\Sexpr{percentFaster(results.intel$fft, "julia", "octave")}}{\percent} %$
 krótszym niż Julia, o
 \SI{\Sexpr{percentFaster(results.intel$fft, "python", "octave")}}{\percent} %$
@@ -1729,7 +1733,7 @@ krótszym niż MATLAB (%
 dla AMD). Ta duża różnica jest spowodowana wykorzystaniem
 algorytmu splotu wykorzystującego FFT
 (patrz następny akapit).
-MATLAB za to splata w czasie o
+MATLAB za to splata w czasie o~%
 \SI{\Sexpr{percentFaster(results.intel$conv, "python", "matlab")}}{\percent} %$
 krótszym niż Python na laptopie, natomiast w czasie tylko o
 \SI{\Sexpr{percentFaster(results.amd$conv, "python", "matlab")}}{\percent} %$
@@ -1860,20 +1864,20 @@ najkrótszym możliwym czasie. W każdym z wykonanych testów inne
 pakiety wykonały testowaną funkcję najszybciej, a inne najwolniej.
 
 Jednym wyjątkiem jest Scilab który wykonał każdy z testów
-w najdłuższym (w dwóch przypadkach) lub drugim od końca (w
+w~najdłuższym (w~dwóch przypadkach) lub drugim od końca (w
 trzech przypadkach) czasie. Choć nie było przypadku w którym
 czas ten był najdłuższy i jednocześnie oddalony o kilka rzędów
 wielkości od większości wyników, nie stawia go to na dobrej
 pozycji.
 
 MATLAB jest na bardzo silnej pozycji będąc drugim najszybszym
-pakietem, w czterech, i posiadając środkowy wynik, w jednym, teście.
+pakietem, w~czterech, i posiadając środkowy wynik, w~jednym, teście.
 Jest to narzędzie, którego zastosowanie w każdej sytuacji będzie
 pozwalało stosunkowo szybko
 wykonać potrzebne obliczenia jest więc dobrym wyborem na każdą
 okazję, lecz do każdego z zadań znajdzie się szybsza alternatywa,
 na przykład jeżeli celem jest napisanie algorytmu który będzie
-w dużym stopniu wykorzystywał pętle, lepiej skorzystać z Pythona.
+w~dużym stopniu wykorzystywał pętle, lepiej skorzystać z Pythona.
 
 Anaconda jest doskonałą alternatywą dla MATLABa, gdyż, pod względem
 prędkości tylko w testach funkcji \lstinline{conv()} i \lstinline{fft()},
@@ -1889,12 +1893,12 @@ wykonała funkcje szybciej
 wykonując splot w czasie dwa rzędy wielkości krótszym niż MATLAB. W dwóch,
 natomiast, wolniej (\lstinline{sin()} i \lstinline{fft()}),
 co stawiałoby ją na dobrej pozycji gdyby nie bardzo wolne
-wykonanie testu wczytywania plików \emph{wav}, w czasie dłuższym o prawie
+wykonanie testu wczytywania plików \emph{wav}, w~czasie dłuższym o prawie
 dwa rzędy wielkości. W punkcie \ref{sec:wynwavread} opisano podejście które
 częściowo rozwiązuje ten problem.
 
 GNU Octave jest o tyle ciekawym przypadkiem, że w testach
-funkcji \lstinline{fft()} i \lstinline{wavread()} wypada
+funkcji \lstinline{fft()} i~\lstinline{wavread()} wypada
 lepiej niż MATLAB, choć różnice są zaledwie na poziomie
 około \SI{20}{\percent} lecz w testach \lstinline{conv()}
 i \lstinline{four1()} wykazuje niezwykle długi czas
@@ -1937,9 +1941,9 @@ Przeprowadzone badania wykazały, że niektóre z badanych
 pakietów potrafią wykonać pewne zadania w czasie do kilku
 rzędów wielkości krótszym, co może spowodować porównywalną różnice
 w czasie obliczeń skomplikowanych algorytmów korzystających
-z tej funkcjonalności pakietu. Takie różnice w czasie
+z~tej funkcjonalności pakietu. Takie różnice w czasie
 wykonywania są poważnym powodem do zastanowieniem się nad
-użyciem innego pakietu. Dominująca pozycja MATLABa w środowisku
+użyciem innego pakietu. Dominująca pozycja MATLABa w~środowisku
 naukowym jest mocno zagrożona przez pakiet Anaconda, którego
 prędkość stała niemalże na tym samym poziomie jeśli nie wyższym,
 a funkcjonalność
@@ -1966,21 +1970,21 @@ W tej pracy zbadano zaledwie kilka funkcji, które,
 choć podstawowe, nie pokazują pełnego obrazu wydajności pakietów,
 także w dalszych
 badaniach można powiększyć zakres badanych funkcji. W szczególności
-można zbadać najczęściej używane funkcje z
+można zbadać najczęściej używane funkcje z~%
 \emph{Singal Processing Toolbox} i ich odpowiedniki w pozostałych
 pakietach, jak również można podjąć badania innych pakietów.
 Skonstruowany na potrzeby tej pracy system testujący pozwala na
 zrobienie tych badań ze stosunkową łatwością. Ponadto można w
 dalszych badaniach podjąć się porównania
-prędkości badanych pakietów do języków C i Fortran, które nie są
+prędkości badanych pakietów do języków C i~Fortran, które nie są
 interpretowane i których czas wykonywania powinien być zbliżony do
 możliwie najkrótszego na danym sprzęcie. W badaniach podjęto
 się testów wyłącznie przy użyciu systemu GNU/Linux oraz zbadano
-wyłącznie komputery z procesorami o architekturze \emph{x86}.
+wyłącznie komputery z procesorami o~architekturze \emph{x86}.
 W dalszych badaniach można się podjąć badań na innych architekturach
 (ARM, RISC-V, \dots) oraz innych systemach operacyjnych
 (Microsoft Windows, BSD, \dots). Pozwoli to uzyskać znacznie szerszy
-obraz działania pakietów obliczeniowych i efektywności technik
+obraz działania pakietów obliczeniowych i~efektywności technik
 optymalizacji obliczeń przez nie stosowanych.
 
 
@@ -1998,14 +2002,13 @@ optymalizacji obliczeń przez nie stosowanych.
 \addcontentsline{toc}{chapter}{Bibliografia}
 \printbibliography
 
-
 % Załączniki
 \begin{appendices}
   \makeatletter%
   \addtocontents{toc}{\let\protect\l@chapter\protect\l@section}
   \makeatother%
 
-  \chapter{Kod funkcji \lstinline|four1()| (Julia)}
+  \chapter{Kod funkcji {\ttfamily four1()} (Julia)}
   \label{chap:zalfour1}
   {\singlespacing\lstinputlisting[language=Julia, firstline=13]{../tests/julia/tests/four1/test.jl}}
 \end{appendices}
