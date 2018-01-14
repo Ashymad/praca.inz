@@ -426,10 +426,36 @@ knit_theme$set(knit_theme$get("default"))
     \end{enumerate}
   }
 
-  \summaryPL{{[}Treść streszczenia]}
-  \summaryEN{{[}Summary text]}
+  \summaryPL{\indent\indent%
+    W środowisku naukowym najpopularniejszym pakietem obliczeniowym jest
+    MATLAB, jest on głównym narzędziem stosowanym do programowych
+    obliczeń numerycznych związanych z dziedzinami akustyki, takimi jak
+    przetwarzanie sygnałów, akustyka teoretyczna, czy mechanika układów
+    wibroakustycznych. Najpopularniejsze  pakiety oferujące podobną
+    funkcjonalność to Anaconda, GNU Octave, Julia i Scilab, wszystkie
+    otwartoźródłowe i darmowe. Porównano funkcjonalność i możliwości jej
+    poszerzenia w~danym pakiecie oraz najważniejsze cechy języka
+    programowania w nim używanego. Przygotowano system do automatycznego
+    testowania czasu wykonywanych obliczeń, po czym wykorzystano go do
+    przeprowadzenia testów na dwóch platformach: komputerze stacjonarnym
+    ze starszym procesorem AMD i laptopie z nowszym procesorem Intel.
+    Wykonano testy funkcji bibliotecznych do obliczania sinusa, szybkiej
+    transformaty Fouriera (FFT), splotu i wczytywania plików typu
+    \emph{WAV}, ponadto przeprowadzono test funkcji własnej będącej
+    implementacja algorytmu FFT Cooleya-Tukeya. W wynikach, żaden
+    z~badanych pakietów nie uzyskał przeważającej przewagi nad
+    pozostałymi, w każdym teście było inaczej, lecz średnio naszybsze
+    okazały się: Anaconda, MATLAB i Julia. Biorąc całość badań pod uwagę
+    wywnioskowano, że najlepszą alternatywą pod względem funkcjonalności
+    i~prędkości jest Anaconda, mimo języka niepodobnego do MATLABa.
+  }
+  \summaryEN{\indent\indent%
+  }
 
-  \acknowledgements{Serdecznie dziękuję \dots tu ciąg dalszych podziękowań np. dla promotora, żony, sąsiada itp.}
+  \acknowledgements{%
+    Serdecznie dziękuję dr. inż. Bartłomiejowi Borkowskiemu za nadzór
+    merytoryczny i Richardowi Stallmanowi za GNU.
+  }
   \setlength{\cftsecnumwidth}{10mm}
 }{}%
 \makeatother%
