@@ -432,7 +432,7 @@ knit_theme$set(knit_theme$get("default"))
     obliczeń numerycznych związanych z dziedzinami akustyki, takimi jak
     przetwarzanie sygnałów, akustyka teoretyczna, czy mechanika układów
     wibroakustycznych. Najpopularniejsze  pakiety oferujące podobną
-    funkcjonalność to Anaconda, GNU Octave, Julia i Scilab, wszystkie
+    funkcjonalność to: Anaconda, GNU Octave, Julia i Scilab, wszystkie
     otwartoźródłowe i darmowe. Porównano funkcjonalność i możliwości jej
     poszerzenia w~danym pakiecie oraz najważniejsze cechy języka
     programowania w nim używanego. Przygotowano system do automatycznego
@@ -444,17 +444,38 @@ knit_theme$set(knit_theme$get("default"))
     \emph{WAV}, ponadto przeprowadzono test funkcji własnej będącej
     implementacja algorytmu FFT Cooleya-Tukeya. W wynikach, żaden
     z~badanych pakietów nie uzyskał przeważającej przewagi nad
-    pozostałymi, w każdym teście było inaczej, lecz średnio naszybsze
+    pozostałymi, w każdym teście było inaczej, lecz średnio najszybsze
     okazały się: Anaconda, MATLAB i Julia. Biorąc całość badań pod uwagę
-    wywnioskowano, że najlepszą alternatywą pod względem funkcjonalności
-    i~prędkości jest Anaconda, mimo języka niepodobnego do MATLABa.
+    wywnioskowano, że najlepszą alternatywą dla MATLABa jest Anaconda
+    z powodu podobnej prędkości obliczeń i bardzo dużej funkcjonalności, 
+    choć niepodobnego języka programowania.
   }
   \summaryEN{\indent\indent%
+    In the field of science and engineering MATLAB is the most popular
+    numerical computing environment, it is very often used in fields
+    of study connected with acoustics, such as signal processing,
+    theoretical acoustics or mechanics of vibroacoustic systems. The most
+    popular packages that offer similar functionality are: Anaconada,
+    GNU Octave, Julia and Scilab, all of them open source and free.
+    Funcionality and possibility of expanding it as well as programming
+    language used was compared between these packages. A system for
+    automatic testing of execution time was written and used to conduct
+    tests on two computers: a PC with an older AMD CPU and a notebook
+    with a newer Intel CPU. Tests of library functions for computing
+    sine, fast Fourier transform (FFT), convolution and loading
+    of \emph{WAV} files were conducted, furthermore a test of an
+    implementation of Cooley-Tukey FFT algorithm was conducted as well. 
+    None of the studied packages was the fastest in all of the tests,
+    in each one of them the results were different, but on average
+    Anaconda, MATLAB and Julia were the fastest. Taking the whole
+    study into consideration, it was concluded, that the best alternative
+    to MATLAB is, despite its very different programming language, Anaconda,
+    thanks to its wide range of funcionality and comparable speed.
   }
 
   \acknowledgements{%
     Serdecznie dziękuję dr. inż. Bartłomiejowi Borkowskiemu za nadzór
-    merytoryczny i Richardowi Stallmanowi za GNU.
+    merytoryczny i~Richardowi Stallmanowi za GNU.
   }
   \setlength{\cftsecnumwidth}{10mm}
 }{}%
