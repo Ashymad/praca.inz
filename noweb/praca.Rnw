@@ -381,7 +381,7 @@ knit_theme$set(knit_theme$get("default"))
 
 \makeatletter%
 \@ifclassloaded{aghdpl}{
-  \address{Legionów 49, 05-220 Zielonka}
+  \address{Armii Ludowej 49, 05-220 Zielonka}
   \sex{m} % Mężczyzna - m; kobieta - cokolwiek
   \shortauthor{\Sexpr{shortAuthor}}
   \albumnum{279253}
@@ -1329,7 +1329,8 @@ testy, mierzą czas wykonania, po czym zapisują wyniki do pliku.
 \lstinputlisting[language=bash, firstline=25, lastline=54]{../tests/test.sh}%
 \label{tab:testdir}%
 \end{program}%
-Najważniejszą częścią skryptu testującego jest funkcja \lstinline{testdir()}
+Najważniejszą częścią skryptu testującego (Zał. \ref{chap:zaltestsh})
+jest funkcja \lstinline{testdir()}
 (Kod żr. \ref{tab:testdir}),
 która przyjmuje trzy argumenty: \emph{\$1} -- ścieżka do pakietu
 testowanego, \emph{\$2} -- rozszerzenie plików pakietu oraz \emph{\$3} --
@@ -2058,6 +2059,10 @@ optymalizacji obliczeń przez nie stosowanych.
   \chapter{Kod funkcji {\ttfamily four1()} (Julia)}
   \label{chap:zalfour1}
   {\singlespacing\lstinputlisting[language=Julia, firstline=13]{../tests/julia/tests/four1/test.jl}}
+
+  \chapter{Kod pliku \emph{test.sh} (Bash)}
+  \label{chap:zaltestsh}
+  {\singlespacing\lstinputlisting[language=Bash]{../tests/test.sh}}
 \end{appendices}
 
 \end{document}
