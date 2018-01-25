@@ -292,7 +292,7 @@ summaryPlot <- function(res) {
     summin <- summaryMelt(res, rowMin)
 
     plot <- ggplot(sumres, aes(x=L1, y=value, colour=id)) 
-    plot <- plot + geom_point() + theme_bw() + scale_y_sqrt()
+    plot <- plot + geom_point() + theme_bw() + scale_y_log10()
     plot <- plot + geom_errorbar(aes(ymin=summin["value"], ymax=summax["value"]), width=.1)
     plot <- plot + ylab("Czas wykonywania procedury [$\\si{\\second}$]")
     plot <- plot + xlab("Testowana funkcja")
