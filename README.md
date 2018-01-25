@@ -1,4 +1,4 @@
-## Porównanie wybranych cech pakietów obliczeniowych w perspektywie ogólnoakustycznej
+## Analiza porównawcza wybranych cech pakietów obliczeniowych w perspektywie ogólnoakustycznej
 
 # Abstrakt
 
@@ -9,16 +9,16 @@ przetwarzanie sygnałów, akustyka teoretyczna, czy mechanika układów
 wibroakustycznych. Najpopularniejsze  pakiety oferujące podobną
 funkcjonalność to: Anaconda, GNU Octave, Julia i Scilab, wszystkie
 otwartoźródłowe i darmowe. Porównano funkcjonalność i możliwości jej
-poszerzenia w~danym pakiecie oraz najważniejsze cechy języka
+poszerzenia w danym pakiecie oraz najważniejsze cechy języka
 programowania w nim używanego. Przygotowano system do automatycznego
 testowania czasu wykonywanych obliczeń, po czym wykorzystano go do
 przeprowadzenia testów na dwóch platformach: komputerze stacjonarnym
 ze starszym procesorem AMD i laptopie z nowszym procesorem Intel.
 Wykonano testy funkcji bibliotecznych do obliczania sinusa, szybkiej
 transformaty Fouriera (FFT), splotu i wczytywania plików typu
-\emph{WAV}, ponadto przeprowadzono test funkcji własnej będącej
+_WAV_, ponadto przeprowadzono test funkcji własnej będącej
 implementacja algorytmu FFT Cooleya-Tukeya. W wynikach, żaden
-z~badanych pakietów nie uzyskał przeważającej przewagi nad
+z badanych pakietów nie uzyskał przeważającej przewagi nad
 pozostałymi, w każdym teście było inaczej, lecz średnio najszybsze
 okazały się: Anaconda, MATLAB i Julia. Biorąc całość badań pod uwagę
 wywnioskowano, że najlepszą alternatywą dla MATLABa jest Anaconda
@@ -39,7 +39,7 @@ automatic testing of execution time was written and used to conduct
 tests on two computers: a PC with an older AMD CPU and a notebook
 with a newer Intel CPU. Tests of library functions for computing
 sine, fast Fourier transform (FFT), convolution and loading
-of \emph{WAV} files were conducted, furthermore a test of an
+of _WAV_ files were conducted, furthermore a test of an
 implementation of Cooley-Tukey FFT algorithm was conducted as well. 
 None of the studied packages was the fastest in all of the tests,
 in each one of them the results were different, but on average
