@@ -47,3 +47,8 @@ Anaconda, MATLAB and Julia were the fastest. Taking the whole
 study into consideration, it was concluded, that the best alternative
 to MATLAB is, despite its very different programming language, Anaconda,
 thanks to its wide range of funcionality and comparable speed.
+
+## Licensing
+Everything under the `noweb` and `prez` directories as well as the releases are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. The rest is available under Apache License version 2.
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
